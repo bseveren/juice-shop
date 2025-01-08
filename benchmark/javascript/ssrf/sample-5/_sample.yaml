@@ -1,0 +1,10 @@
+inputs:
+  sink: const requests = urls.map((url) => axios.get(url), {
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: low
+  reasoning: |
+    This is likely client-side code based on the react directory and using redux dispatch. This downgrades this vulnerability from SSRF to CSRF. At first it looks like `/api/3.0/assessments/collection/${qciID}/current-emissions-total` would be safe enough that no dangerous routing paths can be found, but it may be possible in some frameworks that it can be hijacked by using an attack payload like qcID='../../users?id=1&someStuff='.
+  source: "const urls = qciIDs.map((qciID) => `/api/3.0/assessments/collection/${qciID}/current-emissions-total`);"
+  unittest: null

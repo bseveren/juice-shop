@@ -1,0 +1,9 @@
+inputs:
+  sink: .get(endpoint, httpConfig)
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: low
+  reasoning: Appears to be client-side code. Indications are usage of redux and the window global. Therefore, the risk is reduced to CSRF. It is unclear where the endpoint is coming from.
+  source: null
+  unittest: null

@@ -1,0 +1,13 @@
+sqli
+- 6x sinks
+-- not vul - $p_sql = "SELECT * FROM marketing_groups WHERE group_members LIKE '%" . $grouptag . "\%%'"; -> $grouptag contains intval cast
+-- vul - $note    = Sql_LoadOneRow("SELECT * FROM meeting_note WHERE id = '" .  $note_id . "'"); -> note_id from $_GET -> vul
+-- vul - $mtg = Sql_LoadOneRow("SELECT * FROM meeting WHERE person_type IN ($personTypesInSql) AND person_id='$id' AND planned_date=curdate()"); -> $personTypesInSql contains $_REQUEST['persontype']
+-- vul - Sql_Exec("DELETE FROM meeting_note WHERE id = '{$note_id}'"); -> $note_id = $_POST['note_id']
+-- VERY vulny -   $meet_sql = "SELECT * FROM meeting WHERE person_type IN ($personTypesInSql) AND person_id='" . $id . "' " . -> $personTypesInSql contains $_REQUEST['persontype']
+   sqli starts at 90/100
+   expected outcome: 100
+-- not vul - $plan            = Sql_LoadOneRow("SELECT * FROM marketing_plan WHERE id='" . $plan_id . "'"); -> $plan_id sourced from DB
+-- not vul - $notesql = "SELECT * FROM meeting_note WHERE meeting_id='" . $mtg['id'] . "' ORDER BY `date` DESC"; -> $mtg['id'] is sourced from DB
+
+- other sinks might be vulnerable as well , potential multiple TRUE pos

@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_echoed-request
+  sink: echo '<li class="list-group-item">' . icon('folder-close') . ' <strong><a href="?page=documentation&path=' . $path . basename($item) . '/">' . basename($item) . '</a></strong></li>';
+  vulnerability: Rendering unescaped input can lead to XSS attacks
+outputs:
+  priority: safe
+  reasoning: While the path variable comes from the user request, the file_exists check ensures that no harmfull payloads are assigned to $path.
+  source: $path = $_GET['path'];
+  unittest: null

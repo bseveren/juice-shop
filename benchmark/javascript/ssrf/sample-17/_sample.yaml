@@ -1,0 +1,9 @@
+inputs:
+  sink: return axios.get(Routes.recommendedResourceComments(id));
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: safe
+  reasoning: Appears to be client-side code. Indications are usage of flux and React.useState for state management. This limits the vulnerability to CSRF. Also, the url is constructed by a routing function based on an ID, which likely returns a whitelisted domain and route and only uses the ID to either choose from the whitelist or to set the ID parameter, both are considered safe.
+  source: null
+  unittest: null

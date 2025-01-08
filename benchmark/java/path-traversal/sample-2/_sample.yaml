@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_inject_rule-SpotbugsPathTraversalAbsolute
+  sink: "BufferedReader rd = new BufferedReader(new FileReader(c))"
+  vulnerability: Path traversal attack possible
+outputs:
+  priority: lowest
+  reasoning: initMongo is called from the main function of a CLI tool, which is expected to be called with safe command line arguments.
+  source: initMongo(args[1]);
+  unittest: null

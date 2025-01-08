@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_echoed-request
+  sink: <a href="captcha.php?securitycode=<?php echo $_SESSION["captcha_" . $_GET["id"]];?>">Fill in captcha</a>
+  vulnerability: Rendering unescaped input can lead to XSS attacks
+outputs:
+  priority: safe
+  reasoning: The id GET variable is never rendered in the script output, instead it is used to index $_SESSION which doesn't contain user input. As user input is not being rendered, XSS cannot occur.
+  source: $_POST['name']
+  unittest: null

@@ -1,0 +1,18 @@
+inputs:
+  sink: |-
+    const lastKey = jobs.at(-1)?.receivedAt
+    const firstKey = jobs.at(0)?.receivedAt
+
+    const hasNextPage =
+      lastKey &&
+      !!(await JobModel.findOne({
+        ...filterCondition,
+        receivedAt: { $lt: lastKey },
+      }))
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: lowest
+  reasoning: It looks like the user can provide unsanitized input to this query via the portal parameter, but the only impact would be to toggle the hasNextPage flag, which would interfere with the pagination of the results.  Tampering with pagination is highly unlikely to cause any harm to the business.
+  source: null
+  unittest: null

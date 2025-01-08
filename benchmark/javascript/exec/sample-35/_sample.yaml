@@ -1,0 +1,9 @@
+inputs:
+  sink: exec(cmd, {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: medium
+  reasoning: This function is ran in the sh function, which is called in the run function. It is not clear where the run function is called from. If the caller contains user data in the cmd, it is vulnerable. We assign medium priority because of lack of clarity.
+  source: await sh(cmd);
+  unittest: null

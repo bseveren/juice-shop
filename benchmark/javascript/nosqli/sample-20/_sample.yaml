@@ -1,0 +1,14 @@
+inputs:
+  sink: |-
+    const packageData = Packages.findOne({
+      name: "***-paymentmethod",
+      shopId: Reaction.getShopId()
+    });
+  vulnerability: NoSQL injection attack possible
+  ruleId: node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: |
+    There are two parameters in this query: name and shopId. While name is hardcoded, shopId is fetched from 'Reaction', an object that very likely comes from the Reaction e-commerce ecosystem => mark as safe because we consider this kind of APIs as trusted. This is likely client-side code.
+  source: null
+  unittest: null

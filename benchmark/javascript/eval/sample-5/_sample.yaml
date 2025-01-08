@@ -1,0 +1,9 @@
+inputs:
+  ruleId: eval_nodejs
+  sink: const url = eval("envUrls." + req.query.env);
+  vulnerability: Remote Code Execution possible via eval()-type functions
+outputs:
+  priority: highest
+  reasoning: The POST request parameter messageTemplate is passed to eval() without proper sanitization, this makes the code vulnerable to Remote Code Execution.
+  source: req.query.env
+  unittest: null

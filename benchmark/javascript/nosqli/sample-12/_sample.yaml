@@ -1,0 +1,12 @@
+inputs:
+  ruleId: AIK_ts_node_nosqli_injection
+  sink: |-
+    const sale = await this.repository.findOne({ transactionId: dto.transactionId });
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: safe
+  severity: critical
+  probability: zero
+  reasoning: As an attacker would be able to mark an arbitrary sale as paid, the vulnerability is considered critical. The IsString and IsObjectId decorators on SaleTransactionDto::transactionId ensure that transactionId cannot contain arbitrary objects. Narrowing the values of transactionId completely mitigates the nosql injection vulnerability.
+  source: dto
+  unittest: null

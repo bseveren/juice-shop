@@ -1,0 +1,28 @@
+inputs:
+  sink: |-
+    var filePath = req.query.name;
+    invoiceQuery.checkFile(req.query, function(status) {
+      if(status == "success"){
+        var extension = path.extname(filePath).slice(1);
+        var extensionLists = ['pdf'];
+        if(extensionLists.indexOf(extension) < 0){
+          return res.send('Invalid File..');
+        }
+        var type = mime[extension] || 'application/x-pdf';
+        fs.stat(filePath, function(err, stat) {
+          var doc = fs.readFileSync(filePath);
+          res.contentType = type;
+          res.contentLength = stat.size;
+          res.end(doc, 'binary');
+        });
+      } else {
+        return res.send('Invalid File..');
+      }
+    });
+  vulnerability: Potential file inclusion attack via reading file
+  ruleId: generic_path_traversal
+outputs:
+  priority: safe
+  reasoning: There is a clear intent for sanitization with the checkFile naming of the invisible function.
+  source: var filePath = req.query.name;
+  unittest: null

@@ -1,0 +1,10 @@
+inputs:
+  sink: exec(cmd, options, (err, stdout, stderr) => {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: low
+  reasoning: This snippet contains quite complex logic of an exec function encapsulated in logic to constrain the work directory. While commands injected in this function are vulnerable to shell injection, the code likely belongs to a CLI tool as it calls exit() and defines a main entry point. As the CLI tool is likely only available to trusted users, the priority is set to low.
+  source: |
+    return async (cmd: string): Promise<string> => {
+  unittest: null

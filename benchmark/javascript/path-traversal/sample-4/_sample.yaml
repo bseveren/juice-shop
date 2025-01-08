@@ -1,0 +1,9 @@
+inputs:
+  ruleId: generic_path_traversal
+  sink: fs.readFile(req.query.file, "utf8", function (err, data)
+  vulnerability: Potential file inclusion attack via reading file
+outputs:
+  priority: highest
+  reasoning: The user-controlled file query parameter is passed directly to fs.readFile. Without any input sanitization, the program is vulnerable to path traversal attacks.
+  source: req.query.file
+  unittest: null

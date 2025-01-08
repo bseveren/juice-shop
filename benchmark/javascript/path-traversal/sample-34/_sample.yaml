@@ -1,0 +1,24 @@
+inputs:
+  sink: |-
+    const userEmail = req.session.email
+    const fnNamePattern = /^[A-z]{5,60}$/gm
+    if (imageUrl.length > maxURLLength || (!modifyFnName.match(fnNamePattern))) {
+        return res.status(400).end('Bad Request')
+    }
+
+    const modifyFunctions = {
+        modifyRedish,
+        modifyBlue,
+        modifyYellow,
+    }
+
+    const userDir = path.join(__dirname, `./../userfiles/${userEmail}`)
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+# not sure about this one
+  priority: lowest
+  reasoning: |
+    Downgrade because req.session.email comes from server-side storage, so the email is likely validated. Downgrade because the impact is very limited to creating a new directory if doesn't exist yet.
+  source: null
+  unittest: null

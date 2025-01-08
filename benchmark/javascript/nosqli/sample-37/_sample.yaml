@@ -1,0 +1,9 @@
+inputs:
+  sink: "const user = await client.users.findOne({id: kcUserId, realm: KEYCLOAK.REALM});"
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: kcUserId is through the recipientData fetched from a database, which we consider to be safe.
+  source: null
+  unittest: null

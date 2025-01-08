@@ -1,0 +1,9 @@
+inputs:
+  sink: "return this.database.organizationModel.findOne({_id: seller.orgId}).then((sO) => (sellerOrganization = sO))"
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: orgId comes from a seller database object. orgId is likely the identifier of an organization which has a one-to-many relation with sellers. Usually we assume variables coming from databases to be trusted. In this case, this is confirmed by the createSeller function which performs hasPermission() on the provided orgId.
+  source: null
+  unittest: null

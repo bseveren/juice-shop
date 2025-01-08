@@ -1,0 +1,9 @@
+inputs:
+  sink: "`node --eval \"const lambda = require('./${handlerPath}'); console.log('method typeof:', typeof lambda['${handlerMethod}'])\";`,"
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: Test function, is not supposed to be publicly exposed.
+  source:  const [handlerPath, handlerMethod] = handler.split('.');
+  unittest: null

@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_csharp_endpoint_rule_UnvalidatedRedirect
+  sink: return Redirect(searchResultUrl);
+  vulnerability: Open redirect can be used in social engineering attacks
+outputs:
+  priority: safe
+  probability: zero
+  severity: minor
+  reasoning: The url is constructed using url.Action which resolves the url to a route known by .NET MVC, so the redirect isn't vulnerable to open redirects.
+  source: string searchResultUrl = url.Action("SearchAction", "ProductSearch", new { query = query });
+  unittest: null

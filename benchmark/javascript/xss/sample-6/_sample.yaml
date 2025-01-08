@@ -1,0 +1,12 @@
+inputs:
+  sink: div.innerHTML = sInnerHtml;
+  vulnerability: Using document write methods can lead to XSS attacks
+  ruleId: AIK_js_insecure-document-method
+outputs:
+  priority: medium
+  reasoning: There is no sanitization or other security mechanism in place, so this code is vulnerable if the textOrHTML, image or subTreeURL function arguments can come from another user. However, it is not clear where the function arguments are coming from.
+  source: |
+    sInnerHtml = '<table cellspacing="0" class="ob_t2g"><tr><td class="ob_t6"><img ' + ((subTreeURL != null) ? 'src="' + ob_style + '/plusik_l.png" onclick="ob_t21(this, \'' + subTreeURL + '\')"' : 'src="' + ob_style + '/hr_l.png"') + '></td>';
+    	sInnerHtml += '<td class="ob_t4"' + (ob_t2_showicons == false ? ' style="display:none;"' : '') + '>' + (ob_t2_showicons == true ? '<div class="ob_d4">' : '') + ((image != null && typeof (ob_icons) != 'undefined' && ob_t2_showicons == true) ? '<img src="' + ob_icons + '/' + image + '">' : '') + (ob_t2_showicons == true ? '</div>' : '') + '</td>';
+    	sInnerHtml += '<td id=' + childId + ' onclick="ob_t22(this, event)" class="ob_t2">' + textOrHTML + '</td></tr></table>';
+  unittest: null

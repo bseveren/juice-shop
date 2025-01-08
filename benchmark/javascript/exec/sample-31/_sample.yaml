@@ -1,0 +1,9 @@
+inputs:
+  sink: const result = executeSync(`${executableFileFullPath} ${cmd}`, options);
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: high
+  reasoning: executableFileFullPath is defined by destinationPath. destinationPath is defined by destination and executable. Destination is a hardcoded path, so considered safe. Executable can be found in the barScanner, it is hardcoded 'bar'. Therefore, executableFileFullPath is safe. cmd comes from `--soft-fail --skip-download --no-fail-on-crash --skip-framework secrets kustomize sca_image sca_package --output sarif ${excluded_paths_string} -d "${inputFilePath}" --output-file-path "${outputFilePath}", which relies on excluded_paths_string, inputFilePath and outputFilePath. Given the current source code, it is likely that the user defines e.g. the inputFilePath or part of the inputFilePath to be processed. If this is true, this snippet is vulnerable.
+  source: const destinationPath = path.join(destination, executable);
+  unittest: null

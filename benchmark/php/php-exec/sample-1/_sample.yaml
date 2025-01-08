@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_exec-use
+  sink: exec('cpulimit -P ' . $processPath . ' -l ' . $maxCpuPercent . ' > /dev/null 2>&1 &');
+  vulnerability: Unsafe exec usage can lead to remote code execution
+outputs:
+  priority: safe
+  reasoning: $processPath is sanitized via whitelisting in the which function and $maxCpuPercent is sanitized via intval.
+  source: "$maxCpuPercent = isset($_GET['maxCpuPercent']) ? intval($_GET['maxCpuPercent']) : 40;"
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  sink: execSync(`git clone ${targetRemote} ${targetFolder}`);
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: The updateLocalRepo function is only called from the rebuildEntries function which sources the variables from a .config file, which is considered safe.
+  source: const {allTopicsQuery, entryByNameQuery, entriesRepo, entriesFolder} = require('./config');
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  sink: "path: path.join(path.dirname(file.path), fileNameWithSuffix),"
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: lowest
+  reasoning:  The path construction uses file.path (source file) and a modified filename, both handled within an internal file processing pipeline for color variants. While not strictly sanitized, the input comes from filesystem operations rather than direct user input, with limited exposure to exploitation.
+  source: null
+  unittest: null

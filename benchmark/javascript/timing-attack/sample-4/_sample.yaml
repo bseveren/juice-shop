@@ -1,0 +1,14 @@
+inputs:
+  sink: |-
+    if (authHeader !== secret) {
+      log.error('incorrect authorization header provided');
+      res.status(401).send('unauthorized');
+      return false;
+    }
+  vulnerability: A timing attack might allow hackers to bruteforce passwords
+  ruleId: AIK_ts_node_timing_attack
+outputs:
+  priority: highest
+  reasoning: Authentications secrets are being compared (byte by byte, using !==) and the error response is sent immediately due to an early return condition in the  controller. 
+  source: null
+  unittest: null

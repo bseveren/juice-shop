@@ -1,0 +1,10 @@
+inputs:
+  sink: "const filter = await UserLevelFilter.findOne({ _id: req.query.id })"
+  vulnerability: NoSQL injection attack possible
+  ruleId: node_nosqli_injection
+outputs:
+  priority: lowest
+  reasoning: |
+    Typical Mongoose syntax. This doesn't accept objects like { $ne: null } inserted as string, only as object, but express supports parsing query strings via qs which deserializes objects by default. However, the impact is likely limited to configuring the viewing dashboard of a user, so downgrade twice.
+  source: null
+  unittest: null

@@ -1,0 +1,22 @@
+inputs:
+  sink: |-
+    const lastURI = await this._db.models.Member.max('URI', {
+        where: {
+            institution: institution,
+            adlibDatabase: adlibDatabase,
+            version: version,
+            generatedAtTime: maxGeneratedAtTime
+        }
+    });
+    const lastObject = await this._db.models.Member.findOne({
+        where: {
+            URI: lastURI
+        }
+    });
+  vulnerability: NoSQL injection attack possible
+  ruleId: node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: lastURI is fetched from a database, which we consider as trusted source.
+  source: null
+  unittest: null

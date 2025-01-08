@@ -1,0 +1,17 @@
+inputs:
+  sink: |-
+    {
+      url: auth0.domain + "/users/" + user.user_id,
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+      json: { email_verified: true },
+      timeout: 5000,
+    },
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: safe
+  reasoning: "Base of url is not under user control. Auth0 appears to be a global variable as it is not passed to this function, so auth0 is likely to be set internally. This mitigates the risk of SSRF."
+  source: null
+  unittest: null

@@ -1,0 +1,12 @@
+inputs:
+  ruleId: AIK_node_sqli_injection
+  sink: |-
+    const query = `SELECT * FROM comments WHERE user_id = '${Number(
+      userId
+    )}' AND post_id = '${postId}'`;
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: highest
+  reasoning: While userId is sanitized (cast to number), the postId is not sanitized and is concatenated to the sql query. This makes the query vulnerable to sql injection.
+  source: const postId = req.body.postId;
+  unittest: null

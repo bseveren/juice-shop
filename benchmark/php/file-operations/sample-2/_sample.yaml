@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_php-file-operations
+  sink: file_put_contents( "/tmp/".$image_filename, $content);
+  vulnerability: Path traversal attack possible via file functions
+outputs:
+  priority: safe
+  reasoning: Input to file function is sanitized in the controller by throwing an exception if the string contains the path traversal patterns '../' or '..\'.
+  source: $image = $_POST['image'];
+  unittest: null

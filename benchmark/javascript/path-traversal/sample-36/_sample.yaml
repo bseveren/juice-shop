@@ -1,0 +1,9 @@
+inputs:
+  sink: "{from: path.resolve(customerFilesPath, env.company), to: root},"
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: safe
+  reasoning: The path construction occurs in a webpack build configuration where env.company is expected to be passed as a build environment variable, not user input. 
+  source: null
+  unittest: null

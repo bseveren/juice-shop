@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_ts_node_nosqli_injection
+  sink: const ba = await BusinessAccess.findOne(id);
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: safe
+  reasoning: The snippet calls findOne on a model of a postgresql database. As postgresql queries aren't vulnerable to NoSQL injection, this finding should be prioritized as low.
+  source: const { BusinessAccess, BusinessAccessUser, BusinessTag } = this.services.postgres;
+  unittest: null

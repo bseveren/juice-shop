@@ -1,0 +1,9 @@
+inputs:
+  sink: currentFilePath = path.posix.join(...currentFilePath.split(path.sep));
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: safe
+  reasoning: The file paths being processed come from import statements in code, not user input.
+  source: null
+  unittest: null

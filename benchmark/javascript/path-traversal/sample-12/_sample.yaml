@@ -1,0 +1,17 @@
+inputs:
+  sink: |-
+    var source = req.params.source;
+
+    var MergedFileName = "MergedBatchFile_" + batchId + ".pdf";
+    var mergedFiledpath = path.join(__basedir, './public/batchFiles/' + dateTime.create().format('Y-m-d') + `/${source}` + "/" + batchId + "/MergeFile",MergedFileName);
+
+    var fileName = "MergedBatchFile_" + batchId + ".zip";
+    var FileLocation = path.join(__basedir, './public/batchFiles/' + dateTime.create().format('Y-m-d') + `/${source}` + "/" + batchId + "/" + fileName);
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: lowest
+  reasoning: |
+    The endpoint can only be reached with something of the form /:batchId/:source. Although the browser would resolve a path constructed with '../' init first before visiting the url, it is possible with curl to visit unresolved paths. Therefore it is possible to insert '..' in batchId and still reach the endpoint. However, batchId cannot contain a '/' and therefore the attack is limited to files inside <batchId>/MergedBatchFile_<batchId>.zip with batchId not containing '/'. Since it is unlikely that other files would match this, we apply two downgrades.
+  source: var source = req.params.source;
+  unittest: null

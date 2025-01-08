@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_php-ssrf
+  sink: curl_setopt($ch, CURLOPT_URL, "http://".$host);
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: safe
+  reasoning: Input to curl_setopt is sanitized as the host is retricted to a whitelist of hosts.
+  source: "$host = $_GET['webshop_host'];"
+  unittest: null

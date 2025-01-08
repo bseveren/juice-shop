@@ -1,0 +1,9 @@
+inputs:
+  ruleId: eval_nodejs
+  sink: setTimeout(() => reject(new Error(`Job timed out after ${timeout}ms`)), timeout),
+  vulnerability: Remote Code Execution possible via eval()-type functions
+outputs:
+  priority: safe
+  reasoning: The first argument to setTimeout is a function, not a string. This remediates any Remote Code Execution vulnerability.
+  source: () => reject(new Error(`Job timed out after ${timeout}ms`))
+  unittest: null

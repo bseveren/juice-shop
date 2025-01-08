@@ -1,0 +1,12 @@
+inputs:
+  sink: |-
+    if (appConfig.apiKey === apiKey) {
+      return next();
+    }
+  vulnerability: A timing attack might allow hackers to bruteforce passwords
+  ruleId: AIK_ts_node_timing_attack
+outputs:
+  priority: medium
+  reasoning: byte by byte comparison performed by javascript to compare api keys. However, unclear whether a warning/exception is raised and returned to the user.
+  source: null
+  unittest: null

@@ -1,0 +1,6 @@
+path trav
+- 2x sink =Files.deleteIfExists  +  new FileBody(t
+- file is creating using user input, but via a safe function that does checks against path traversal (TempFile.createTempFile)
+- SSRF starts at 85/100
+- note: context from the 'calling file' is missing, but it's not even NEEDED to know it is safe!
+- expected outcome: 0-10

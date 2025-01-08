@@ -1,0 +1,9 @@
+inputs:
+  sink: "<div dangerouslySetInnerHTML={{ __html: children }}></div>"
+  vulnerability: Using dangerouslySetInnerHTML in React can lead to XSS attacks
+  ruleId: AIK_react-dangerouslysetinnerhtml
+outputs:
+  priority: medium
+  reasoning: This code snippet does not contain any sanitization, nor does the snippet contain information where the 'children' variable comes from and if it can be exploited.
+  source: export const Tooltip = ({ children }) => {
+  unittest: null

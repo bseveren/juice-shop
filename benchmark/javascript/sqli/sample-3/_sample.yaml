@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_node_sqli_injection
+  sink: return pool.query(`${sql} WHERE id = $1`, [id]);
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: A parameterized query is used in node-postgress, which mitigates the risk of a sql injection attack
+  source: read(id)
+  unittest: null

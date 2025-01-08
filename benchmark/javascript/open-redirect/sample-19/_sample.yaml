@@ -1,0 +1,9 @@
+inputs:
+  sink: res.redirect(`/customers/${req.params.customerId}`);
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: express_open_redirect
+outputs:
+  priority: safe
+  reasoning: Although the parameter is user controllable, the redirect is to a relative address, so no risk of redirecting to a malicious URL. No risk of open redirect.
+  source: null
+  unittest: null

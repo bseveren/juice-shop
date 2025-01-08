@@ -1,0 +1,9 @@
+inputs:
+  sink: res.redirect(join(req.path, 'index.html'));
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: express_open_redirect
+outputs:
+  priority: safe
+  reasoning: path.join normalizes req.path to a safe, relative path, preventing open redirect attacks. Replacing path.join with string concatenation introduces risk, as it allows req.path to manipulate the redirect target (e.g., //example.org/ redirects to an external domain).
+  source: null
+  unittest: null

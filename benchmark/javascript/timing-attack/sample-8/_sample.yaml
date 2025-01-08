@@ -1,0 +1,14 @@
+inputs:
+  sink: |-
+    if (user.token !== token) {
+      console.error('registration error: invalid token.');
+      req.flash('error', 'Invalid registration');
+      return res.redirect('error');
+    }
+  vulnerability: A timing attack might allow hackers to bruteforce passwords
+  ruleId: AIK_ts_node_timing_attack
+outputs:
+  priority: high
+  reasoning: byte by byte comparison of a token used to validate an email address during user registration. Even though the controller immediately returns when the comparison fails, the priority is downgraded once because a user object is queried from the database which introduces some jitter to the response times.
+  source: null
+  unittest: null

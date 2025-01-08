@@ -1,0 +1,13 @@
+inputs:
+  ruleId: AIK_node_nosqli_injection
+  sink: |-
+    const user = Users.findOne({
+       name: sanitize(req.body.name),
+       password: sanitize(req.body.password),
+    });
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: safe
+  reasoning: The request body may contain arbitrary JSON objects which are parsed by the express json middleware. However, the sanitize function strips all dangerous Object properties from the request body parameters before the query is executed. This hardens the query against NoSQL injection.
+  source: req.body
+  unittest: null

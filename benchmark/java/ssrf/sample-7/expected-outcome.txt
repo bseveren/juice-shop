@@ -1,0 +1,7 @@
+SSRF is really exploitable here.
+- sink = new httpGet(), new httpPost(),..
+- upgrade expected because data indeed flows from the request to the sink (bad)
+- small downgrade: attempts are made to validate, but still vulneralbe to TOCTOU bypass (positive, but does not clear the issue for auto-ignoring!)
+- upgrade again: testContentAPI function actually sends the response back to the output, showing attack the output of the SSRF (bad)
+- SSRF starts at 89/100
+- expected outcome: 95-100

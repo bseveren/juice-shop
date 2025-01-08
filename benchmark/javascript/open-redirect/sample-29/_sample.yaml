@@ -1,0 +1,9 @@
+inputs:
+  sink: res.redirect(301, url.toLowerCase());
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: express_open_redirect
+outputs:
+  priority: medium
+  reasoning: Unclear where url originates from or whether it is controlled by a user. No sanitization or validation is applied to it though. It is checked whether it contains a query string though, although this doesn't mitigate any malicious url being used (we also don't know what this function does exactly). 
+  source: null
+  unittest: null

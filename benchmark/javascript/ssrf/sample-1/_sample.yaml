@@ -1,0 +1,9 @@
+inputs:
+  sink: validatedAction.tokenUrl,
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: safe
+  reasoning: It is unlikely that a user controls the contents of oauthStateToken, as oauthStateToken is likely under control of the server application. tokenURL comes from an object fetched from the database, which we consider to be a trusted source. The naming 'validatedAction' confirms that tokenUrl is likely validated already. Furthermore, it also concerns a blind SSRF, making it more complex to exploit the vulnerability without having access to the source code.
+  source: null
+  unittest: null

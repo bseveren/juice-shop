@@ -1,0 +1,10 @@
+inputs:
+  ruleId: generic_path_traversal
+  sink: fs.readFile(file, "utf8", function (err, data)
+  vulnerability: Potential file inclusion attack via reading file
+outputs:
+  priority: safe
+  reasoning: |
+    path.normalize("." + path.sep + "../../etc/passwd") keeps the path traversal patterns '../' and '..\' in the normalized path. Together with the up path regex, the snippet is effective at preventing path traversal vulnerabilities.
+  source: const file = resolveFile(req.query.file)
+  unittest: null

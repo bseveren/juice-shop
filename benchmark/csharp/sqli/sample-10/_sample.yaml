@@ -1,0 +1,14 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: |
+    using (SqlCommand cmd = new SqlCommand(
+        "SELECT * FROM dbo.SearchUsers(@TextFilter) " +
+        $"WHERE Id != @CurrentUserId " +
+        $"ORDER BY {UserSearchSortStatement(sort, sortBy)} " +
+        $"OFFSET @Offset ROW FETCH NEXT @PageSize ROWS ONLY;", connection))
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: The UserSearchSortStatement method only returns string literals that are immune to SQL injection. All other user input is inserted via sql query parameters. Therfor the query is not vulnerable to sql injection.
+  source: UserSearchSortStatement(sort, sortBy)
+  unittest: null

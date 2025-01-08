@@ -1,0 +1,17 @@
+inputs:
+  sink: |-
+    const kyccase = await KycCase.findOne({
+      isDeleted: false,
+      lastSchedulerCheckLooked: null,
+      $or: [
+        { lastSchedulerCheck: null },
+        { lastSchedulerCheck: { $lt: queryDate.toISOString() } },
+      ],
+    });
+  vulnerability: NoSQL injection attack possible
+  ruleId: node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: The only introduced variable represents a moment in time.
+  source: null
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  sink: return execSync(command, opts).toString();
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: There are 5 different callers of the runCmd function. The first one relies on a process variable and a hardcoded base url. The other four calls depend on thisProject.projectFolder. The thisProject is found with the rushConfig.getProjectByName function, with the project name read from a package.json file. Since rush loads its configured projects from a rush.json configuration file, thisProject is considered safe.
+  source: function runCmd(command, _opts) {
+  unittest: null

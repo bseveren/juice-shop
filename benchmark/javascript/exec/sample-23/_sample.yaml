@@ -1,0 +1,9 @@
+inputs:
+  sink: exec(`git ${args}`, (err, stdout) => {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: The git(args) function is called several times, the most dangerous one being git(`merge-base HEAD~${n} ${UPSTREAM_REMOTE}/${upstreamRef}`);. The other calls contain the same or less variables. When going up the tree, there is only one caller of the loadLastComparison function, being the reportBundleSize(). This function solely relies on configs, not user input.
+  source: function git(args) {
+  unittest: null

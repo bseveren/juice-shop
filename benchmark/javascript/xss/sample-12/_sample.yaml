@@ -1,0 +1,9 @@
+inputs:
+  sink: node.innerHTML = ss_liga(node.innerHTML);
+  vulnerability: Using document write methods can lead to XSS attacks
+  ruleId: AIK_js_insecure-document-method
+outputs:
+  priority: safe
+  reasoning: The ss_liga function replaces text of node.innerHTML by icons, fully hardcoded. Since the operation takes the node.innerHTML as input and since the operation itself does not add vulnerabilities, it is considered safe.
+  source: return ss_icons[v.toLowerCase()];
+  unittest: null

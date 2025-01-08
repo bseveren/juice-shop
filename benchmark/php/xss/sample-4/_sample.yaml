@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_echoed-request
+  sink: echo '<span class="pull-right"><a href="?page=editprofile&id=' . $userId . '" class="btn btn-primary">Edit this profile</a></span>';
+  vulnerability: Rendering unescaped input can lead to XSS attacks
+outputs:
+  priority: lowest
+  reasoning: While the userId variable comes from the user request, the find user in database by id check ensures that userId exists in the database. Therefore userId very likely does not contain any harmful input. Furthermore, database IDs are typically auto-generated values that users cannot modify, unlike user-editable fields such as names or comments.
+  source: $userId = $_GET['id']
+  unittest: null

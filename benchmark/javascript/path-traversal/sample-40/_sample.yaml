@@ -1,0 +1,29 @@
+inputs:
+  sink: |-
+    var pkg = (platformConfig.android_packageName() || platformConfig.packageName()).replace(/-/g, '_');
+
+    var manifest = new AndroidManifest(locations.manifest);
+    var orig_pkg = manifest.getPackageId();
+
+    manifest.getActivity()
+        .setOrientation(findOrientationValue(platformConfig))
+        .setLaunchMode(findAndroidLaunchModePreference(platformConfig));
+
+    manifest.setVersionName(platformConfig.version())
+        .setVersionCode(platformConfig.android_versionCode() || default_versionCode(platformConfig.version()))
+        .setPackageId(pkg)
+        .setMinSdkVersion(platformConfig.getPreference('android-minSdkVersion', 'android'))
+        .setMaxSdkVersion(platformConfig.getPreference('android-maxSdkVersion', 'android'))
+        .setTargetSdkVersion(platformConfig.getPreference('android-targetSdkVersion', 'android'))
+        .write();
+
+    var javaPattern = path.join(locations.root, 'src', orig_pkg.replace(/\./g, '/'), '*.java');
+    var java_files = shell.ls(javaPattern).filter(function(f) {
+        return shell.grep(/extends\s+
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: safe
+  reasoning: While the code constructs a file path using orig_pkg from manifest.getPackageId(), this is sourced from the Android manifest file (a trusted configuration), not user input. The path manipulation only replaces dots with directory separators, which is standard for Java package paths.
+  source: null
+  unittest: null

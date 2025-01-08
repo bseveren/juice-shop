@@ -1,0 +1,12 @@
+inputs:
+  sink: |-
+    var uri = url.parse(request.url).pathname;
+    if (config.debug) MXMLogger.debug("uri " + uri);
+    var filename = path.join(config.static_files_root, uri);
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: AIK_ts_join_resolve_path_traversal
+outputs:
+  priority: highest
+  reasoning: The code directly joins user-controlled URL pathname with static_files_root without any path sanitization. Since path.join resolves '../' sequences, an attacker could craft a URL with path traversal to read files outside the static directory. The file contents are then sent to the client in binary mode, enabling sensitive file disclosure.
+  source: var uri = url.parse(request.url).pathname;
+  unittest: null

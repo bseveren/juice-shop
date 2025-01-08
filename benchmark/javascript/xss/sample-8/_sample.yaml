@@ -1,0 +1,9 @@
+inputs:
+  sink: document.getElementById("common-display").innerHTML += JSON.stringify(JSON.parse(response), null, ' ');
+  vulnerability: Using document write methods can lead to XSS attacks
+  ruleId: AIK_js_insecure-document-method
+outputs:
+  priority: low
+  reasoning: This 'hello world' script performs an API call to /api/3.0.0/user/common which is said to fetch information of the current user. This is likely limited to information provided by the user themselves or hardcoded information. More advanced apps could also include e.g. reviews from other users, but this is a hello world script. It is also unlikely that this hello world demo script is actually released for end-users.
+  source: r.open('GET', '/api/3.0.0/user/common', true);
+  unittest: null

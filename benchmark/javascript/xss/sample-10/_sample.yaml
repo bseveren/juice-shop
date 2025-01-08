@@ -1,0 +1,12 @@
+inputs:
+  sink: |-
+    this.innerHTML = aData[j].replace(regex, function (matched) {
+        return "<span class='searchMatches'>" + matched + "</span>";
+    });
+  vulnerability: Using document write methods can lead to XSS attacks
+  ruleId: AIK_js_insecure-document-method
+outputs:
+  priority: high
+  reasoning: This code highlights search terms in the rows of a datatable. If aData[j] contains harmful HTML elements, then updating the innerHTML of the table cell would render these tags in the user's browser. As the component containing the code snippet is a datatable, it might display data that was created by other users. This would be an example of a stored XSS attack.
+  source: aData[j].display.replace(regex, function (matched) {
+  unittest: null

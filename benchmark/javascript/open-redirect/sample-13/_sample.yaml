@@ -1,0 +1,9 @@
+inputs:
+  sink: res.redirect(redirectMap[integrationType] + legacyEnvironment.tle + req.url).end()
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: safe
+  reasoning: req.url (a relative path) is appended to a base url which is not under control of user. Only the req.url part is under control of user, however the base url is not. Moreover, nextjs strips aways '../' patterns from req.url, making it impossible to escape the base url.
+  source: null
+  unittest: null

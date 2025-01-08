@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_tainted-ssrf
+  sink: HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: lowest
+  reasoning: The host of the request appears to be a constant, as it is a static final class member. Therefore the host is hard to manipulate by an attacker. The url contains a hard-coded suffix, hindering an attacker from choosing arbitrary paths. The response of the request is not returned to the user, this reduces the priority (blind SSRF).
+  source: URL url = new URL(SHOPIFY_FOO_APP_STATUS_URL);
+  unittest: null

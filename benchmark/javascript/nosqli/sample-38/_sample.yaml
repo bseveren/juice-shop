@@ -1,0 +1,12 @@
+inputs:
+  sink: |-
+    const repo = await repositoriesCollection.findOne({
+      _id: challenge._repo,
+    });
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: challenge comes from challenges which is fetched from a database, which we consider to be safe.
+  source: null
+  unittest: null

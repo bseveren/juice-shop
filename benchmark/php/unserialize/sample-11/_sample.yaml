@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_unserialize-use
+  sink: $user_values = unserialize($_COOKIE['logged_user']);
+  vulnerability: Using unserialize can lead to remote code execution
+outputs:
+  priority: highest
+  reasoning: The data to be unserialized is sourced from a user cookie without any sanitization. This enables the reconstruction of arbitrary PHP objects, which makes the snippet vulnerable to remote code execution.
+  source: $_COOKIE
+  unittest: null

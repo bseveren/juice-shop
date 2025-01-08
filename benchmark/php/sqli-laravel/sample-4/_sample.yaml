@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_laravel-sql-injection
+  sink: $message = Message::where($data)->where('created_at', '>=', $since)->first();
+  vulnerability: Potential SQL injection via Laravel function
+outputs:
+  priority: safe
+  reasoning: Laravel uses parameterized queries when passing query data via the where method, so the query isn't vulnerable to sql injection.
+  source: $since = Carbon::now()->subMinutes(5);
+  unittest: null

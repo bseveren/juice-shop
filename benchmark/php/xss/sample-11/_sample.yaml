@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_echoed-request
+  sink: <?php echo $sForm?>
+  vulnerability: Rendering unescaped input can lead to XSS attacks
+outputs:
+  priority: high
+  reasoning: While the values are escaped via htmlspecialchars, the keys posted as part of an application/x-www-form-urlencoded payload are vulnerable to XSS.
+  source: $_POST
+  unittest: null

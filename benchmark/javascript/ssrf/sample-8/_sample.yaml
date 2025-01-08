@@ -1,0 +1,10 @@
+inputs:
+  sink: const response = await axios.post(url.toString(), body, {
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: safe
+  reasoning: |
+    This snippet expects that req.url is a relative path. If it is, it is safe, because the domain of the env will be used. If it is an absolute path, the second argument or URL() will be ignored and it is vulnerable. So we need to understand if req.url can contain an absolute path. req.url is the url with which the user called the API endpoint, minus its domain. So e.g. https://www.my-app.com/some-route/some-parameters/ becomes some-route/some-parameters/, which is typically a relative path and thus not vulnerable. In theory it is possible that an attacker does something like this: https://www.my-app.com/some-route/evil.com, but either the path is considered as relative path or the payload cannot reach the considered endpoint, so we will only end up in the case where the path is relative. The same goes for the route: as soon as a different route is selected, the endpoint is not reachable anymore. As such, only parameters can be set as desired, which we assume safe.
+  source: "const url = new URL(req.url ?? '', process.env.API_URL);"
+  unittest: null

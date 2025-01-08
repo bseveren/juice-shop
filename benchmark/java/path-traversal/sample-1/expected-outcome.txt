@@ -1,0 +1,5 @@
+path trav
+- 2x sink = Files.newOutputStream(uploadedFile.toPath());  +  Files.deleteIfExists(Paths.get(uploadedFile.getAbsolutePath()));
+- file is creating using user input, but via a safe function that does checks against path traversal (TempFile.createTempFile)
+- SSRF starts at 85/100
+- expected outcome: 0-10

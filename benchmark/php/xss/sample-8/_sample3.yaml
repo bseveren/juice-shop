@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_echoed-request
+  sink: echo "<a href='?marketing-notes-iframe.php&action=delete&id={$id}&persontype={$persontype}&note_id={$note['id']}' class='minus_iconic'>" .
+  vulnerability: Rendering unescaped input can lead to XSS attacks
+outputs:
+  priority: highest
+  reasoning: The persontype variable comes from the web request and is sent to the web user without validation. The priority for addressing this vulnerability is highest, as it could be exploited to access sensitive data, including authentication tokens, leading to potential unauthorized access and data theft.
+  source: $persontype = $_REQUEST['persontype'];
+  unittest: null

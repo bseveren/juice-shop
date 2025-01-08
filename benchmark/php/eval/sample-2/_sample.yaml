@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_eval-use
+  sink: "@$result = eval('return (float) ' . $equation . ';');"
+  vulnerability: Unsafe eval usage can lead to remote code execution.
+outputs:
+  priority: safe
+  reasoning: $equation is sanitized using a series of replacements and checked against a regex which only allows simple mathematical functions and operators. This mitigates the risk for arbitrary code execution.
+  source: "#[MapQueryParameter] string $formula,"
+  unittest: null

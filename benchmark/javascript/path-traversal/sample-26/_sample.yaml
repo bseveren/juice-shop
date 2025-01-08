@@ -1,0 +1,9 @@
+inputs:
+  sink: const json = forceRequire(join(__dirname, '..', output, req.url));
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: highest
+  reasoning: The code directly uses req.url in a file path without sanitization, allowing an attacker to use path traversal via POST requests to potentially access any file on the system through the forceRequire function. Additionally, require() gives the attacker ability to execute included JavaScript files.
+  source: null
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  sink: "`http${env.NEXT_PUBLIC_ACME_URL?.slice(2)}/organisations/${ctx.session.user.organisationId}/section`,"
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: safe
+  reasoning: "NEXT_PUBLIC_ACME_URL sourced from process environment variable env, which is assumed to be safe"
+  source: null
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_echoed-request
+  sink: echo $_REQUEST['path'] . " COPPIED.<br>\n";
+  vulnerability: Rendering unescaped input can lead to XSS attacks
+outputs:
+  priority: high
+  reasoning: The path variable comes from the web request and is sent to the web user without validation.
+  source: $_REQUEST['path']
+  unittest: null

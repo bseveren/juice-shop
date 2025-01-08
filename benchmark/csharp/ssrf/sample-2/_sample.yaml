@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_csharp_SSRF
+  sink: new Uri(configuration.BaseUrl)
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: medium
+  reasoning: The host of the request is a url that is defined in a configuration object, which is probably loaded from database or hard coded somewhere and is likely to be more safe then direct user input.
+  source: "HttpClient CreateClient(IHttpClientFactory httpClientFactory, IOConfiguration configuration)"
+  unittest: null

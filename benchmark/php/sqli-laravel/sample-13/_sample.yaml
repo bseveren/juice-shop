@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_laravel-sql-injection
+  sink: $reviews = $reviews->whereNotNull($type);
+  vulnerability: Potential SQL injection via Laravel function
+outputs:
+  priority: highest
+  reasoning: User input should never be allowed to dictate column names referenced in queries in Laravel. This query is vulnerable to column name sql injection depending on the sql engine and configuration.
+  source: $type = $request->type;
+  unittest: null

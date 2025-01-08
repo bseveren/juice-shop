@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_eval-use
+  sink: eval(file_get_contents($this->_langFile));
+  vulnerability: Unsafe eval usage can lead to remote code execution.
+outputs:
+  priority: safe
+  reasoning: A file is read from disk and its contents are evaluated as php code. As the file's location is hard-coded as a class member, it is safe to assume the contents of this file can be trusted. This mitigates the risk for remote code execution.
+  source: private $_langFile = APPLICATION_PATH . '/configs/zh.txt';
+  unittest: null

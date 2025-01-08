@@ -1,0 +1,9 @@
+inputs:
+  sink: "? Http.get(endpoint, { ...Api.defaultConfig, ...options })"
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: safe
+  reasoning: "The endpoint in Http.get is protected by routing generation in Api.get, likely using Symfony's FOSJsRoutingBundle. SSRF would only be possible if Api.get is called with both a user-controlled endpoint AND absoluteURL set to true (default is false). Additionally, this is very likely client side code as it uses the window object, defines a react utility and sets x-requested-with to 'XMLHttpRequest'. As such, there is very low probability of being exploitable. We don't mark as safe, since Api.defaultConfig might contain something like '../' to escape the intended endpoint."
+  source: null
+  unittest: null

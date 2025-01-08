@@ -1,0 +1,11 @@
+inputs:
+  sink: res = await fetch(externalRaceUrl);
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: lowest
+  reasoning: The externalRaceUrl is parsed from the contents of eventUrl. As race rosters are scraped, it is likely they are controlled by an external party. If a malicious user controls the 'Visit Website' anchor tag on that page, there is potential for SSRF. However, generateOrganizerNameFromExternalUrl does not include any secrets in the fetch call, so the attack vector is limited towards localhost calls and internal endpoints that don't require additional authentication. Furthermore, if the response of the call does not contain valid html, organizerName is undefined. In that case, the hostname of the call will be used to retrieve an organizerName. It is safe to assume that localhost or another endpoint within this organization itself will not be accepted as valid organizerName. Therefore, the only potential attack is to retrieve a secret (otherwise you don't need SSRF) html page from localhost or another endpoint without additional authentication from this org. This is very unlikely exploitable, although we cannot exclude the possibility.
+  source: |- 
+    const externalUrl = rsu$('a:contains("Visit Website")').attr('href');
+      if (externalUrl) {eventUrl = externalUrl;}
+  unittest: null

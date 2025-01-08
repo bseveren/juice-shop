@@ -1,0 +1,10 @@
+inputs:
+  ruleId: AIK_laravel-sql-injection
+  sink: $postIds = Arr::pluck($request->posts, 'data.postId');
+  vulnerability: Potential SQL injection via Laravel function
+outputs:
+  priority: safe
+  # Semgrep rule triggered sql injection on the Arr::pluck line, must be a bug.
+  reasoning: The Arr::pluck statement isn't at all related to sql, so it's not vulnerable to injection.
+  source: "'data.postId'"
+  unittest: null

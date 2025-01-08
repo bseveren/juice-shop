@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_tainted-ssrf
+  sink: HttpPost post = new HttpPost(url.toString());
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: high
+  reasoning: The host of the post request comes from the static method's parameters. The origin of the host argument is unclear from the provided source code and the user should verify whether it is vulnerable to SSRF.
+  source: public static byte[] query(String host
+  unittest: null

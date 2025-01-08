@@ -1,0 +1,9 @@
+inputs:
+  ruleId: eval_nodejs
+  sink: setTimeout(() => res.end("Alive"), timeOutMs);
+  vulnerability: Remote Code Execution possible via eval()-type functions
+outputs:
+  priority: safe
+  reasoning: The first argument of setTimeout is a function. The second argument of setTimeout isn't vulnerable to Remote Code Execution.
+  source: const timeOutMs = parseInt(req.query.timeoutMs) || 1 * 1_000;
+  unittest: null

@@ -1,0 +1,10 @@
+inputs:
+  sink: this.el.innerHTML = html;
+  vulnerability: Using document write methods can lead to XSS attacks
+  ruleId: AIK_js_insecure-document-method
+outputs:
+  priority: medium
+  # Note likely public code: https://fullcalendar.io/docs/daygrid-view
+  reasoning: html is the result of repeatedly concatenating results of the renderDayRowHtml function. This function is only partly shown. It likely renders the cells which are passed as a property to the render method of the DayGrid component. Based on the current code snippet it is unclear if this function would render (parts of) objects provided by other users. We cannot exclude this case since this file seems to be managing a possible shared calendar.
+  source: html += this.renderDayRowHtml(row, isRigid);
+  unittest: null

@@ -1,0 +1,16 @@
+inputs:
+  sink: |-
+    const { companyId } = req.query;
+    const context = this.loadContext(req);
+
+    const settings = await context
+      .getRepository<IAcmeSettingsRepository>("AcmeSettings")
+      .findOne({ filters: { companyId } });
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: high
+  reasoning: |
+    Upgrade because the input is likely user-controlled and upgrade because there is no sanitization. Downgrade because it's likely that the user has access to the specified repository anyway and 'filters' the content they want to view. 
+  source: null
+  unittest: null

@@ -1,0 +1,11 @@
+inputs:
+  sink: element.innerHTML = html.stripScripts();
+  vulnerability: Using document write methods can lead to XSS attacks
+  ruleId: AIK_js_insecure-document-method
+outputs:
+  priority: medium
+  # Note stripScripts likely comes from prototype itself, see http://prototypejs.org/assets/2007/1/18/prototype.js
+  reasoning: It is unclear where html comes from and it is unclear if stripScripts() is a custom function or from a predefined library. Even in the rather unlikely case that the complex stripScripts operation does not contain bugs, it is still vulnerable for inserting layouts that come over as trusted while they are potentially untrusted. Also stripping only script tags is insufficient to protect against XSS, e.g. html="<svg/onload=alert('XSS')>" is vulnerable. Since we don't know if html is potentially controlled by another user, we mark this as medium.
+  source: |
+    html = typeof html == 'undefined' ? '' : html.toString();
+  unittest: null

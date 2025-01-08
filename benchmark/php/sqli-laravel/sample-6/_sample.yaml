@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_laravel-sql-injection
+  sink: $users = User::query()->select(DB::raw('count(*) as user_count, status'))
+  vulnerability: Potential SQL injection via Laravel function
+outputs:
+  priority: safe
+  reasoning: While DB::raw is vulnerable to sql injection, its argument doesn't contain any user input in this case. Therefor the query isn't vulnerable to sql injection.
+  source: count(*) as user_count, status
+  unittest: null

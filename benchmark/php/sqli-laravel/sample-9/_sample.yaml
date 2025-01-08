@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_laravel-sql-injection
+  sink: |-
+    $assets = Asset::where('org_id', $org->id)
+    ->whereRaw($rawWhereQuery)
+  vulnerability: Potential SQL injection via Laravel function
+outputs:
+  priority: highest
+  reasoning: whereRaw inserts a raw WHERE clause into the sql query without any sanitization. As $rawWhereQuery contains user input in the form of an uploaded Excel file and this user input isn't sanitized, the query is vulnerable to sql injection.
+  source: $rawWhereQuery = $importCollection->map(function ($assetRow) {
+  unittest: null

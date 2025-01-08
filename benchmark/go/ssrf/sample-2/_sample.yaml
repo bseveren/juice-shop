@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_go_G107
+  sink: "resp, err := http.Get(endpoint)"
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: safe
+  reasoning: The base of the request url is sourced from a globally-scoped config object via config.GetConfig(). As it is unlikely that an attacker can manipulate the program's configuration, the snippet is considered safe from SSRF.
+  source: endpoint := fmt.Sprintf("%s/watchers_rewatch?status=%s", baseURL, status)
+  unittest: null

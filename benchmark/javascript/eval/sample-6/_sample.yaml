@@ -1,0 +1,14 @@
+inputs:
+  sink: |-
+    for await (const cb of setInterval(
+        calculateIntervalInMs(options.frequency),
+        () => sendMessage(queue, options, queueService),
+        { signal }
+    )) {
+  vulnerability: Remote Code Execution possible via eval()-type functions
+  ruleId: AIK_ts_eval_nodejs
+outputs:
+  priority: safe
+  reasoning: This is likely a user-defined setInterval function, as the function signature doesn't match the standard one. The user-defined function probably calls the standard setInterval function in its implementation. As a numeric timeout and an arrow function are passed to the setInterval function, the setInterval call isn't vulnerable to Remote Code Execution.
+  source: calculateIntervalInMs(options.frequency)
+  unittest: null

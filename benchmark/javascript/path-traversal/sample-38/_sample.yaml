@@ -1,0 +1,9 @@
+inputs:
+  sink: "Key: path.join('configs', 'partitions', config.database, config.table, ...config.partitions, `partition.config${config.extension}`),"
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: medium
+  reasoning:  The path construction concatenates multiple unsanitized config properties (database, table, partitions) into an S3 key with no validation shown in the code. Since config appears to be derived from bucket/key parameters that originate from S3 events, which could potentially be manipulated, and there's no visible sanitization of these values, this could allow accessing unintended paths.
+  source: null
+  unittest: null

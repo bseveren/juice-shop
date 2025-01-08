@@ -1,0 +1,9 @@
+inputs:
+  sink: return Promise.resolve(req.company.getDruidQuery(req.body))
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: safe
+  reasoning: The sink is not a file path operation but a confused classification - it's using Promise.resolve() to handle a database query from the Druid service. The getDruidQuery method appears to be part of the company model's interface for querying analytics data.
+  source: null
+  unittest: null

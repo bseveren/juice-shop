@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: $rs = mysql_query("SELECT * FROM patient_care_notes " . $criteria . " ORDER BY start_date DESC");
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: $criteria contains date function results that produce safe output, which mitigates the risk of a sql injection via string-based query concatenation
+  source: $criteria      .= " AND start_date BETWEEN $sDateSql AND $eDateSql";
+  unittest: null

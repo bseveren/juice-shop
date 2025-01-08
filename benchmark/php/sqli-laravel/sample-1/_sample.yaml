@@ -1,0 +1,12 @@
+inputs:
+  ruleId: AIK_laravel-sql-injection
+  sink: |
+    return $query
+      ->where($column, 'LIKE', '%' . $find . '%')
+  vulnerability: Potential SQL injection via Laravel function
+outputs:
+  priority: safe
+  # $column is restricted to a white list of column names via $request->validate.
+  reasoning: While user input should never be allowed to dictate column names in Laravel queries, the user input is restricted to known columns in this case so the query is safe from column name sql injection.
+  source: $column = $validated->column ?? 'title';
+  unittest: null

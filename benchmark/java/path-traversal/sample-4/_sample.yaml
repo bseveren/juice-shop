@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_inject_rule-SpotbugsPathTraversalAbsolute
+  sink: "File file = new File(context.getFilesDir(), dirName);"
+  vulnerability: Path traversal attack possible
+outputs:
+  priority: safe
+  reasoning: While file is created from user input, dirName is set to the return value of getCachedDirName() which is equal to the concatenation of a constant with an integer. This precludes path traversal attacks as an attacker cannot escape this directory. context.getFilesDir() also cannot be abused by an attacker as it returns the application's data directory. Therefor a path traversal attack is impossible.
+  source: mFileUtils.writeJsonToFile(getCachedDirName(), 'cache.json'), featureFlagRespObj);
+  unittest: null

@@ -1,0 +1,13 @@
+inputs:
+  sink: "url: targetUrl,"
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: safe
+  reasoning: The path is constructed by const documentURL = `${window.rootVue.$env.value(
+    'VUE_APP_API_BASE_URL',
+    'http://localhost:8080'
+    )}${window.rootVue.$env.value('VUE_APP_DOCUMENT_BASE_URL', '/documents/download')}/${targetDocument.id}`;
+    as such, the domain is hardcoded and considered safe.
+  source: null
+  unittest: null

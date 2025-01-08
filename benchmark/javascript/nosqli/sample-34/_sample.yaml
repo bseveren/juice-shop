@@ -1,0 +1,15 @@
+inputs:
+  sink: |-
+    const foundDocument = await this.implantLibraryModel
+      .findOne({
+        _id: companyId,
+        lifecycle: { $eq: ImplantLibraryLifecycle.PUBLISHED },
+      })
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: |
+    Going up the path, companyId is not sanitized and likely user-controlled, so it could control something like { $ne: <some valid ObjectId> }, allowing to retrieve documents from other companies, which could be harmful. However, there is a function convertStringToObjectId() modifying the companyId. It seems safe enough to assume that it returns an ObjectId and not an object like { $ne: <some valid ObjectId }, so should be safe.
+  source: null
+  unittest: null

@@ -1,0 +1,26 @@
+inputs:
+  sink: |-
+    const parsedQuery = slackActionQuery.parse(req.query);
+    const redirectUrl = new URL(parsedQuery.redirect);
+
+    const session = await getServerAuthSession({ req, res });
+    if (!!session?.user?.organisationId && session?.user?.organisationId === parsedQuery.organisationId) {
+      const loggedInUrl = new URL(
+        `https://${(process.env.ROOMS_DOMAIN_URL || "rooms.***.io").replace(/http[s]?:\/\//, "")}/rooms/${
+          parsedQuery.roomId
+        }`
+      );
+
+      // copy over search params
+      loggedInUrl.search = redirectUrl.search;
+      return res.redirect(loggedInUrl.toString());
+    }
+
+    return res.redirect(parsedQuery.redirect);
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: safe
+  reasoning: Base of the url is not under user control, instead it is sourced from an environment variable, which we assume to be safe. The query (which is under user control) is first parsed, and then appended to the end. Thus no risk of open redirect.
+  source: const redirectUrl = new URL(parsedQuery.redirect);
+  unittest: null

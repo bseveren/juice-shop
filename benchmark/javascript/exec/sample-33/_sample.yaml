@@ -1,0 +1,9 @@
+inputs:
+  sink: execSync(`az login --service-principal --username ` + servicePrincipal + ` --password ` + secret + ` --tenant ` + tenantId);
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: low
+  reasoning: The parameters are provided in the constructor of the HttpClient class. These parameters seem to be secrets to login in Azure. These parameters are typically kept server-side, without any access for end users. Advanced multitenancy scenarios could be an unlikely exception.
+  source: getAccessToken(tenantId, servicePrincipal, secret) {
+  unittest: null

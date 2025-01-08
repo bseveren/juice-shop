@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_js_ssrf
+  sink: const url = `https://${auth0Domain}/api/v2/users/${req.body.deleteUser}`;
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: lowest
+  reasoning: While the domain of the url is a variable (auth0Domain), its value is sourced from the process environment which is assumed to be trustworthy.
+  source: const auth0Domain = process.env.AUTH0_DOMAIN;
+  unittest: null

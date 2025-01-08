@@ -1,0 +1,44 @@
+inputs:
+  sink: |-
+    context = context || $(event.currentTarget).data(dataKey)
+
+    if (!context) {
+      context = new this.constructor(
+        event.currentTarget,
+        this._getDelegateConfig()
+      )
+      $(event.currentTarget).data(dataKey, context)
+    }
+
+    if (event) {
+      context._activeTrigger[
+        event.type === 'focusout' ? TRIGGER_FOCUS : TRIGGER_HOVER
+      ] = false
+    }
+
+    if (context._isWithActiveTrigger()) {
+      return
+    }
+
+    clearTimeout(context._timeout)
+
+    context._hoverState = HOVER_STATE_OUT
+
+    if (!context.config.delay || !context.config.delay.hide) {
+      context.hide()
+      return
+    }
+
+    context._timeout = setTimeout(() => {
+      if (context._hoverState === HOVER_STATE_OUT) {
+        context.hide()
+      }
+    }, context.config.delay.hide)
+  vulnerability: Remote Code Execution possible via eval()-type functions
+  ruleId: eval_nodejs
+outputs:
+  priority: safe
+  # Note: public code from bootstrap
+  reasoning: The $(event.currentTarget).data(dataKey) syntax is most likely jQuery syntax. Also wwwroot in the path and bootstrap strongly suggest that this is clientside code. The code is actually from the bootstrap tooltip component (which uses jquery). The first argument to setTimeout is an arrow function; and not a string; so the setTimeout call isn't vulnerable to Remote Code Execution. Note context.hide() likely calls the hide function on a Tooltip object.
+  source: context = context || $(event.currentTarget).data(dataKey)
+  unittest: null

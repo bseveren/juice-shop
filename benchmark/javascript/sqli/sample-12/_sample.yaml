@@ -1,0 +1,10 @@
+inputs:
+  sink: connection.query(sql, values, function(err) {
+  vulnerability: Potential SQL injection via string-based query concatenation
+  ruleId: AIK_node_sqli_injection
+outputs:
+  priority: medium
+  reasoning: While the function supports using parameterized queries (via its values parameter), the content of sql is unknown. As there is no attempt to block queries that don't use parameters for passing data or to escape data in the query, a sql injection vulnerability cannot be ruled out.
+  source: |
+    function dbConnection( sql, values, next){
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_eval-use
+  sink: eval($code);
+  vulnerability: Unsafe eval usage can lead to remote code execution.
+outputs:
+  priority: safe
+  reasoning: The code reads a template file and evaluates its content. As the templates are stored on local disk, its contents may be assumed to be safe. This mitigates the risk for remote code execution.
+  source: $code = '?>' . PHP_EOL . $code . PHP_EOL . "<?php";
+  unittest: null

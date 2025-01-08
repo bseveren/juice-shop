@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_js_shell_injection_child_process
+  sink: exec(s3command, (err, stdout, stderr) => {
+  vulnerability: Potential for OS command injection via child_process call
+outputs:
+  priority: highest
+  reasoning: Both the root and path request parameters are substituted in s3path as the userDir and path variables without sanitization. This makes the exec evaluation vulnerable to command injection.
+  source: const s3path = `s3://${config.rootPath}/${userDir}/${path}`;
+  unittest: null

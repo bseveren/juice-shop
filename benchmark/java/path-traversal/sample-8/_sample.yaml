@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_httpservlet-path-traversal
+  sink: File imageFile = new File(albumFolder, fileName);
+  vulnerability: Path traversal attack possible
+outputs:
+  priority: highest
+  reasoning: The File constructor allows traversing the file system outside of the parent directory. As the fileName from data parameter isn't sanitized, this makes the program vulnerable to file traversal attacks.
+  source: String fileName = formItems.get(1).getString();
+  unittest: null

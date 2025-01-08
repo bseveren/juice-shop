@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_inject_rule-SpotbugsPathTraversalAbsolute
+  sink: 'File.createTempFile(ThreadLocalRandom.current().nextInt() + accountId, "." + mimeType.split("/")[1], directory);'
+  vulnerability: Path traversal attack possible
+outputs:
+  priority: safe
+  reasoning: The file is created using File.createTempFile, which is a function that restricts file operations to its third argument and that avoids file name collisions.
+  source: null
+  unittest: null

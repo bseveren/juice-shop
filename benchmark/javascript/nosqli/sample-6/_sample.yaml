@@ -1,0 +1,14 @@
+inputs:
+  ruleId: AIK_ts_node_nosqli_injection
+  sink: |-
+    PgDb.BusinessAccessUser.findOne({
+        accountAccessId: currentUserId,
+        archived: isNotTrue,
+        accountAccessRole: [BusinessAccessRole.CSM, BusinessAccessRole.SUPPORT_ENGINEER],
+    }),
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: safe
+  reasoning: The snippet calls findOne on a model of a postgresql (PgDb) database. As postgresql queries aren't vulnerable to NoSQL injection, this finding should be prioritized as low.
+  source: "const { currentBusinessAccountId: businessAccountId, PgDb, currentUserId, services } = Context;"
+  unittest: null

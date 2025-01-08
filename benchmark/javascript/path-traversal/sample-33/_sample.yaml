@@ -1,0 +1,9 @@
+inputs:
+  sink: const sDestinationDir = `${path.resolve(oPath.destination, '..')}/`;
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: medium
+  reasoning: The code resolves a path with '..' parent directory reference from oPath.destination, which is directly constructed from user-controlled S3 paths (sRemotePath parameter). Upgrade because no sanitization. Downgrade because the data sLocalDir and sPath look like they come from trusted source, either server logic or S3 libraries.
+  source: null
+  unittest: null

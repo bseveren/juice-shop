@@ -1,0 +1,15 @@
+inputs:
+  sink: |-
+    const entity = await activitiesSLARepository.findOne({
+      organizationId: organization.id,
+      funnelId: input.funnelId,
+      functionId: input.functionId,
+    })
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: safe
+  # https://trpc.io/docs/server/validators
+  reasoning: tRPC's input validation throws a validation error if the input doesn't conform to the schema definition. This means funnelId and functionId are guaranteed to be strings. organization is fetched from the database and its id field is typically chosen by the database server and therefore not under user control. This makes the query safe from nosql injection.
+  source: null
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  sink: "`${FITBIT_BASE_URL}/1/user/${fitbitUserId}/activities/apiSubscriptions/${FITBIT_SUBSCRIPTION_ID}-${fitbitUserId}.json`,"
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: safe
+  reasoning: "Base of url appears to be a constant and not under user control. This mitigates the risk of SSRF."
+  source: null
+  unittest: null

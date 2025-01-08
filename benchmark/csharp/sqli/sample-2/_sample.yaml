@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: cmd.Parameters.AddWithValue("@Continent", continent);
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  probability: zero
+  severity: critical
+  reasoning: User input for continent is unsanitized, creating a risk for SQL injection if a malicious string is used. However, since the input is passed to the query via a field parameter and not via executable SQL, the risk of a sql injection is completely mitigated.
+  source: string continent = Request("continent");
+  unittest: null

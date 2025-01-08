@@ -1,0 +1,9 @@
+inputs:
+  sink: counter.innerHTML = markerCount + " results";
+  vulnerability: Using document write methods can lead to XSS attacks
+  ruleId: AIK_js_insecure-document-method
+outputs:
+  priority: safe
+  reasoning: markers.length can only return a number, since markers are all elements in the DOM with the name "marker".
+  source: markerCount = markers.length;
+  unittest: null

@@ -1,0 +1,9 @@
+SSRF
+- sink = (HttpsURLConnection) url.openConnection();
+- good: the source is not request data, but seems to come from a database (this should cause a downgrade, that harder to exploit) -10 points
+- bad: no attempts are made to validate, we have to hope the data was pre-validated in the DB, and it might still be bypassable by TOCTOU if it was + 10 points
+- good: the content of the reponse is in no way return to the user (blind SSRF) -20 points
+- good: the call is the DELETE type (not post, get,..) : this is harder to exploit -10 points
+- SSRF starts at 89/100
+- expected outcome: 40-60
+- expected outcome severity :  (low to medium)

@@ -1,0 +1,13 @@
+inputs:
+  sink: |-
+    return NextResponse.redirect(
+      new URL(drupalRedirect.url, req.url),
+      drupalRedirect.statusCode,
+    );
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: medium
+  reasoning: While using Next.js URL constructor, drupalRedirect.url comes from fetchDrupalRedirect() with unclear validation. Need to verify where drupalRedirect.url comes from. If it is an absolute URL, req.url will be ignored.
+  source: null
+  unittest: null

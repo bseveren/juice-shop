@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_js_shell_injection_child_process
+  sink: execSync(`${bin.convert} ${args.join(" ")} ${outputPath}`);
+  vulnerability: Potential for OS command injection via child_process call
+outputs:
+  priority: safe
+  reasoning: While various parameters are passed to execSync they are all either static or properly sanitized.
+  source: req.body
+  unittest: null

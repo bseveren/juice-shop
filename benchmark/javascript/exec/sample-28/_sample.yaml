@@ -1,0 +1,9 @@
+inputs:
+  sink: "const childProcess = exec(command, (error: ExecException | null, stdout: string) => {"
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: The executeCommand is called once by the loadImageIfAvailable function. This defines a command that depends on the function argument 'tarFilPath'. The loadImageIfAvailable is called 7 times. In each of these cases, it depends on 'tempPath' and a hardcoded suffix. The tempPath is defined by this.ipcRendererService.getTempDir(); which is considered shielded from user input.
+  source: this.executeCommand('docker image load -i ' + tarFilePath))
+  unittest: null

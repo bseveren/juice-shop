@@ -1,0 +1,22 @@
+inputs:
+  ruleId: CKV_AWS_24
+  # This second sink doesn't mention port 22 directly, but iterates over a local instead.
+  sink: |
+    resource "aws_vpc_security_group_ingress_rule" "mgmt_prefix_acme" {
+      for_each = local.acme_ports
+
+      description       = each.key
+      from_port         = each.value.from
+      to_port           = each.value.to
+      ip_protocol       = each.value.protocol
+      security_group_id = module.sg_mgmt.security_group_id
+      prefix_list_id    = aws_ec2_managed_prefix_list.acme.id
+
+      tags = local.local_tags
+    }
+  vulnerability: Firewall rules allow SSH from any public IP
+outputs:
+  priority: safe
+  reasoning: While this ingress rule allows SSH access from public addresses, the access is restricted to just the four ip addresses listed in acme_ips. As these are likely trusted ip addresses, the identified vulnerability is safe to ignore.
+  source: null
+  unittest: null

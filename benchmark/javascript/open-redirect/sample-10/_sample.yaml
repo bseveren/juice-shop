@@ -1,0 +1,14 @@
+inputs:
+  sink: |-
+    this.waitingRoomService.redirect(
+      waitingRoomSession.suggestedMeeting,
+      waitingRoomSession,
+      redirectSelf
+    );
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: lowest
+  reasoning: Redirect controlled by internal service logic, likely not controllable by user.
+  source: null
+  unittest: null

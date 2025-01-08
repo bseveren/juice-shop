@@ -1,0 +1,9 @@
+inputs:
+  sink: const response = await fetch(url);
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: low
+  reasoning: "Unknown whether url is under user control. If the code is part of a user facing API, then url might be under user control, and it is vulnerable to SSRF. No fetch response is returned to an external user, indicating blind SSRF and further reducing exploitation risk. As such, the priority is low."
+  source: null
+  unittest: null

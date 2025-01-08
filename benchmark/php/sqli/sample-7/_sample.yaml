@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: $query = $contacts = $db->query("SELECT ID, FirstName, LastName FROM clients_contacts WHERE ClientID = '".$_GET['ID']."' AND Deleted=0 ORDER BY LastName, FirstName ASC");
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning:  $_GET['ID'] can only reach the SQL query if it is an integer.
+  source: $_GET['ID']
+  unittest: null

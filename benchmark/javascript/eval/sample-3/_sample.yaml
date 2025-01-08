@@ -1,0 +1,9 @@
+inputs:
+  ruleId: eval_nodejs
+  sink: return eval(`${operand1} ${op} ${operand2}`);
+  vulnerability: Remote Code Execution possible via eval()-type functions
+outputs:
+  priority: safe
+  reasoning: The operand1 and operand2 variables are numbers and the op variable is restricted to a whitelist. This sanitization remediates any Remote Code Execution vulnerability.
+  source: calcExpression(req.query.inputOp, req.query.input1, req.query.input2)
+  unittest: null

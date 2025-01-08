@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_tainted-ssrf
+  sink: request = new HttpPost(uri);
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: highest
+  reasoning: The endpoint of the request is sourced from a network request. While there is validation of the endpoint in validateEndpoint, the actual checks are superficial and remain vulnerable to SSRF. The response of the request is returned to the user, which helps attackers in exploiting the SSRF vulnerability.
+  source: String endpoint = source.getString(ContentApiDTO.ENDPOINT);
+  unittest: null

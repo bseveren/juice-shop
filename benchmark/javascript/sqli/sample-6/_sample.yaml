@@ -1,0 +1,18 @@
+inputs:
+  ruleId: AIK_node_sqli_injection
+  sink: const result = await Mysql.query(sql, params);
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: All data in the query is passed via parameters of a parameterized query, which mitigates the risk of a sql injection attack
+  source: |-
+    const sql =
+      "SELECT DISTINCT id, name\n" +
+      "FROM venues\n" +
+      "WHERE 0=0\n" +
+      (req.query.country ? " AND country = ?" : "") +
+      (req.query.city ? " AND city = ?" : "") +
+      " AND active IN (" +
+      active.map((_) => "?").join(",") +
+      ")";
+  unittest: null

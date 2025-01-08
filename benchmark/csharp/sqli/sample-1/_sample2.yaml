@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: adapter2.SelectCommand.Parameters.Add(parameter2);
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: The query uses a prepared statement which mitigates any risk of a sql injection via string-based query concatenation
+  source: var parameter2 = new SqlParameter("category", categoryTextBox.Text);
+  unittest: null

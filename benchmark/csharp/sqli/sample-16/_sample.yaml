@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: |
+    return dbContext.Database.SqlQuery<EmployerModel>(
+        "SELECT * FROM Employers WHERE ExternalCode = '" + id + "'").FirstOrDefault();
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: highest
+  reasoning: The id string parameter is concatenated to the sql query without being sanitized. As the id parameter is sourced from the web request in EmployerController, the query is vulnerable to sql injection.
+  source: string id
+  unittest: null

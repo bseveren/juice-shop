@@ -1,0 +1,11 @@
+inputs:
+  sink: cancelBlur = setTimeout($scope.switchToLink, 200);
+  vulnerability: Remote Code Execution possible via eval()-type functions
+  ruleId: AIK_ts_eval_nodejs
+outputs:
+  priority: safe
+  # Note public code from grafana: https://github.com/grafana/grafana/blob/3724ffd8589aaae1528a6d9b562521ee5eda20af/public/app/angular/metric_segment.ts#L68
+  reasoning: $scope.switchToLink is defined as a function that does not return anything.
+  source: |
+    link: ($scope: any, elem: any) => {
+  unittest: null

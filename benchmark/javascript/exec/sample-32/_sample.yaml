@@ -1,0 +1,10 @@
+inputs:
+  sink: exec(cmd, (err, stdout, stderr) => {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: medium
+  reasoning: Since there is no hit found where this function is being called and since it is located in services/utilities/lib, it is rather unlikely that there exists a path where a user can define the cmd parameter. However, if it exists, the severity would be critical.
+  source: |
+    export function runCommand(cmd: string): Promise<string> {
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  sink: const result = await axios.get(metadataServerUri, {
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: lowest
+  reasoning: "Audience is very unlikely to be under direct control of the user, it is likely set by the application. Even if it were controlled by the user, it may be validated by getMetadataServerUri. Any attack would have to handle this function and would be quite complex. However, it would be better to validate or check metadataServerUri against a whitelist regardless. As such, the priority is lowest."
+  source: const metadataServerUri = getMetadataServerUri(audience!);
+  unittest: null

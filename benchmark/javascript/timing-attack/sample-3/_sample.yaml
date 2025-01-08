@@ -1,0 +1,14 @@
+inputs:
+  sink: |-
+    } else if (apiKey !== ProcessEnv.getValueOrThrow('SERVICE_MESH_API_KEY')) {
+      response.status(401).send({ message: messages.API_KEY_INCORRECT });
+    } else {
+      next();
+    }
+  vulnerability: A timing attack might allow hackers to bruteforce passwords
+  ruleId: AIK_ts_node_timing_attack
+outputs:
+  priority: highest
+  reasoning: byte by byte comparison performed by javascript to compare api keys, so a timing attack is possible as response is immediately raised.
+  source: null
+  unittest: null

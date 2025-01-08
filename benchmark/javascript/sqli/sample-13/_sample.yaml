@@ -1,0 +1,9 @@
+inputs:
+  sink: con.query(insert_emission_type_sql, function (err, result) {
+  vulnerability: Potential SQL injection via string-based query concatenation
+  ruleId: AIK_node_sqli_injection
+outputs:
+  priority: medium
+  reasoning: The snippet concerns an INSERT query with data from a CSV file. As the values parameter of connection.query is not set, it is unlikely the query is parameterized. This means the query is vulnerable to sql injection if the data wasn't escaped when the query string was created. As the generateSQL_EF function is unknown, it is unclear whether the data in the query was escaped.
+  source: let insert_emission_type_sql = generateSQL_EF(item);
+  unittest: null

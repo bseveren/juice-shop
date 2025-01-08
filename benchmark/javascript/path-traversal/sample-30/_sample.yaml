@@ -1,0 +1,9 @@
+inputs:
+  sink: return path.join(compilation.getPath(compilation.compiler.outputPath), name.split('?')[0]);
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: safe
+  reasoning: The path is constructed using compilation.getPath() which is internal to webpack's compilation process, and name.split('?')[0] safely handles query parameters. The function is part of a webpack plugin (BundleTrackerPlugin) that operates on compiled assets rather than user input, making this a safe internal path construction.
+  source: null
+  unittest: null

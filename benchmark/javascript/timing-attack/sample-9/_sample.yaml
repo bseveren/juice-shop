@@ -1,0 +1,12 @@
+inputs:
+  sink: |-
+    if (password !== expectedCredentials.password) {
+      throw new AuthError("Unauthorized");
+    }
+  vulnerability: A timing attack might allow hackers to bruteforce passwords
+  ruleId: AIK_ts_node_timing_attack
+outputs:
+  priority: highest
+  reasoning: Elementary byte by byte password check, which immediately raises a warning when a byte is incorrect. Also dealing with sensitive data.
+  source: null
+  unittest: null

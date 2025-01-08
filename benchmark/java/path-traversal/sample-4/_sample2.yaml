@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_inject_rule-SpotbugsPathTraversalAbsolute
+  sink: File file1 = new File(file, fileName);
+  vulnerability: Path traversal attack possible
+outputs:
+  priority: safe
+  reasoning: The statement creates a new file under file; which is not susceptible to path traversal attacks. The fileName argument is equal to the literal 'cache.json'. So a path traversal attack is not possible.
+  source: mFileUtils.writeJsonToFile(getCachedDirName(), 'cache.json'), featureFlagRespObj);
+  unittest: null

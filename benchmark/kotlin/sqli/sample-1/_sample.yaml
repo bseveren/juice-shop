@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_kotlin_sqli
+  sink: val query = "SELECT id FROM ${publicId.prefix().dbTable} WHERE public_id = '${publicId.id}'"
+  vulnerability: Potential SQL injection via string-based query concatenation.
+outputs:
+  priority: highest
+  reasoning: publicId.id is user-controlled and not sanitized.
+  source: null
+  unittest: null

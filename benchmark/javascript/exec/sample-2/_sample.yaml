@@ -1,0 +1,17 @@
+inputs:
+  ruleId: AIK_js_shell_injection_child_process
+  sink: const child = spawn(aCmd[0], aCmd.slice(1));
+  vulnerability: Potential for OS command injection via child_process call
+outputs:
+  priority: safe
+  reasoning: All the variables in aCmd are computed from string literals, so a user cannot inject commands.
+  source: |
+    const rootPath = `${path.resolve(root)}/`;
+    const output = `/tmp/pm-${Math.random().toString().slice(-8)}.csv`;
+    const allPlatformPairs = [
+      {
+        source: "airbnb",
+        target: "vrbo",
+        region: "amsterdam",
+      },
+  unittest: null

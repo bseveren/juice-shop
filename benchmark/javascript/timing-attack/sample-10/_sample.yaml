@@ -1,0 +1,17 @@
+inputs:
+  sink: |-
+    if (this._token != token) {
+    	this._token = token;
+    	if (token == '') {
+    		this.checkTokenState = CheckTokenState.Blank;
+    	} else {
+    		this.checkTokenState = CheckTokenState.Untested;
+    	}
+    }
+  vulnerability: A timing attack might allow hackers to bruteforce passwords
+  ruleId: AIK_ts_node_timing_attack
+outputs:
+  priority: safe
+  reasoning: This code appears to be client-side code (using angular), as such there is no risk of a timing attack.
+  source: null
+  unittest: null

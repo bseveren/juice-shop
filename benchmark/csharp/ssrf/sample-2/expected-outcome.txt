@@ -1,0 +1,7 @@
+SSRF
+- sink = new Uri(configuration.BaseUrl)
+- good: the source is not request data, but seems to come from a configuration object -20 points
+- bad: no attempts are made to validate, we have to hope the class variable is safe, and it might still be bypassable + 10 points
+- SSRF starts at 89/100
+- expected outcome: 60-75
+- expected outcome severity :  (medium)

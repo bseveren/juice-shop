@@ -1,0 +1,14 @@
+inputs:
+  sink: |-
+    let filepath = path.join(__dirname, 'downloads',
+        '' + workItem.queue || 'test',
+        `${workItem.id}.pdf`
+    )
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: low
+  reasoning: |
+    Downgrade once because workItem likely comes from a queuing system, not from user input. Downgrade because the attack is limited to .pdf files. Upgrade because no other sanitization is present. E.g. workItem.id could be defined as a string and escape the context by inserting e.g. "../../../../some-file".
+  source: null
+  unittest: null

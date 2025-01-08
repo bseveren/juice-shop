@@ -1,0 +1,18 @@
+inputs:
+  sink: |-
+    const subscriptionEvent = event.data.object as Stripe.Subscription;
+    logger.info('⚡ Expiring subscription');
+    const subscription = await subscriptionInformationModel
+      .findOne({
+        providerAccountID: subscriptionEvent.customer,
+        providerSubscriptionID: subscriptionEvent.id,
+      })
+      .populate('storageQuota')
+      .exec();
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: Stripe can, just like e.g. Auth0, be considered as a trusted source. Since the only variables in the query come from the webhook payload and since the signature of the payload appears to be verified, we consider this as safe. Note that webhookSecret must be kept secret, otherwise malicious users can forge webhook payloads.
+  source: null
+  unittest: null

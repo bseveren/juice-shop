@@ -1,0 +1,10 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: |
+    using (SqlCommand cmd = new SqlCommand(selected, conn))
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: "While string formatting is used for building the query, all values included in the query are immune to SQL injection: they are either a configuration constant or a list of integers combined into a string."
+  source: null
+  unittest: null

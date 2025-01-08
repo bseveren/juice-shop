@@ -1,0 +1,9 @@
+inputs:
+  sink: const outDir = path.resolve(process.cwd(), opts.outDir);
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: safe
+  reasoning:  Path resolution uses command line arguments via commander library, so no user input. The outDir comes from a required program option that is processed through standard CLI parsing.
+  source: null
+  unittest: null

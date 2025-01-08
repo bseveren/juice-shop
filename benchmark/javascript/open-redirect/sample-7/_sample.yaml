@@ -1,0 +1,44 @@
+inputs:
+  sink: |-
+    const returnTo = request.query.state;
+    if (!returnTo) return reply.status(401).send({ error: "No returnTo" });
+    if (!validateProfile(result))
+      return reply.status(401).send({ error: "Invalid organization" });
+
+    assert(
+      result.profile.organizationId,
+      "WorkOS user must have organization ID",
+    );
+    let user = await commonPrismaClient.adminUser.findUnique({
+      where: { workosId: result.profile.id },
+    });
+    if (!user) {
+      user = await commonPrismaClient.adminUser.create({
+        data: {
+          workosId: result.profile.id,
+          firstName: result.profile.firstName,
+          lastName: result.profile.lastName,
+          connectionId: result.profile.connectionId,
+          connectionType: result.profile.connectionType,
+          organizationId: result.profile.organizationId,
+        },
+      });
+    }
+
+    const jwt = await createJwt({
+      sub: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    });
+
+    return reply.redirect(
+      `${config.adminWebUrl()}/auth/callback?returnTo=${encodeURIComponent(
+        retu
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: lowest
+  reasoning: Although returnTo is not sanitized/ validated, it only sets a parameter in the redirect URL. It passes the returnTo variable as parameter, so it will likely be used in the future by another redirect. This redirect is then responsible for sanitization. Next to this reasoning, a returnTo URL likely holds state from which url a user has visited. Open-redirect is only a risk when another user can manipulate the url making the victim user take an untrusted website as trusted. Since it is very unlikely that another user can define the returnTo url (typically based on the state of the UI the user is in), we mark as lowest.
+  source: null
+  unittest: null

@@ -1,0 +1,6 @@
+// Some LLM model assigned high priority to this, its reasoning is below:
+// The variable $new_val is derived from user input via $_POST['add_points'] or $_POST['remove_points'], which is not properly sanitized. Although the input is checked to be numeric, it is still concatenated into the SQL query without proper escaping or parameterization, making it vulnerable to SQL injection.
+- 1x sink $sql L33
+- not vuln - both $new_val and $point_id variables are integers
+- sqli starts at 90/100
+- expected outcome: 0-10

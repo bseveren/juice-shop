@@ -1,0 +1,10 @@
+inputs:
+  sink: "const book = Ark.collections.books.findOne({ book: this.book });"
+  vulnerability: NoSQL injection attack possible
+  ruleId: node_nosqli_injection
+outputs:
+  priority: medium
+  # https://docs.meteor.com/api/collections.html
+  reasoning: This syntax implies the use of the Meteor.js full-stack framework, which uses mongodb for storing collections. this.book is likely a unique identifier to lookup books in the database. As there is no validation or sanitization of this.book and as Meteor.js collections support the same query syntax as mongodb, an injection vulnerability cannot be ruled out. 
+  source: null
+  unittest: null

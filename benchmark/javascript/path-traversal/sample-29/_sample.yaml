@@ -1,0 +1,11 @@
+inputs:
+  sink: |-
+    const route = request.params[0];
+    const data = JSON.parse(fs.readFileSync(`${__dirname}/data/${route}.json`, 'utf8'));
+  vulnerability: Potential file inclusion attack via reading file
+  ruleId: generic_path_traversal
+outputs:
+  priority: high
+  reasoning: The code takes an unsanitized path parameter (route) and directly uses it in file operations within the data directory. Despite using __dirname, path traversal is possible since there's no path sanitization before concatenating with the base path. The attack is limited to .json files.
+  source: const route = request.params[0];
+  unittest: null

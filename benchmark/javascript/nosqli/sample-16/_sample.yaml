@@ -1,0 +1,10 @@
+inputs:
+  ruleId: AIK_ts_node_nosqli_injection
+  sink: |-
+    const fromBAU = await this.database.BusinessAccessUser.findOne({ accountAccessId: id }, null);
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: highest
+  reasoning: The request params may contain arbitrary JSON objects. These objects are passed to mongodb's findOne query function via request.params without any sanitation. This enables an attacker to specify arbitrary query conditions and makes the query vulnerable to NoSQL injection.
+  source: const id = request.params.id;
+  unittest: null

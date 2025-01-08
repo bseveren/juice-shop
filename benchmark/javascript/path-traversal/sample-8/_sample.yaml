@@ -1,0 +1,45 @@
+inputs:
+  sink: |
+    let theFile = req.url.replace('/getFileHash?file=', '')
+    theFile = decodeURIComponent(theFile);
+    // theFile = theFile.replace('%3A', ':');
+    // Do not use replaceAll, use regex
+    //theFile = theFile.replaceAll('+', ' ');
+    theFile = theFile.replace(/[+]/g, ' ');
+    console.log('Looking to hash: ', theFile);
+
+    let hash = '';
+
+    try {
+      if (fs.existsSync(theFile)) {
+        //file exists
+        console.log('file exists')
+        const buff = fs.readFileSync(theFile);
+        const stat = fs.statSync(theFile);
+        hash = crypto.createHash("md5").update(buff).digest("hex")
+        console.log(hash)
+        res.writeHead(200, { "Content-Type": "application/json" });
+        const output = {
+          file: theFile,
+          md5hash: hash,
+          fileSizeInBytes: stat.size,
+        }
+        res.write(JSON.stringify(output));
+        res.end();
+      } else {
+        console.log('file does not exist')
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ message: "File not found", url: req.url }));
+      }
+    } catch (err) {
+      console.error(err);
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Error in getFileHash", url: req.url }));
+    }
+  vulnerability: Potential file inclusion attack via reading file
+  ruleId: generic_path_traversal
+outputs:
+  priority: highest
+  reasoning: The code takes a file path directly from the URL parameter, decodes it, and performs file operations (readFileSync) without any path sanitization. An attacker could use "../" sequences to read arbitrary files from the system using a path like "http://localhost:3000/getFileHash?file=../../../etc/passwd". The only transformations done are decodeURIComponent and replacing '+' with spaces, neither of which prevent path traversal
+  source: let theFile = req.url.replace('/getFileHash?file=', '')
+  unittest: null

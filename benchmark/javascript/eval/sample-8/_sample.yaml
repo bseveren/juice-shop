@@ -1,0 +1,19 @@
+inputs:
+  sink: |-
+    var attrValue = target.getAttribute('date:' + attrName);
+    if (attrValue) {
+    	inlineSettings = inlineSettings || {};
+    	try {
+    		inlineSettings[attrName] = eval(attrValue);
+    	} catch (err) {
+    		inlineSettings[attrName] = attrValue;
+    	}
+    }
+  vulnerability: Remote Code Execution possible via eval()-type functions
+  ruleId: eval_nodejs
+outputs:
+  priority: lowest
+  # Note: ui.datepicker.js is public code shipped with jquery 1.7.2 -> https://github.com/jquery/jquery-ui/blob/1.7/ui/ui.datepicker.js
+  reasoning: The jQuery syntax implies that this is clientside code. Next, we need to verify if attrValue could potentially be defined by another, potentially malicious, user. In this case target is an 'element - the target input field or division or span'. The attributes are read from the HTML element to which the datepicker widget is attached. If a malicious user could tamper with the element attributes or with the element itself, there exists the risk to evaluate arbitrary code. As this seems unlikely, the priority is set to lowest.
+  source: var attrValue = target.getAttribute('date:' + attrName);
+  unittest: null

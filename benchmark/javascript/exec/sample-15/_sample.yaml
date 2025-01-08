@@ -1,0 +1,10 @@
+inputs:
+  sink: const r = spawnSync(command, args, {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: The blockingSpawn function is either called directly or via the blockingCopy function called from the initialize function. All blockingSpawn and blockingCopy calls include only the lab and workspacePath variables in their arguments. Both these variables are determined from config files, which is considered safe.
+  source: |
+    export const blockingSpawn = (command: string, args: string[], options?: SpawnSyncOptions): E.Either<Error, SpawnSyncReturns<string>> => {
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  sink: dest = path.join('app/libs', path.basename(obj.src));
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: safe
+  reasoning: While path.basename() is used which prevents directory traversal, the obj.src is user-controllable input that could potentially contain malicious filenames. However, the destination path is hardcoded to 'app/libs' making it safe.
+  source: null
+  unittest: null

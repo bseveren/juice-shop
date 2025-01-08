@@ -1,0 +1,9 @@
+inputs:
+  sink: const gzippedFilePath = path.join(outputPath, `${req.url}.gz`);
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: high
+  reasoning: Direct use of req.url in path.join without sanitization before the file existence check. The extension enforcement (.gz) doesn't prevent traversal since an attacker could end their path with .gz.
+  source: null
+  unittest: null

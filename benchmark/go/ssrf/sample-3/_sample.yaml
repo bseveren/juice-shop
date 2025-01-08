@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_go_G107
+  sink: "resp, err := http.Get(url)"
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: safe
+  # Note a user controls the url path of the forwarded request, but that is the intend of this forwarder snippet.
+  reasoning: To determine whether this snippet is vulnerable to SSRF, the value of url must be determined. Url is constructed using the fields in the forwarder structure and the stripped request's URL path. The host (which is resolved to a network address and which is used the url) is hard coded in the main function to "api". This eliminates any risk of SSRF.
+  source: |
+    url := fmt.Sprintf("http://%s:%d%s", ip, f.port, r.URL.Path)
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: $rs = mysql_query("SELECT id, total FROM person_points WHERE person_id = '$id'");
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: While the $id variable is sourced from the user request, it is sanitized by preg_replace which ensures that only numeric characters are kept from the $_GET['id']. This sanitization mitigates the risk of a sql injection via string-based query concatenation.
+  source: $id = preg_replace('/\D/', '', _ei($_GET['id']));
+  unittest: null

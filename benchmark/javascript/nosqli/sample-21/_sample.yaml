@@ -1,0 +1,37 @@
+inputs:
+  sink: |-
+    const flavor = req.params.flavor || 'default';
+
+    Version
+      .findOne({
+        name: version,
+        availability: availabilityFilter(),
+        flavor
+      })
+      .then(function(currentVersion) {
+        if (!currentVersion) {
+          return res.notFound('The specified version does not exist');
+        }
+
+        return res.format({
+          'application/json': function() {
+            res.send({
+              'notes': currentVersion.notes,
+              'pub_date': currentVersion.availability.toISOString()
+            });
+          },
+          'default': function() {
+            res.send(currentVersion.notes);
+          }
+        });
+      })
+      .catch(res.negotiate);
+  vulnerability: NoSQL injection attack possible
+  ruleId: node_nosqli_injection
+outputs:
+  priority: safe
+  # Docs on custom routes and parameters in Sail v0.x: https://0.12.sailsjs.com/documentation/concepts/routes/custom-routes
+  reasoning: |
+    There are several clues that this code is using Waterline, coupled with sail.js. Clues include 'sails.config.views.pageSize' and syntax like Version.findOne. The parameter 'flavor' comes from a named parameter in the controller's route, which are limited to strings in most frameworks like Sails or Express. Sails supports objects in version 1.x, but this snippet looks like a Classic Action from Sails 0.x. https://sailsjs.com/documentation/concepts/actions-and-controllers#?classic-actions
+  source: null
+  unittest: null

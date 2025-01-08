@@ -1,0 +1,9 @@
+inputs:
+  sink: await axios.post(url, { token, id, password, repeatPassword }, authServiceHeaders(relayConfig.returnUrl))
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: safe
+  reasoning: "Url is not under user control. It is sourced from configuration object, which is assumed to be safe. This mitigates the risk of SSRF."
+  source: "const url = relayConfig.authApiUrl + '/auth/reset/confirm"
+  unittest: null

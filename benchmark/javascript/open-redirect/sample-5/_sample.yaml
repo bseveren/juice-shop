@@ -1,0 +1,9 @@
+inputs:
+  sink: return NextResponse.redirect(new URL('/bar', req.url));
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: safe
+  reasoning: Next.js middleware with strict path checks ('/foo'), using internal NextRequest.url construction for base URL.
+  source: null
+  unittest: null

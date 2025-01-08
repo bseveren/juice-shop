@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_ts_node_nosqli_injection
+  sink: "const existingCustomer = await Customer.findOne({ email: lowercasedEmail });"
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: safe
+  reasoning: While the details argument may contain arbitrary JSON objects, the argument passed to findOne (lowercasedEmail) is either undefined or a string as it is constructed via the String.prototype.toLowerCase() method. This protects the query from NoSQL injection.
+  source: const lowercasedEmail = details.email?.toLowerCase();
+  unittest: null

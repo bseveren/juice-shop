@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_csharp/injection/rule-LdapInjection
+  sink: adSearch.Filter = userName;
+  vulnerability: LDAP query injection may lead to data exposure
+outputs:
+  priority: medium
+  reasoning: The ValidateUserName is not validating the userName. Since the function is public, it may be possible that the userName comes from a user request. In that case, the code is vulnerable. However, the intent of the function seems to be for admin control, so it is rather unlikely that an unverified user request would end up here. The severity is critical, since a user's account is deleted.
+  unittest: null
+  source: userName
+  probability: unlikely
+  severity: critical

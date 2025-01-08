@@ -1,0 +1,13 @@
+inputs:
+  ruleId: AIK_ts_node_nosqli_injection
+  sink: |-
+    const record = await this.services.mongo.LevelSlotTemplateModel.findOne({ id }, undefined, {
+        comment: DISABLE_AUTO_TRANSLATE_COMMENT,
+    }).lean();
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: highest
+  # Potential to have priority 'very high'.
+  reasoning: The request params may contain arbitrary JSON objects. These objects are passed to mongodb's findOne query function via request.params.id without sanitation. This enables an attacker to specify arbitrary query conditions and makes the query vulnerable to NoSQL injection.
+  source: const id = request.params.id;
+  unittest: null

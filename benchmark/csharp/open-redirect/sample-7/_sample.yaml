@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_csharp_endpoint_rule_UnvalidatedRedirect
+  sink: return Redirect($"~/{itemType}/{itemId}");
+  vulnerability: Open redirect can be used in social engineering attacks
+outputs:
+  priority: safe
+  probability: zero
+  severity: minor
+  reasoning: The redirect url starts with a tilde which points to the root of the ASP.NET MVC Web application, so the redirect isn't vulnerable to open redirects.
+  source: var (itemType, itemId) = model;
+  unittest: null

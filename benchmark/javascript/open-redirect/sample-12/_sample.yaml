@@ -1,0 +1,12 @@
+inputs:
+  sink: |-
+    return res
+        .status(401)
+        .redirect(`${config.loginUrl}/user/login?error=${err.getCustomerFacingError() || ''}`);
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: safe
+  reasoning: Redirect is fixed, base url not under user control.
+  source: null
+  unittest: null

@@ -1,0 +1,9 @@
+SSRF
+- sink =  (HttpsURLConnection) url.openConnection(); in shopifyUtils
+- upgrade expected because data comes from this.shop, which comes directly from the request data in ShopifySettingsAction (+10)
+- upgrade: no checks/validation whatsoever (neutral, already in the SSRF start score assumed)
+- downgrade: return data from the request is returned and is further processed, but only specific
+ fields are used (domain, iana_timezone, myshopify), which makes it hard to exploit - a specific structure in the response is exptected ( -40)
+- SSRF starts at 89/100
+- notes: extremely hard to exploit, so false positive (close to the edge though)
+- expected outcome: 40-50

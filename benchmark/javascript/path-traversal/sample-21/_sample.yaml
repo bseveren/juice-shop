@@ -1,0 +1,23 @@
+inputs:
+  sink: |-
+    fs.readFile('/.well-known/acme-challenge/'+req.params.file_name, 'utf8', function (err,data) {
+    	if (err){
+    		res.json(err)
+    	}
+
+    	res.send(data)
+    });
+  vulnerability: Potential file inclusion attack via reading file
+  ruleId: generic_path_traversal
+outputs:
+  priority: safe
+  reasoning: |
+    The '/.' makes the readFile interpret the path as absolute path, but it is still possible to fully traverse the absolute paths. However, the variable comes from the :filename field, which cannot contain slashes. As such, marking as safe. If filename would have come from req.query, it would have been vulnerable. E.g. running the following example worked on my local laptop:
+    import path from 'path';
+    import fs from 'fs';
+    var input = 'index?stuff=otherstuff/../../etc/cups/cupsd.conf';
+    var a = path.resolve('/.well-known/acme-challenge/' + decodeURI(input))
+    console.log(a);
+    console.log(`  File Content: ${fs.readFileSync(a, "utf-8")}`);
+  source: null
+  unittest: null

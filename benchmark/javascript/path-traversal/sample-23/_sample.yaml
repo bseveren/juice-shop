@@ -1,0 +1,9 @@
+inputs:
+  sink: const file = (0, common_1.normalizePath)(path_1.default.join(path_1.default.dirname(record.file), derivative.alias));
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: lowest
+  reasoning: This is used in an internal module resolution context (likely for resolving package aliases) with normalizePath sanitization. derivative.alias unlikely to be under user control.
+  source: null
+  unittest: null

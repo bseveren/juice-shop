@@ -1,0 +1,10 @@
+inputs:
+  ruleId: AIK_echoed-request
+  sink: echo $post;
+  vulnerability: Rendering unescaped input can lead to XSS attacks
+outputs:
+  priority: safe
+  reasoning: While postId comes from the user request, it is actually never outputted as $post is either equal to false or equal to the (json encoded) result of PostRepo::getPost.
+  source: |-
+    $post = isset($_POST['postId']) ? $_POST['postId'] : false;
+  unittest: null

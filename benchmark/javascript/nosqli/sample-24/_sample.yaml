@@ -1,0 +1,12 @@
+inputs:
+  sink: |-
+    const adminUser = await strapi
+      .query("admin::user")
+      .findOne({ where: { email: params.email } });
+  vulnerability: NoSQL injection attack possible
+  ruleId: node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: This is a bootstrap script where the only variable is read from a configuration file. Users don't provide data during bootstrap.
+  source: null
+  unittest: null

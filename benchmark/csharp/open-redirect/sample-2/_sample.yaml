@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_csharp_endpoint_rule_UnvalidatedRedirect
+  sink: return Redirect(string.Format("/order/detail.aspx?orderId={0}&status=1{1}", orderId, queryStringAddition));
+  vulnerability: Open redirect can be used in social engineering attacks
+outputs:
+  priority: safe
+  probability: unlikely
+  severity: minor
+  reasoning: The start of the redirect url is hard-coded to /order/detail.aspx, so this redirect isn't vulnerable to open redirects.
+  source: null
+  unittest: null

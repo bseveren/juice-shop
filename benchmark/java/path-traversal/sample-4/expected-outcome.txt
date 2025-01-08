@@ -1,0 +1,6 @@
+path trav
+- 2x sink =  new File(context.getFilesDir(), dirName);, mkdir()
+- file is creating using user input, but only the dirname is dyanmic, and it's constructed using a CONSTANT (assume all caps=constants) and getAccountID, which returns an int (see 3rd file)
+- SSRF starts at 85/100
+- note: context from the 'calling file' is missing, but it's not even NEEDED to know it is safe!
+- expected outcome: 0-10

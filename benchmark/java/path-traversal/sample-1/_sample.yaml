@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_httpservlet-path-traversal
+  sink: 'File uploadedFile = TempFile.createTempFile(System.currentTimeMillis() + "-", fileName);'
+  vulnerability: Path traversal attack possible
+outputs:
+  priority: safe
+  reasoning: The file is created using TempFile.createTempFile, which is a function that restricts file operations to the system's tmp folder and that avoids file name collisions.
+  source: String fileName = request.getParameter(CatalogueDao.USER_FILENAME);-
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_py_LFI
+  sink: Path.joinpath(Path(module.__path__[0]).parent, "pyproject.toml"), "rb"
+  vulnerability: Potential file inclusion attack via reading file
+outputs:
+  priority: safe
+  reasoning: The argument to Path.joinpath resolves to the pyproject.toml meta file included in the python project. It is a static file location that cannot be influenced by user input. Therefor it is not susceptible to a file inclusion attack.
+  source: Path(module.__path__[0]).parent
+  unittest: null

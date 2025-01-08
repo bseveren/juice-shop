@@ -1,0 +1,12 @@
+inputs:
+  ruleId: AIK_ts_node_nosqli_injection
+  sink: |-
+    const customer = await Context.services.mongo.Customer.findOne({
+      email: value,
+    });
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: safe
+  reasoning: The snippet calls findOne with an email address sourced from a request parameter and validated by Joi. By ensuring the request parameter is a valid email address, the code snippet is immune to NoSQL attacks.
+  source: "const { error, value } = Joi.string().email({ allowUnicode: false }).validate(email);"
+  unittest: null

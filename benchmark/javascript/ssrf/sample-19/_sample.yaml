@@ -1,0 +1,9 @@
+inputs:
+  sink: let res = await axios.post(url, data,{headers})
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: lowest
+  reasoning: The axios request is sent from fetchWithToken. The base url of the request is set to API_URL, which is set by StoreMiddlewares.getStore. This function likely fetches data from a trusted source. Additionally, a validator named checkPayfacConfig is called, which probably throws an error if the payfac_api_url is invalid.
+  source: const result = await fetchWithToken('post', `${API_URL}v2/payment/intent`, final_param)
+  unittest: null

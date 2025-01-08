@@ -1,0 +1,16 @@
+inputs:
+  sink: |-
+    const xfdfFile = (req.query.did) ? path.resolve(dir, `${req.query.did}.xfdf`) : path.resolve(dir, 'default.xfdf');
+    if (fs.existsSync(xfdfFile)) {
+      res.header('Content-Type', 'text/xml');
+      res.send(fs.readFileSync(xfdfFile));
+    } else {
+      res.status(204);
+    }
+  vulnerability: Potential file inclusion attack via reading file
+  ruleId: generic_path_traversal
+outputs:
+  priority: high
+  reasoning: Consider attack payload req.query.did = '../../some-file' would escape the provided 'dir'. Upgrade because the req.query.did is likely user-controlled. Upgrade because there is no sanitization. Downgrade because the attack is limited to xfdf files.
+  source: "const xfdfFile = (req.query.did) ? path.resolve(dir, `${req.query.did}.xfdf`) : path.resolve(dir, 'default.xfdf');"
+  unittest: null

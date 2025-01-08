@@ -1,0 +1,12 @@
+inputs:
+  ruleId: AIK_ts_node_nosqli_injection
+  sink: |-
+    const admin = await this.services.postgres.InternalAdminUser.findOne({
+        internalUserId: request.auth.credentials.userId,
+    });
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: safe
+  reasoning: The snippet calls findOne on a model of a postgresql database. As postgresql queries aren't vulnerable to NoSQL injection, this finding should be prioritized as low.
+  source: this.services.postgres
+  unittest: null

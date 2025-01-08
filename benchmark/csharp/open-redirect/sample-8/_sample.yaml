@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_csharp_endpoint_rule_UnvalidatedRedirect
+  sink: "? Redirect(returnUrl)"
+  vulnerability: Open redirect can be used in social engineering attacks
+outputs:
+  priority: highest
+  probability: certain
+  severity: minor
+  reasoning: The controller redirects to returnUrl, which comes from the user request. It is only checked whether the string contains whitespaces or is null, but it is not sanitized or validated. This makes the redirect vulnerable to open redirects.
+  source: var (itemType, itemId) = model;
+  unittest: null

@@ -1,0 +1,5 @@
+SSRF
+- sink =  new HttpPost(sfdcToken.getUrl() + URL_REST_POSTFIX + CONVERT_LEAD_URL_POSTFIX);
+- source = data coming from a request response! not the actual user input. Moreover, it's from a well known company (salesforce.com). Extremely hard to exploit
+- SSRF starts at 89/100
+- expected outcome: 0-20

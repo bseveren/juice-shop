@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_go_G107
+  sink: 'req, err := http.NewRequest("GET", url, nil)'
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: safe
+  reasoning: The base of the request url is set in providerURL, where it's fixed to 'https://sapi.acme.gr'. As the base url cannot be manipulated by an attacker, the snippet is safe from SSRF.
+  source: "url := fmt.Sprintf(providerURL, config.Conf.Mstat.Auth, data.ID, url.QueryEscape(data.From), data.To, url.QueryEscape(data.Msg), coding)"
+  unittest: null

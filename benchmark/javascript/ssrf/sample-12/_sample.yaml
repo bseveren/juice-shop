@@ -1,0 +1,9 @@
+inputs:
+  sink: "url: url,"
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: safe
+  reasoning: The base of the url is set to a property of hubspotGroup, which isn't set from context or ffVariables. So hubspotGroup.baseUrl cannot be manipulated by the user.
+  source: null
+  unittest: null

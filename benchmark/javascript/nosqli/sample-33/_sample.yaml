@@ -1,0 +1,13 @@
+inputs:
+  sink: |-
+    const locale = await this.localeRepository.findOne({
+    	where: { code: localeIdentity.code },
+    })
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: low
+  reasoning: |
+    Unsanitized and likely user controlled => upgrade twice. However, user must be admin => downgrade once. Impact is limited to deleting locales, which typically contains insensitive content like language of the user, and the snippet implies that only unused locales can be deleted which further limits the impact of a vulnerability => downgrade twice.
+  source: null
+  unittest: null

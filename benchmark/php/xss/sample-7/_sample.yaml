@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_echoed-request
+  sink: echo '<a href="' . $actual_link . '?page=' . ($current_page - 1) . '">&lt;</a>  ';
+  vulnerability: Rendering unescaped input can lead to XSS attacks
+outputs:
+  priority: safe
+  reasoning: While the current_page variable comes from the user request, the subtraction expression only succeeds when $current_page contains a number. For non-numeric current_page values, php throws a TypeError and stops execution. As the subtraction expression only results in numeric outputs, it cannot output harmful XSS payloads.
+  source: $_REQUEST['page']
+  unittest: null

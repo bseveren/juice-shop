@@ -1,0 +1,10 @@
+inputs:
+  ruleId: AIK_js_shell_injection_child_process
+  sink: |-
+    const execSync = cmd => _.trim(execSync(cmd, { encoding: 'utf8' }));
+  vulnerability: Potential for OS command injection via child_process call
+outputs:
+  priority: safe
+  reasoning: execSync is called with the string literal 'npm whoami', so a user cannot inject commands.
+  source: execSync('npm whoami')
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_tainted-ssrf
+  sink: HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: low
+  reasoning: The host of the request is a shop url that is fetched from a database, which is assumed to be sanitized. The response of the request is not returned to the user, this reduces the priority (blind SSRF).
+  source: "ShopifyConnectionDetailsDto connDetails = ShopifyConfigurationDao.getInstance().getConnectionDetails(accountId);"
+  unittest: null

@@ -1,0 +1,5 @@
+path trav
+- sink if for sure connected
+- top level is command line arguments, probably to start the server. This is not tainted input, so not valid
+- SSRF starts at 85/100
+- expected outcome: 0-10

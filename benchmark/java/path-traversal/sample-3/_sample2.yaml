@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_inject_rule-SpotbugsPathTraversalAbsolute
+  sink: Files.deleteIfExists(Paths.get(tempFilePair.getKey().getAbsolutePath()));
+  vulnerability: Path traversal attack possible
+outputs:
+  priority: safe
+  reasoning: The deleted file was created by File.createTempFile, which is a function that restricts file operations to its third argument and that avoids file name collisions. This prohibits deleting arbitrary files.
+  source: 'File tempFile = File.createTempFile(ThreadLocalRandom.current().nextInt() + accountId, "." + mimeType.split("/")[1], directory);'
+  unittest: null

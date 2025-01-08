@@ -1,0 +1,9 @@
+inputs:
+  sink: const r = spawnSync(command, args, {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: The blockingSpawn function is called from the initialize function defined in server.ts. All these call are hardcoded except for the use of the variable workspacePath. This variable is defined in the server function by reading a config field, which is considered safe.
+  source: const workspacePath = config.workspacePath || process.env.WORKSPACE_PATH || '/home/coder/project';
+  unittest: null

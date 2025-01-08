@@ -1,0 +1,12 @@
+inputs:
+  ruleId: AIK_java_httpservlet-path-traversal
+  sink: try (FileInputStream fis = new FileInputStream(zipFile)) {
+  vulnerability: Path traversal attack possible
+outputs:
+  priority: lowest
+  reasoning: While the location of zipFile is derived from request input, it is based on claims contained in an access token. As these claims are verified by HttpSecurityAssertions, we can assume their contents to be trustworthy. This makes the risk of a path traversal attack low.
+  source: |-
+    File zipFile = zipFolder
+            .resolve(orgId)
+            .resolve(reportUid + ".zip").toFile();
+  unittest: null

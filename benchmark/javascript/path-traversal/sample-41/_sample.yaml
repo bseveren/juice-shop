@@ -1,0 +1,15 @@
+inputs:
+  sink: |-
+    	const multer_temp_image_path = req.file.path;
+
+    	// We also gzip the image so we don't waste disk space
+    	const gzip = zlib.createGzip();
+    	const output_gzip_stream = fs.createWriteStream(payload_fire_image_filename);
+    	const input_read_stream = fs.createReadStream(multer_temp_image_path);
+  vulnerability: Potential file inclusion attack via reading file
+  ruleId: generic_path_traversal
+outputs:
+  priority: safe
+  reasoning: While multer's req.file.path points to a temporary file created by multer which is typically safe, it could potentially be dangerous if multer isn't properly configured with storage limits and file type restrictions. However, in this code we see the file is immediately processed and deleted, plus there's a host check (req.get('host') != process.env.XSS_HOSTNAME) that happens earlier in the route, reducing the risk.
+  source: const multer_temp_image_path = req.file.path;
+  unittest: null

@@ -1,0 +1,15 @@
+inputs:
+  sink: |-
+    const lastObject = await this._db.models.Member.findOne({
+        where: {
+            URI: lastURI,
+            version: process.env.npm_package_version ? process.env.npm_package_version : '0.0.0'
+        }
+    });
+  vulnerability: NoSQL injection attack possible
+  ruleId: node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: The parameters are values fetched from a database and environment file, both are considered safe.
+  source: null
+  unittest: null

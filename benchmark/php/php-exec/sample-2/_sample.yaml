@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_exec-use
+  sink: $mail = @popen($sendmail, 'w');
+  vulnerability: Unsafe exec usage can lead to remote code execution
+outputs:
+  priority: safe
+  reasoning: All the variables that are referenced in $sendmail are safe to include in a shell. The $this->Sendmail variable is escaped via escapeshellcmd and $this->Sender is omitted when it doesn't pass the isShellSafe validation function.
+  source: $sendmail = sprintf($sendmailFmt, escapeshellcmd($this->Sendmail), $this->Sender);
+  unittest: null

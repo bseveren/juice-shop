@@ -1,0 +1,15 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: |
+    using (SqlCommand cmd = new SqlCommand("INSERT INTO Resource VALUES(" +
+                                                          "@UserID," +
+                                                          "@Date," +
+                                                          "@Layout," +
+                                                          "@Topic)" +
+                                                          "SELECT CAST(scope_identity() AS int)", conn))
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: The sql query is a parameterized query which mitigates any risk of a sql injection via string-based query concatenation.
+  source: null
+  unittest: null

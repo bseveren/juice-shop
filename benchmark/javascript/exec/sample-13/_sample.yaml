@@ -1,0 +1,9 @@
+inputs:
+  sink: return execSync(command, opts).toString();
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: The runCmd function is called 5 times from the extractSomethingFromSomeProject function. These calls contain the output and destPath variables. output is defined by loading a config, which is considered safe. destPath is a function argument and the function is called from the createTemplates function. The destPath in this function relies on thisProject, which is also sourced via a config file, which is considered safe.
+  source: runCmd(`mv ${output}/bundle/templates/someProject-pagespeed.js ${destPath}/dynamic/templates/someProject2-payload.js`)
+  unittest: null

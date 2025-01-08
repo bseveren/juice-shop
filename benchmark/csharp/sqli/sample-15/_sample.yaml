@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: |
+    .SqlQuery<int?>("SELECT top 1 organizationId FROM Absence.Insurance WHERE policyNumber = '" +
+                    policyNumber + "' OR relationNumber = '" + relationNumber + "'").FirstOrDefault();
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: highest
+  reasoning: The policyNumber and relationNumber string parameters are concatenated to the sql query without being sanitized. As these parameters are probably sourced from a web request, the query is vulnerable to sql injection.
+  source: string policyNumber, string relationNumber
+  unittest: null

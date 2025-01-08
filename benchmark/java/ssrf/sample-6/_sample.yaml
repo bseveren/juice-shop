@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_tainted-ssrf
+  sink: Scanner scanner = new Scanner(new URL(certificateUrl).openStream())
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: lowest
+  reasoning: While the origin of certificateUrl is a network request, the url is validated by checking the protocol and host components. As sns.amazonaws.com belongs to a trustworthy company, the certificateUrl is expected to be safe and the risk on SSRF is small.
+  source: 'payload.getString("SigningCertURL", "")'
+  unittest: null

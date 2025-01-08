@@ -1,0 +1,9 @@
+inputs:
+  sink: "p.innerHTML = '<textarea style=\"background-image: url(images/back-opis.png);background-repeat:no-repeat\" rows=\"5\" cols=\"45\" id=\"opisTxt'+id+'\">'+opisTxt+'</textarea>';"
+  vulnerability: Using document write methods can lead to XSS attacks
+  ruleId: AIK_js_insecure-document-method
+outputs:
+  priority: medium
+  reasoning: There is no security method in place to prevent id and opisTxt to contain malicious code. However, it is unclear if these parameters can be defined by another user.
+  source: function editSomeMovieName(id,opisTxt,efektTxt,dataSomeName){
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: $sql = "INSERT INTO worker_online_apps( app_id,app_date,frm_id,field,value ) VALUES('{$app_id}','{$app_date}','{$f_id}','{$k}','" .  mysql_real_escape_string($v) . "' )"; $_sqlId               = Sql_Exec($sql);
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: highest
+  reasoning: The variables $f_id and $k aren't sanitized and are concatenated directly to the query string. Both variables are sourced from user values. The concatenation of these user values makes the query vulnerable to sql injection attacks.
+  source: $f_id     = $_POST['frm_id']; foreach ($_POST as $k => $v)
+  unittest: null

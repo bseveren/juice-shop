@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_tainted-ssrf
+  sink: HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: low
+  reasoning: The host of the request is passed to the ShopifyOAuthManager constructor as the shop argument. Its origin is unclear however. The url contains a hard-coded suffix, hindering an attacker from choosing arbitrary paths. The response of the request is not returned to the user, this reduces the priority (blind SSRF).
+  source: URL url = new URL(HTTPS + this.shop + OAUTH_VALIDATE_URL);
+  unittest: null

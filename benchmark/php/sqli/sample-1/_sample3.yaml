@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: $sql = "update `AcctSyncIdent` set extId = null, extSeq = null, syncId = null, statusId = 0 where syncType = 3 and acIdent = {$c['id']}"; Sql_Exec($sql);
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: $c comes from PersonDataRow, which is fetched from a database. The row's id property is safe as it is an integer (which is evident from the type of $id), which mitigates the risk of a sql injection via string-based query concatenation
+  source: "$c = PersonDataRow(PERSONTYPE_Caregiver, $id);"
+  unittest: null

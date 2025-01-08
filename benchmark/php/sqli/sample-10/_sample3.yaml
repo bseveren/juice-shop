@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: $drs               = mysql_query("SELECT CAST(AES_DECRYPT(BINARY UNHEX(value_text),'{$encryption_key}') AS CHAR) FROM patient_data WHERE patient_id='{$cid}' AND field='{$row['field']}'");
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: Three string are concatenated to the query. The encryption_key string is a private value that is unlikely to be controlled by the user. The $cid string is decoded from the 'c' URI query parameter via decodeDigs. This decode function casts string elements to integers and returns strings consisting only of digits (non-numeric string elements are cast to the digit zero). These digit-only strings cannot inject harmful payloads into the sql query. The third string $row['field'] is sourced from the database where it represents the field name of a patient data record. It is likely that patient data is limited to a system-defined list of fields. This ensures that the field name is safe to concatenate to the sql query.
+  source: $cid  = decodeDigs($cid);
+  unittest: null

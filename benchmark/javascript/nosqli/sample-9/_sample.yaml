@@ -1,0 +1,19 @@
+inputs:
+  ruleId: AIK_ts_node_nosqli_injection
+  sink: |-
+    const admin = await this.database.InternalAdminUser.findOne({
+      internalUserId: value.internalUserId,
+    });
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: safe
+  reasoning: The snippet calls findOne with an user id sourced from the request payload and validated by the Joi createSchema schema. By validating the schema of the user id, the code snippet is immune to NoSQL attacks.
+  source: |-
+    const { error, value } = createSchema.validate(
+      {
+        ...request.payload,
+        internalUserId: request.auth.credentials.userId,
+      },
+      { allowUnknown: false }
+    );
+  unittest: null

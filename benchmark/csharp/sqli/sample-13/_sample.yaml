@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: string sql = "SELECT Name, HeadOfState FROM Country WHERE Continent='"+continent+"'";
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: highest
+  reasoning: The continent variable isn't sanitized and is concatenated directly to the query string. The variable likely contains user input as it's sourced from the Request object. The concatenation of these user values makes the query vulnerable to sql injection attacks.
+  source: string continent = Request("continent");
+  unittest: null

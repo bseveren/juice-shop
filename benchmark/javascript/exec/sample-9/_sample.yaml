@@ -1,0 +1,9 @@
+inputs:
+  sink: exec("cd " + path + " && go run *.go", (err, stdout, stderr) => {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: path is not hardcoded and this snippet does not contains its source. However, given the name 'microservices.js' and the comment of starting a service, the path is very likely defined by the system and not by the user.
+  source: function runService(name, path) {
+  unittest: null

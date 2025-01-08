@@ -1,0 +1,19 @@
+inputs:
+  ruleId: CKV_AWS_24
+  sink: |
+    resource "aws_vpc_security_group_ingress_rule" "telebit_prefix_beento_ssh" {
+      description       = "From Beento"
+      from_port         = 22
+      to_port           = 22
+      ip_protocol       = "tcp"
+      security_group_id = module.sg_telebit.security_group_id
+      prefix_list_id    = aws_ec2_managed_prefix_list.beento.id
+
+      tags = local.local_tags
+    }
+  vulnerability: Firewall rules allow SSH from any public IP
+outputs:
+  priority: safe
+  reasoning: While this ingress rule allows SSH access from public addresses, the access is restricted IP addresses that match the ranges in beento_ssh_ips. Looking at the mapping values, these addresses likely belong to employees and CI workers (codeship, azdo). As employees and CI workers are considered trusted parties, the identified vulnerability is safe to ignore.
+  source: null
+  unittest: null

@@ -1,0 +1,6 @@
+SSRF is really exploitable here.
+- sink = HttpPost(url.toString());
+- no conclusions can be made, unclear where it comes from (missing context)
+- user must be advised to check source
+- SSRF starts at 89/100
+- expected outcome: 89, no change

@@ -1,0 +1,5 @@
+open redirect.
+- sink = response.sendRedirect(redirectUrl);
+- the source is incomingURI = request.getRequestURI(), so the host is basically the one where it's hosted. That makes this basically a false positive, can't be used in social engineering by changing the host etc
+- open redirects starts at 70/100
+- expected outcome: 0-10

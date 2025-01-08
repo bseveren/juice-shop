@@ -1,0 +1,38 @@
+inputs:
+  sink: |-
+    var locale = req.cookies.locale || 'en';
+
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+
+
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Referrer-Policy', 'no-referrer');
+
+    if( app.get('env') == "production" )
+    {
+    	res.setHeader("Strict-Transport-Security", "max-age=63072000");
+    }
+
+    res.setHeader("content-security-policy", "default-src 'self' ;script-src 'self' https://fullstory.com https://www.gstatic.com ; img-src 'self' data: https://d34u2sil40zpgt.cloudfront.net https://www.gravatar.com ; worker-src 'self' blob:; style-src 'unsafe-inline' 'self' https://fonts.googleapis.com https://www.gstatic.com ;font-src 'self' https://fonts.gstatic.com data:; frame-src 'self' ;  connect-src 'self' https://rs.fullstory.com https://sentry.io/;");
+
+    return res.sendFile(path.resolve(HTMLPATH, 'i
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: safe
+  reasoning: |
+    File path uses user-controlled cookie input (locale), but the 'express-request-language' library whitelists this cookie.
+    If this was a user-controlled variable, the sample would have been high. The path construction may look like a fixed structure with HTMLPATH resolved from __dirname and a fixed 'index.[locale].html' pattern. However, dots are allowed in directory names, therefore a payload like 'foo/../../index' can retrieve any .html file on the system. This can be tested by executing the following code:
+    import path from 'path';
+    var input = 'stuff/../../file';
+    var a = path.resolve('testpath/index.' + input + '.html')
+    console.log(a);
+    Upgrade because no sanitization
+    Upgrade because certainlty user input
+    Downgrade because limited to .html files
+  source: null
+  unittest: null

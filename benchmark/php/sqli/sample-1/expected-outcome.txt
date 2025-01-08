@@ -1,0 +1,5 @@
+sqli
+- 5x sink
+- nearly every query here is dangerous, but none are exploitable. All are near-misses (eg due to int-casting or whitelist checks)
+- sqli starts at 90/100
+- expected outcome: 0-10

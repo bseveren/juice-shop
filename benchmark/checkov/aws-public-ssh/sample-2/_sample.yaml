@@ -1,0 +1,17 @@
+inputs:
+  ruleId: CKV_AWS_24
+  sink: |
+    resource "aws_security_group_rule" "label_studio_ssh" {
+      security_group_id = aws_security_group.label_studio.id
+      type              = "ingress"
+      from_port         = 22
+      to_port           = 22
+      protocol          = "tcp"
+      cidr_blocks       = ["0.0.0.0/0"]
+    }
+  vulnerability: Firewall rules allow SSH from any public IP
+outputs:
+  priority: highest
+  reasoning: This ingress rule allows SSH access from any ipv4 address to the label-studio EC2 instance, which may allow malicious users to gain access to the instance.
+  source: null
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  sink: execSync(command, (error, stdout, stderr) => {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: There is a for loop of executing commands of the 'commands' variable. All commands are hardcoded.
+  source: runCommand(commands[i]);
+  unittest: null

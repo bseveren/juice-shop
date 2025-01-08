@@ -1,0 +1,12 @@
+inputs:
+  sink: res.redirect(links.get(req.params.email))
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: safe
+  reasoning: Uses fixed Map of URLs, so open redirect risk is mitigated.
+  source: |- 
+      const links = new Map([
+      ['foo@bar.com', 'https://calendly.com/******logan/***-walkthrough-call'],
+      ['foo@bar.com', 'https://calendly.com/sydney-******/15min'],
+  unittest: null

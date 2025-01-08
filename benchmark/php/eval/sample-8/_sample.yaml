@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_eval-use
+  sink: eval(func_get_arg(0));
+  vulnerability: Unsafe eval usage can lead to remote code execution.
+outputs:
+  priority: high
+  reasoning: The code evaluates [evalphp] tag contents as php code. As the contents of this tag are likely controlled by the user, their evaluation may lead to arbitrary code execution.
+  source: $lcCode .= $code;
+  unittest: null

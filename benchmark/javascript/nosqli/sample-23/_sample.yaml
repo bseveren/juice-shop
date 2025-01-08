@@ -1,0 +1,17 @@
+inputs:
+  sink: |-
+    const idWork = req.body.idWork
+
+    // Ensure idWork is provided
+    if (!idWork) {
+      return res.status(400).json({ message: 'Valid idWork must be provided' })
+    }
+
+    const initialWork = await works.findOne({ id_work: idWork })
+  vulnerability: NoSQL injection attack possible
+  ruleId: node_nosqli_injection
+outputs:
+  priority: high
+  reasoning: req.body.idWork comes is user-controlled (upgrade) and there is no sanitization (upgrade). The severity is limited to loading initialWork from other accounts, which limits the scope of the attack a bit (downgrade).
+  source: null
+  unittest: null

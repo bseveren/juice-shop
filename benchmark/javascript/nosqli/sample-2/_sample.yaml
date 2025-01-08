@@ -1,0 +1,13 @@
+inputs:
+  ruleId: AIK_node_nosqli_injection
+  sink: |-
+    const user = Users.findOne({
+       name: req.body.name.toString(),
+       password: req.body.password.toString(),
+    });
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: safe
+  reasoning: The request body may contain arbitrary JSON objects which are parsed by the express json middleware. However, the request body parameters are cast to strings before the query is executed. This hardens the query against NoSQL injection.
+  source: req.body
+  unittest: null

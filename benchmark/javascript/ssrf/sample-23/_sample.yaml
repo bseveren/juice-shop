@@ -1,0 +1,14 @@
+inputs:
+  sink: |- 
+    "var response = await axios({
+      method: 'GET',
+      url: documentURL,
+      responseType: 'stream',
+    });
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: medium
+  reasoning: "Unknown where documentURL originates from. More context required to determine the priority level."
+  source: null
+  unittest: null

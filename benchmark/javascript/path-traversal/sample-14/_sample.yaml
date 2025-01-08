@@ -1,0 +1,39 @@
+inputs:
+  sink: |-
+    let desiredTagPath = req.body.desiredTagPath;
+
+    try {
+
+    	// Let's find out acme's container id
+    	returnObj = await tools.executeOneShellCommand("docker container ps");
+
+    	let listOfContainers = returnObj.stdOut.join('').toString();
+
+    	console.log("listOfContainers->" + listOfContainers)
+    	let acmeContainerIdRE = /([0-9a-f]+)\s+gitlab\.[a-z]+\.com:\d+\/empress\/acme/;
+
+    	let acmeContainerId = listOfContainers.match(new RegExp(acmeContainerIdRE))[1];
+
+    	//7) Let's upload to acme the downloaded payload
+    	//TODO here's a bug. If i'm trying to install a 'payload' type of payload, the destination
+    	//will be /app/payload
+    	let resolvedPath = path.resolve(`${desiredTagPath}/app/acme`);
+
+    	let dockerCopyCmd = `docker cp ${resolvedPath} ${acmeContainerId}:/app/`
+
+    	returnObj = await tools.executeOneShellCommand(dockerCopyCmd);
+
+    	if (returnObj.exitCode == 0) {
+    		res.send(acmeContainerId);
+    	}
+    	else {
+    		resolvedPath = path.resolve(`${desiredTagPath}/app/payload`);
+
+    		let resolvedDest
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: highest
+  reasoning: User-controlled desiredTagPath is directly used in path.resolve() and then fed into docker cp commands without sanitization. Allows for path traversal and potential RCE through Docker container manipulation.
+  source: let desiredTagPath = req.body.desiredTagPath;
+  unittest: null

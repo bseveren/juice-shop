@@ -1,0 +1,20 @@
+inputs:
+  sink: |-
+    resellerId ??= await resellerController.findByName("***");
+    template = await getCustomerTemplate(customerId, templateId, language);
+    if (!template) {
+      template = await htmlTemplate.findOne({
+        seller: resellerId,
+        templateId: templateId,
+        language: language,
+        deleted: false,
+      });
+    }
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: |
+    eventRequest.templateId is validated against a schema in the router.post('/events/send') function. ResellerId is fetched from a trusted source and language is whitelisted.
+  source: null
+  unittest: null

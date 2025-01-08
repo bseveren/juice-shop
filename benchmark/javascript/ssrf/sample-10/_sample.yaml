@@ -1,0 +1,9 @@
+inputs:
+  sink: const response = await axios.get(artifactUrl, { headers });
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: safe
+  reasoning: "artifactUrl is sourced from the database (via getArtifactUrlFromDb), indexed with runId. As artifacts stored in the database are assumed to be safe, this mitigates the risk of SSRF."
+  source: "const artifactUrl = await getArtifactUrlFromDb(runId)"
+  unittest: null

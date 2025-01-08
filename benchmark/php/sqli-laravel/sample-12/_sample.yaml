@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_laravel-sql-injection
+  sink: $result = DB::select(DB::raw($sql));
+  vulnerability: Potential SQL injection via Laravel function
+outputs:
+  priority: highest
+  reasoning: DB::raw inserts a raw expression into the sql query without sanitization. As $orderId contains user input from the request and this user input isn't sanitized, the query is vulnerable to sql injection.
+  source: $orderId = $request->orderId;
+  unittest: null

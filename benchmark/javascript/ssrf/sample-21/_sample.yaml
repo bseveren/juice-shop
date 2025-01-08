@@ -1,0 +1,9 @@
+inputs:
+  sink: "sendRequest(context => axios.get(url, { ...config, signal: context.abortSignal }).then(value => ATEok(value)));"
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: medium
+  reasoning: In API.ts, url is set to `${url}/healthz` and a client constructor is defined in httpEditorPublicClient which accepts this url. Without any further validation on url, the client may issue requests to unintended URLs making it vulnerable to SSRF. When creating client objects, the url should be carefully validated.
+  source: null
+  unittest: null

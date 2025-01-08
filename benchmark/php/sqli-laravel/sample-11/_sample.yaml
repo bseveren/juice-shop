@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_laravel-sql-injection
+  sink: $userQuery->whereRaw('users.id in (' . $vendorQuery . ')');
+  vulnerability: Potential SQL injection via Laravel function
+outputs:
+  priority: highest
+  reasoning: whereRaw inserts a raw WHERE clause into the sql query without any sanitization. As $vendorQuery may contain user input from the request and this user input isn't sanitized, the query is vulnerable to sql injection.
+  source: $vendorIds = $request->input('vendors', []);
+  unittest: null

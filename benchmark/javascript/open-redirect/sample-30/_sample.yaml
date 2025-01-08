@@ -1,0 +1,15 @@
+inputs:
+  sink: |-
+    const countryFromCookie = req.universalCookies.get(cookies.identifiers.PREFERRED_COUNTRY)
+    const isValidCountryCookie = countryFromCookie && config.countries.available.includes(countryFromCookie)
+
+    if (path === '/' && isValidCountryCookie) {
+      return res.redirect(301, `/${language}-${countryFromCookie}`)
+    }
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: express_open_redirect
+outputs:
+  priority: medium
+  reasoning: If an attacker controls req.language, they could redirect users off-site (e.g., setting language = /evil.com/ redirects to http://evil.com/-BE/ with the countryFromCookie prefix). It's unclear if middleware setting req.language enforces an allowlist. 
+  source: null
+  unittest: null

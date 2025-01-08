@@ -1,0 +1,5 @@
+sqli
+- 1x sink mysql_query
+- not vuln - uses date function output + intvals
+- sqli starts at 90/100
+- expected outcome: 0-10

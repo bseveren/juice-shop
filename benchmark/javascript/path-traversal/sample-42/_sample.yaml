@@ -1,0 +1,11 @@
+inputs:
+  sink: |-
+    var uri = url.parse(request.url).pathname
+        , filename = path.join(argv.web, uri);
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: highest
+  reasoning: The code directly joins user-controlled URL pathname behind a server-defined path. Since this feeds into fs.readFile for serving files over HTTP, an attacker could access arbitrary files outside the web root directory.
+  source: null
+  unittest: null

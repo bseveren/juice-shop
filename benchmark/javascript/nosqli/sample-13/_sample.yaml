@@ -1,0 +1,14 @@
+inputs:
+  ruleId: AIK_node_nosqli_injection
+  sink: |-
+    const user = Users.findOne({
+      name: req.body.name,
+      password: req.body.password,
+    });
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: highest
+  reasoning: |
+    The request body may contain arbitrary JSON objects which are parsed by the express json middleware. These objects are passed to mongodb's findOne query function via req.body.name and req.body.password without sanitation. This enables an attacker to specify arbitrary query conditions. E.g. {"password": {"$ne":"invalid"}}.
+  source: req.body
+  unittest: null

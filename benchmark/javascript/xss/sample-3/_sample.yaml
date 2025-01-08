@@ -1,0 +1,9 @@
+inputs:
+  sink: "<span dangerouslySetInnerHTML={{ __html: value }} />"
+  vulnerability: Using dangerouslySetInnerHTML in React can lead to XSS attacks
+  ruleId: AIK_react-dangerouslysetinnerhtml
+outputs:
+  priority: high
+  reasoning: This snippet highlights search matches in the email, requestBody and originalURL fields of audit logs. As the user consulting the logs is likely different than the user for who the logs were created, a potential for XSS exists. The requestBody field is especially problematic as a user can typically control the body of their requests and easily insert a harmful payload. This is an example for a stored XSS vulnerability. Note that a search match isn't even required to render value with dangerouslySetInnerHTML.
+  source: customOutputs={(columnName, value, row) => {
+  unittest: null

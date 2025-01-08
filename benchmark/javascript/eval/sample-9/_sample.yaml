@@ -1,0 +1,14 @@
+inputs:
+  sink: |-
+    let expiresMs = parseInt(tokenResponse.expires_in) * 1000;
+    setTimeout(() => {
+    	this.reset(domain)
+    }, expiresMs);
+  vulnerability: Remote Code Execution possible via eval()-type functions
+  ruleId: AIK_ts_eval_nodejs
+outputs:
+  priority: safe
+  reasoning: The setTimeout() calls the this.reset(domain) function after the timeout. The 'domain' variable, which is potentially user-provided, cannot do any harm, since it is not executed as string but only as function. The reset function does not return anything.
+  source: |
+    private onTokenResponse = (tokenResponse: google.accounts.oauth2.TokenResponse, domain: string, successCallback: (oauthToken: string) => void) => {
+  unittest: null

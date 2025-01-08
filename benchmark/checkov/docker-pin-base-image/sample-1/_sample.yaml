@@ -1,0 +1,9 @@
+inputs:
+  ruleId: CKV_DOCKER_7
+  sink: FROM base AS final
+  vulnerability: Automatic upgrades of base Docker images can lead to supply chain attacks
+outputs:
+  priority: safe
+  reasoning: This FROM statement is from a multi-stage Dockerfile where base refers to an earlier stage in the Dockerfile. The image of the base stage is pinned to a specific digest, which guarantees supply chain integrity of the base image.
+  source: null
+  unittest: null

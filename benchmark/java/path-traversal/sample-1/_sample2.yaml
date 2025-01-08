@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_httpservlet-path-traversal
+  sink: Files.deleteIfExists(Paths.get(uploadedFile.getAbsolutePath()));
+  vulnerability: Path traversal attack possible
+outputs:
+  priority: safe
+  reasoning: The file that is deleted was created via TempFile.createTempFile, which is a function that restricts file operations to the system's tmp folder and that avoids file name collisions.
+  source: 'File uploadedFile = TempFile.createTempFile(System.currentTimeMillis() + "-", fileName);'
+  unittest: null

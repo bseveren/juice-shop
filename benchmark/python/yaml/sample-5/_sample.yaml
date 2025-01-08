@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_python_B506
+  sink: "yaml_parser.py:return yaml.load(content)"
+  vulnerability: Unsafe yaml load can lead to remote code execution
+outputs:
+  priority: highest
+  reasoning: The yaml content is sourced from a network request and is not sanitized.
+  source: "yaml_content = request.json.get('yaml')"
+  unittest: null

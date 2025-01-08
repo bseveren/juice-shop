@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_unserialize-use
+  sink: $relatedItemsString = unserialize($item->related);
+  vulnerability: Using unserialize can lead to remote code execution
+outputs:
+  priority: safe
+  reasoning: The source code snippet is part of a database migration service. The related field is sourced from the Item database table, which is assumed to be trustworthy.
+  source: $items = Item::select('id', 'related')->whereNotNull('related')->get();
+  unittest: null

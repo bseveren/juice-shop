@@ -1,0 +1,14 @@
+inputs:
+  sink: |-
+    sourceField = await Field.findOne({
+      _id: new ObjectId(sourceFieldId),
+      modelId: model._id,
+      __kind: 'field',
+    }).exec();
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: new ObjectId(sourceFieldId) cannot contain a dangerous injection. We also trust modelLoaders as we assume that a loader either fetches a trusted object or fails.
+  source: null
+  unittest: null

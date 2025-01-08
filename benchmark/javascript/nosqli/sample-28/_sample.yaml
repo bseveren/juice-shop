@@ -1,0 +1,9 @@
+inputs:
+  sink: "let profile = await PolicyProfile.findOne({ id: req.body.data.policyProfileId })"
+  vulnerability: NoSQL injection attack possible
+  ruleId: node_nosqli_injection
+outputs:
+  priority: high
+  reasoning: Upgrade because there is no sanitization. Upgrade because req.body.data.policyProfileId is user-controlled. Downgrade because the impact seems to be limited to adding a field for a policyProfile.
+  source: null
+  unittest: null

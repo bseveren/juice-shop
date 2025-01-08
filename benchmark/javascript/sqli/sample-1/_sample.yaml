@@ -1,0 +1,13 @@
+inputs:
+  ruleId: AIK_node_sqli_injection
+  sink: let sqlData = await request.query(sqlString);
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  # Note a sql query parameter is passed, but due to a bug the parameter is not referenced in the query. However parseInt saves the day here.
+  reasoning: While a string is concatenated to the sql query, it is cast to an integer, which mitigates the risk of a sql injection attack
+  source: |-
+    var sql = `SELECT api_key FROM t_tenant_api_key WHERE id_tenant = '${parseInt(
+      tenantId
+    )}' AND active = 1`;
+  unittest: null

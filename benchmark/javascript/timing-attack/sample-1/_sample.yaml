@@ -1,0 +1,13 @@
+inputs:
+  sink: |-
+    if (connectionAPIKey !== apiKey) {
+      console.error(AuthorizationErrors.ERROR_VALIDATING_API_KEY);
+      throw new Error(AuthorizationErrors.ERROR_VALIDATING_API_KEY);
+    }
+  vulnerability: A timing attack might allow hackers to bruteforce passwords
+  ruleId: AIK_ts_node_timing_attack
+outputs:
+  priority: high
+  reasoning: byte by byte comparison performed by javascript to compare api keys, so a timing attack is possible as an error is immediately raised. Downgrade because it comes after performing two database queries.
+  source: null
+  unittest: null

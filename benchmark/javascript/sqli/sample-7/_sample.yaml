@@ -1,0 +1,12 @@
+inputs:
+  ruleId: AIK_node_sqli_injection
+  sink: const result = await MySql.query(query);
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: While the request data is concatenated to the query it is safely escaped via MySql.escape, which mitigates the risk of a sql injection attack
+  source: |-
+    const query = `SELECT refresh_token
+                 FROM tokens
+                 WHERE access_token = ${MySql.escape(req.params.access_token)}`;
+  unittest: null

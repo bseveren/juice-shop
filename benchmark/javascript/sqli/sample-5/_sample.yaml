@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_node_sqli_injection
+  sink: request.query(sqlquery, function (err, result) {
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: The concatenated after and before variables are parsed from user input as dates and cast to DATETIME2, which mitigates the risk of a sql injection attack
+  source: |-
+    const startDate = req.query.start;
+    const endDate = req.query.end;
+  unittest: null

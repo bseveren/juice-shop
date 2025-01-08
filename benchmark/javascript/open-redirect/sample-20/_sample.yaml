@@ -1,0 +1,14 @@
+inputs:
+  sink: |-
+    const reference = req.params.reference;
+    if (reference) {
+      const translatedSettingsSlug = translations['common.slug.settings'];
+      return res.redirect(`/${req.locale}/${translatedManageSlug}/${translatedSettingsSlug}/${reference}`);
+    }
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: express_open_redirect
+outputs:
+  priority: safe
+  reasoning: Redirect to a relative URL, as such no risk of open redirect. If req.locale could be set to manipulated, there'd be risk of open redirect. However, req.locale is typically restricted by middleware using an allowlist based on Accept-Language headers.
+  source: null
+  unittest: null

@@ -1,0 +1,5 @@
+sqli
+- 1x sink mysql_query (line 88)
+- not vuln - uses intval, but in another file
+- sqli starts at 90/100
+- expected outcome: 0-10

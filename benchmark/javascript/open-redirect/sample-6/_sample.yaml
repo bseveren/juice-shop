@@ -1,0 +1,12 @@
+inputs:
+  sink: |-
+    const redirectUrl = req.body?.RelayState ?? '/';
+    return res.redirect(this.urlService.getInstanceBaseUrl() + redirectUrl);
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: high
+  reasoning: |
+    If getInstanceBaseUrl() returns a url ending with '/', it is safe. If it doesn't end with '/', there is a problem, because the user can control redirectUrl with e.g. @evil.com.
+  source: const redirectUrl = req.body?.RelayState ?? '/';
+  unittest: null

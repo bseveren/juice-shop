@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_csharp_SSRF
+  sink: new Uri(url + query)
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: high
+  reasoning: The host of the request is a url that is very likely user defined, which is dangerous and could potentially be used in an SSRF attack. The response of the request is returned to the user, which helps attackers in exploiting the SSRF vulnerability.
+  source: "HttpRequestMessage CreateRequest(HttpMethod method, string url, string query, string authHeader = null, object payload = null)"
+  unittest: null

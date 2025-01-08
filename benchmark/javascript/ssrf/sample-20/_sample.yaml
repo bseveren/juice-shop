@@ -1,0 +1,10 @@
+inputs:
+  sink: .get(url)
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: highest
+  # Note this is a sample from juice-shop. Perhaps the LLM has already seen it...
+  reasoning: Url is under direct user control, and not validated. Some type of validation occurs, but is not acted on. Internal resources can be accessed. Response is written to users profile picture.
+  source: const url = req.body.imageUrl
+  unittest: null

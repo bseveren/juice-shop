@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: command.CommandText += "AND [uid] = @pUID";
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  probability: zero
+  severity: critical
+  reasoning: The severity of SQL injection risk for UID is critical because it can come from user input, allowing attackers to potentially manipulate the query. However, the probability of successful injection is zero since UID is treated as a field parameter in a parameterized query (by AddWithValue). This means any malicious input is treated strictly as data, not executable SQL. The same reasoning applies to pStatus, which also poses the same threat level, but the risk is mitigated due to its treatment as a parameter.
+  source: command.Parameters.AddWithValue("pUID", UID);
+  unittest: null

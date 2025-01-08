@@ -1,0 +1,9 @@
+inputs:
+  sink: "dangerouslySetInnerHTML={{ __html: content }}"
+  vulnerability: Using dangerouslySetInnerHTML in React can lead to XSS attacks
+  ruleId: AIK_react-dangerouslysetinnerhtml
+outputs:
+  priority: high
+  reasoning: This snippet hints that this component shows a quotation, so it may be part of a CRM system where different users interact with the system. As such, the 'content' may represent quote information provided by another user, so this snippet has an increased likelihood of being vulnerable.
+  source: export default ({ content }) => {
+  unittest: null

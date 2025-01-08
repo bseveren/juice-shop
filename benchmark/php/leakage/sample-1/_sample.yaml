@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_vardump-use
+  sink: var_dump($value);
+  vulnerability: Using var_dump() can expose sensitive info to users
+outputs:
+  priority: safe
+  reasoning: var_dump is surrounded by ob_start() and ob_get_clean(), which buffers the output without leaking it to the end user.
+  source: null
+  unittest: null

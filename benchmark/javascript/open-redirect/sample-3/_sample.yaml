@@ -1,0 +1,11 @@
+inputs:
+  sink: |-
+    const safepath = req.path.slice(0, -1).replace(/\/+/g, '/')
+    res.redirect(301, safepath + query)
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: safe
+  reasoning: Only sanitizes trailing slashes and preserves query parameters. Cannot redirect externally, so no risk of open redirect.
+  source: null
+  unittest: null

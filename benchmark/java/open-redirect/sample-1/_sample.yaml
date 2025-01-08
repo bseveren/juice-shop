@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_UnvalidatedRedirect
+  sink: 'response.sendRedirect("https://" + request.getHeader("Host") + "/");'
+  vulnerability: Open redirect can be used in social engineering attacks
+outputs:
+  priority: safe
+  reasoning: The redirect URI is equal to the host of the request, excluding social engineering attacks as the host cannot be changed.
+  source: HttpServletRequest request = (HttpServletRequest) req;
+  unittest: null

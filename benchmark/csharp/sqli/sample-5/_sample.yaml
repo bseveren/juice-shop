@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: command.CommandText = "SELECT [id] FROM [DOCUMENTS_TEMPLATES] WITH (NOLOCK) WHERE [name] = @pName AND [is_active] = 1";
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: The query is a parameterized query which mitigates any risk of a sql injection via string-based query concatenation
+  source: command.Parameters.AddWithValue("pName", name);
+  unittest: null

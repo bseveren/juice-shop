@@ -1,0 +1,11 @@
+inputs:
+  sink: |-
+    var script = String.format('px_all[customizationContextMenuId].items.getItem({0}).setVisible({1})', index.toString(), (isVisible) ? 'true' : 'false');
+    eval(script);
+  vulnerability: Remote Code Execution possible via eval()-type functions
+  ruleId: eval_nodejs
+outputs:
+  priority: lowest
+  reasoning: Example vulnerable payload for index = "0}); alert('Hacked!'); ({"; This code treats visibility of items in a context menu. Therefore, it likely runs clientside. In that case, the only vulnerable scenario is where another user could define index, which seems unlikely but possible. Regardless if this runs serverside or clientside, it is unlikely that users get access to this code because of the .debug.js naming. Regardless, using eval here seems unnecessary and trivial to avoid; the user should refactor out the eval function.
+  source: function CustomizationScript_Selection$showContextMenuItem(index, isVisible) {
+  unittest: null

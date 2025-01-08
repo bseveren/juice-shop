@@ -1,0 +1,9 @@
+inputs:
+  sink: const contact_request = await axios.get(url, {
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: safe
+  reasoning: "Base of url is not under user control. This mitigates risk of SSRF"
+  source: var url = 'https://api-playpen.acme.com/api/customers/'; //development URL
+  unittest: null

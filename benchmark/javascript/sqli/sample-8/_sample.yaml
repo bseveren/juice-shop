@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_node_sqli_injection
+  sink: let sqlData = await request.query(sqlString);
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: Input parameters are used which separates user data from the sql query, which mitigates the risk of a sql injection
+  source: var sql = "SELECT id_tenant FROM t_tenant_api_key WHERE api_key = @apiKey AND active = 1";
+  unittest: null

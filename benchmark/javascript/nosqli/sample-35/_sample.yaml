@@ -1,0 +1,25 @@
+inputs:
+  sink: |-
+    const sheetRow = await em.getRepository(SheetRow).findOneOrFail(sheetRowId);
+    const column = await em.getRepository(InfoSheetColumn).findOneOrFail(body.column);
+
+    if (sheetRow.sheet.id !== column.sheet.id) {
+    	throw new BadRequestException(
+    		'SheetRowAndColumnNotFromSameSheet',
+    		'The sheetRow and column do not share the same sheet.'
+    	);
+    }
+
+    if (column.isLocked) {
+    	throw new BadRequestException('ColumnIsLocked', 'The column is locked.');
+    }
+
+    let sheetCell = await em.getRepository(InfoSheetCell).findOne({ column: body.column, row: sheetRow });
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: high
+  reasoning: |
+    Downgrade because the attack seems to be limited to access to other cells in a sheet and a sheet is likely either fully available to a user or not at all. So if a user has access to one cell, they would likely have access to all other cells anyway. The sheetRowId must be a valid string, because it comes from the route parameter :sheetRowId. Upgrade because body is likely user-controlled. Upgrade because not sanitized and MikroORM is vulnerable to attacks like { $ne: null }.
+  source: null
+  unittest: null

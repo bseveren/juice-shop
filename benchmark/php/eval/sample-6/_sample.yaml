@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_eval-use
+  sink: $result = eval("return ".$expression.";");
+  vulnerability: Unsafe eval usage can lead to remote code execution.
+outputs:
+  priority: high
+  reasoning: The contents of a POST variable under user controlled are evaluated as php code, which is vulnerable to arbitrary code execution. While the code appears to be a small snippet on an index page, it is unlikely to be production code. If additional context reveals that this is part of the production environment, the priority would escalate to highest. Therefore, the current priority is medium.
+  source: $expression = $_POST["expression"];
+  unittest: null

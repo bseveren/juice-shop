@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_inject_rule-SpotbugsPathTraversalAbsolute
+  sink: ContentBody cbFile = new FileBody(tempFilePair.getKey(), ContentType.create(tempFilePair.getValue()));
+  vulnerability: Path traversal attack possible
+outputs:
+  priority: safe
+  reasoning: FileBody reads a file that was created by File.createTempFile, which is a function that restricts file operations to its third argument and that avoids file name collisions. This prohibits reading arbitrary files.
+  source: 'File tempFile = File.createTempFile(ThreadLocalRandom.current().nextInt() + accountId, "." + mimeType.split("/")[1], directory);'
+  unittest: null

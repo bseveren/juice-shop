@@ -1,0 +1,13 @@
+inputs:
+  sink: |-
+    : path.join(
+        (_a = ref.scope) !== null && _a !== void 0 ? _a : '',
+        ref.name,
+      );
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: lowest
+  reasoning: Path construction uses either a direct package name string or combines scope and name from a reference object, which typically come from package configuration rather than user input. 
+  source: null
+  unittest: null

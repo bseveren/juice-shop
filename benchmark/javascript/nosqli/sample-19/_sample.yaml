@@ -1,0 +1,36 @@
+inputs:
+  sink: |-
+    let userId = req.user ? req.user.id : null
+    if (req.hostname === 'localhost') {
+      userId = 'tommy'
+    }
+    if (LOCALRESPONSES) {
+      const user = await p9.user.getDetails(userId)
+      const hasAdminRole = user.roles.find((role) => role.name === 'wasteAdmin')
+      const entity = await entities.custom_user_table.findOne({ master_user_id: userId })
+      const warehouseId = entity.Fabrikk
+      if (hasAdminRole) {
+        result = storedResponses.warehouses
+      } else {
+        result = storedResponses.warehouses.filter((warehouse) => warehouse.Werks === warehouseId)
+      }
+      console.log('result', result)
+      complete(res)
+      return
+    }
+    // BASE_URL path to sap system
+    const path = 'ZFA_GW_SRV/FabrikkSet'
+    const encodedPath = encodeURI(path)
+
+    const url = `${BASE_URL + encodedPath}?$format=json`
+    helpers.getAndSendData(url, async (data, error) => {
+      const user = await p9.user.getDetails(userId)
+      const hasAdminRole = user.roles.find((role) => role.name === 'wasteAdmin')
+      const entity = await entities.custo
+  vulnerability: NoSQL injection attack possible
+  ruleId: node_nosqli_injection
+outputs:
+  priority: medium
+  reasoning: Probably req.user is not user-controlled, since many express apps use middleware like app.use(...) to set fields like req.user using the login logic => downgrade. In the case that it is user-controlled there is certainly no sanitization or validation, so upgrade. The severity of the attack can be significant, seeing warehouse information of other accounts.
+  source: null
+  unittest: null

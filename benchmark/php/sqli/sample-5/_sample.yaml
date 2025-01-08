@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: $sql = "UPDATE person_points SET total = '" . $new_val . "' WHERE id = '$point_id'";
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: The variable $point_id is sourced from the database, which is assumed to contain safe values. The variable $new_val is checked to be numeric. This mitigates the risk of a sql injection via string-based query concatenation.
+  source: $new_val    = $cur_val + $add_points;
+  unittest: null

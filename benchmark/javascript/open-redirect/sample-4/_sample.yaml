@@ -1,0 +1,12 @@
+inputs:
+  sink: |-
+    const env = req.body?.env ?? z.coerce.string().default('').parse(req.query.env);
+    await updateAllEnvironments(force, env);
+    res.redirect(`/admin/update?status=success&env=${env}`);
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: safe
+  reasoning: While env is user controllable, redirect is hardcoded to /admin/update path. Query parameters cannot affect redirect destination.
+  source: const env = req.body?.env ?? z.coerce.string().default('').parse(req.query.env);
+  unittest: null

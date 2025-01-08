@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: Sql_Exec("INSERT INTO worker_data (worker_id, field, value_text) VALUES ($id, 'VFLAG_DoNotBill', '1'), ($id,'VFLAG_DoNotPay', '1') ON DUPLICATE KEY UPDATE value_text=value_text");
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: $id is cast to an integer which mitigates any risk of a sql injection via string-based query concatenation
+  source: "$id   = intval($_POST['caregiver_id']);"
+  unittest: null

@@ -1,0 +1,10 @@
+inputs:
+  sink: |
+    const { data: fields } = await axios({method: 'GET',url,
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: safe
+  reasoning: "URL is set by configuration file, which is assumed to be safe. As the base url is not under user control, risk of SSRF is mitigated."
+  source: const url = `${URL}/customFields?q=tableName%3D%27${tableName}%27`;
+  unittest: null

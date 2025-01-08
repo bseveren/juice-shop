@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_csharp_endpoint_rule_UnvalidatedRedirect
+  sink: return Redirect(destinationUrl);
+  vulnerability: Open redirect can be used in social engineering attacks
+outputs:
+  priority: safe
+  probability: unlikely
+  severity: minor
+  reasoning: As baseUrl is a constant, this redirect isn't vulnerable to open redirects.
+  source: var destinationUrl = string.Format("{0}?{1}", baseUrl, param.ToString("=", "&"));
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  sink: return res.redirect('/store/' + store.slug + '/resetpassword?' + qs.stringify(req.query))
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: express_open_redirect
+outputs:
+  priority: safe
+  reasoning: Redirect to a relative path. As such, there is no risk of open redirect.
+  source: null
+  unittest: null

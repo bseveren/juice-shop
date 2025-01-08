@@ -1,0 +1,38 @@
+inputs:
+  sink: |-
+    const filename = path.join(rootDir, 'styles', req.url.replace(/\.css$/, '.less'));
+
+    fs.lstat(filename, (error, stats) => {
+    	if(error || !stats.isFile()) {
+    		next();
+    	} else {
+    		fs.readFile(filename, (err, data) => {
+    			if(err) {
+    				next();
+    			} else {
+    				less.render(data.toString(), {
+    					filename,
+    					sourceMap: { sourceMapFileInline: true, outputSourceFiles: true }
+    				}, (err, output) => {
+    					if(err) {
+    						const pretty = `${err.type}Error: ${err.filename}: ${err.message} (${err.line}:${err.column})`;
+    						console.log(`\x1b[36m${pretty}\x1b[0m`);
+    						res.status(500);
+    						res.header('Content-Type', 'text/plain');
+    						res.send(pretty);
+    					} else {
+    						res.header('Content-Type', 'text/css');
+    						res.send(output.css);
+    					}
+    				});
+    			}
+    		});
+    	}
+    });
+  vulnerability: Potential file inclusion attack via reading file
+  ruleId: generic_path_traversal
+outputs:
+  priority: highest
+  reasoning: app.use is express syntax. Express resolves the joined path of route and req.url to resolve the endpoint. E.g. assume the attack payload 'foo?stuff=stuff/../../../etc/passwd' may render a stored password. Note that '?' and '=' are allowed in directory names.
+  source: const filename = path.join(rootDir, 'styles', req.url.replace(/\.css$/, '.less'));
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_laravel-sql-injection
+  sink: "'manager_id' => DB::raw($manager_id),"
+  vulnerability: Potential SQL injection via Laravel function
+outputs:
+  priority: safe
+  reasoning: Manager id is either numeric, the number 0 or a string equal to 'NULL'. As manager id is limited to these primitives values, the query is safe from sql injection.
+  source: $manager_id
+  unittest: null

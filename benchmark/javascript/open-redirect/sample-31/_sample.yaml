@@ -1,0 +1,9 @@
+inputs:
+  sink: return res.redirect(req.query.url);
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: express_open_redirect
+outputs:
+  priority: highest
+  reasoning: req.query.url directly used without any form of sanitization or validation. (is also indicated by the comment above the sink)
+  source: null
+  unittest: null

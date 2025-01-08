@@ -1,0 +1,12 @@
+inputs:
+  sink: |-
+    if (password === DEFAULT_PASSWORD) {
+      e2e.pages.Login.skip().should('be.visible').click();
+    }
+  vulnerability: A timing attack might allow hackers to bruteforce passwords
+  ruleId: AIK_ts_node_timing_attack
+outputs:
+  priority: safe
+  reasoning: Appears to be client side code (interacting with UI elements), and a testing framework (usage of e2e)
+  source: null
+  unittest: null

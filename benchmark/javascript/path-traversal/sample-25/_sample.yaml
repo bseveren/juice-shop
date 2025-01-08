@@ -1,0 +1,24 @@
+inputs:
+  sink: |-
+    let target = obj.target;
+    const srcFile = path.resolve(plugin.dir, src);
+
+    if (!target) {
+        target = path.basename(src);
+    }
+    const destFile = path.resolve(project.resources_dir, target);
+
+    if (!fs.existsSync(srcFile)) {
+        throw new CordovaError(`Cannot find resource file "${srcFile}" for plugin ${plugin.id} in iOS platform`);
+    }
+    if (fs.existsSync(destFile)) {
+        throw new CordovaError(`File already exists at destination "${destFile}" for resource file specified by plugin ${plugin.id} in iOS platform`);
+    }
+    project.xcode.addResourceFile(path.join('Resources', target));
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: lowest
+  reasoning: While the code uses path construction with obj.target and src variables, this appears to be part of a plugin installation system where these values likely come from plugin configuration files rather than direct user input. 
+  source: null
+  unittest: null

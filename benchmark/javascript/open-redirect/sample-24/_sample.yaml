@@ -1,0 +1,9 @@
+inputs:
+  sink: res.redirect(`https://${req.hostname}${req.url}`);
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: express_open_redirect
+outputs:
+  priority: safe
+  reasoning: Tampered Host headers can only affect the attacker's own request, as network-level Host header modification is not straightforward. 
+  source: null
+  unittest: null

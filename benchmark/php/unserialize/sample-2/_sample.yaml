@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_unserialize-use
+  sink: $this->{$key} = unserialize(serialize($val));
+  vulnerability: Using unserialize can lead to remote code execution
+outputs:
+  priority: safe
+  reasoning: The expression creates a deep clone of $val, which doesn't lead to remote code execution.
+  source: foreach ($this as $key => $val)
+  unittest: null

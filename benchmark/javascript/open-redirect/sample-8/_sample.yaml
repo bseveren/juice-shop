@@ -1,0 +1,17 @@
+inputs:
+  sink: |-
+    const session = await getSession(request.headers.get("Cookie"));
+    session.set(this.authenticator.sessionKey, user);
+
+    return redirect("/dashboard", {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: safe
+  reasoning: Hardcoded '/dashboard' redirect path, so no risk of open redirect.
+  source: null
+  unittest: null

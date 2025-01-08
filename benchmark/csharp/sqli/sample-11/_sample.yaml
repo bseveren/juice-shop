@@ -1,0 +1,20 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: |
+    var query = $@"
+        SELECT
+            [D].[{nameof(DashboardWidgetData.Guid)}] AS [{nameof(DashboardWidgetDataOverviewDto.Guid)}],
+            [U].[{nameof(aspnet_Users.UserId)}] AS [{nameof(DashboardWidgetDataOverviewDto.UserId)}],
+            [U].[{nameof(aspnet_Users.UserName)}] AS [{nameof(DashboardWidgetDataOverviewDto.UserName)}],
+            [D].[{nameof(DashboardWidgetData.Timestamp)}] AS [{nameof(DashboardWidgetDataOverviewDto.Timestamp)}],
+            [D].[{nameof(DashboardWidgetData.DisplayDate)}] AS [{nameof(DashboardWidgetDataOverviewDto.DisplayDate)}],
+            [D].[{nameof(DashboardWidgetData.Type)}] AS [{nameof(DashboardWidgetDataOverviewDto.Type)}],
+            [D].[{nameof(DashboardWidgetData.ImportFileName)}] AS [{nameof(DashboardWidgetDataOverviewDto.ImportFileName)}],
+        FROM [DataBase].[dbo].[{nameof(DashboardWidgetData)}] [D]
+        INNER JOIN [{nameof(aspnet_Users)}] [U] ON [U].[{nameof(aspnet_Users.UserId)}] = [D].[{nameof(DashboardWidgetData.UserId)}]";
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: While expressions are substituted in the sql query, they are all nameof expressions which compile to string constants and which are immune to sql injection.
+  source: nameof expressions
+  unittest: null

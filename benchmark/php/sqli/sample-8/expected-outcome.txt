@@ -1,0 +1,5 @@
+sqli
+- 1x sink Sql_Exec (line 55)
+- VERY vulny -   $f_id     = $_POST['frm_id']; (direct injection) and also via $k
+- sqli starts at 90/100
+- expected outcome: 100

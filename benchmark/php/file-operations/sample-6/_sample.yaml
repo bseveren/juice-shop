@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_php-file-operations
+  sink: "$instructions = file_get_contents( DVWA_WEB_PAGE_TO_ROOT.$readFile );"
+  vulnerability: Path traversal attack possible via file functions
+outputs:
+  priority: highest
+  reasoning: Input to file function is not sanitized. Vulnerable to reading arbitrary files from disk.
+  source: "$selectedDocId = isset( $_GET[ 'doc' ] ) ? $_GET[ 'doc' ] : '';"
+  unittest: null

@@ -1,0 +1,9 @@
+inputs:
+  sink: const response = await axios.post(sessionEndpoint, null, {
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: low
+  reasoning: The code calls a validateEndpoint function to validate the webhook endpoint. As the implementation of validateEndpoint is unknown, there exists a risk of SSRF if the validation is inadequate.
+  source: null
+  unittest: null

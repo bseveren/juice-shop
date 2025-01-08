@@ -1,0 +1,20 @@
+inputs:
+  sink: |-
+    const lastLog = await DatasourceLogModel.findOne({
+      datasourceId: datasource._id,
+      $or: typeof liveVersion !== 'undefined'
+        ? [{
+          version: draftVersion._id
+        }, {
+          version: liveVersion._id
+        }]
+        : [{ version: draftVersion._id }]
+    // note: we sort by `date` instead of `_id` because `_id` doesn't store millisecond
+    }).sort({ date: -1 }).exec()
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: dataSource seems to be a Mongoose model instance, which might contain user data. But only the `_id` fields are used of these instances, which are very likely mongo ObjectIds and are not under control of the user.
+  source: null
+  unittest: null

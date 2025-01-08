@@ -1,0 +1,14 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: |
+    cmd.CommandText = string.Format(@"
+                        UPDATE [{0}].[dbo].[Story]
+                        Set Title = '{1}', Ordinal = {2}, IsActive = {3}
+                        WHERE StoryID = {4}
+            ", Database.ConnectionInformation.DATABASE_NAME, story.Title, story.Ordinal, 1, story.StoryID);
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: highest
+  reasoning: The fields of the story object aren't sanitized in the provided source code and are subtituted in the sql query string. The Story object very likely contains user input. The substitution of these user values makes the query vulnerable to sql injection attacks.
+  source: Story story
+  unittest: null

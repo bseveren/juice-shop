@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_python_B506
+  sink: "app.py:parsed_data = yaml.load(yaml_content, CustomLoader)"
+  vulnerability: Unsafe yaml load can lead to remote code execution
+outputs:
+  priority: highest
+  probability: certain
+  severity: critical
+  reasoning: The yaml_content is read from JSON without sanitization, only checked for null, which is insufficient. The custom loader defines a constructor for one tag, but inherits the rest from Loader.  Documentation mentions "It's unsafe to call yaml.load on untrusted data, as it's as powerful as pickle.load and may execute any Python function." This poses a critical risk, allowing data to be read, modified, or deleted.
+  source: "yaml_content = request.json.get('yaml')"
+  unittest: null

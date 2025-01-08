@@ -1,0 +1,12 @@
+inputs:
+  sink: |-
+    if (index.hash === hash) {
+      return CodeIndexer.fromIndex(indexFile);
+    }
+  vulnerability: A timing attack might allow hackers to bruteforce passwords
+  ruleId: AIK_ts_node_timing_attack
+outputs:
+  priority: safe
+  reasoning: No sensitive material is being handled. As such, there's no risk of a timing attack.
+  source: null
+  unittest: null

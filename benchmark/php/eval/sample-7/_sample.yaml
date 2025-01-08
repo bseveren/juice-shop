@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_eval-use
+  sink: eval($res);
+  vulnerability: Unsafe eval usage can lead to remote code execution.
+outputs:
+  priority: high
+  reasoning: Content is fetched from a URL and is evaluated after some pattern replacements. The snippet expects the remote resource to answer with trustworthy JSON, but as this cannot be guaranteed it makes the code vulnerable to arbitrary code execution.
+  source: $res = file_get_contents($url_);
+  unittest: null

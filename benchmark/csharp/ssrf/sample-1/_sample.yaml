@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_csharp_SSRF
+  sink: var responseMessage = await _httpClient.GetAsync($"{Resource}/children?Year={yearMonth.Year}&Month={yearMonth.Month}");
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: safe
+  reasoning: The host of the request is a url that is defined as a class variable, which is assumed to be safe. The response of the request is not returned to the user, this reduces the priority (blind SSRF).
+  source: "public async void GetChildrenByDateRangeAsync(YearMonthRequest yearMonth)"
+  unittest: null

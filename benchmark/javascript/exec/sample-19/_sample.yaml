@@ -1,0 +1,9 @@
+inputs:
+  sink: child_process.exec(cmd, function(err, stdout, stderr) {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: The tryCommand is called only once with a hardcoded command.
+  source: tryCommand('android list targets --compact', msg)
+  unittest: null

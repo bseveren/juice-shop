@@ -1,0 +1,6 @@
+SSRF
+- sink = new Uri(url + query)
+- upgrade expected because data indeed flows from the request to the sink (bad)
+- upgrade again: testContentAPI function actually sends the response back to the output, showing attack the output of the SSRF (bad)
+- SSRF starts at 89/100
+- expected outcome: 95-100

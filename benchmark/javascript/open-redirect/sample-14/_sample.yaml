@@ -1,0 +1,10 @@
+inputs:
+  sink: return NextResponse.redirect(new URL(`/${locale}/404`, req.url));
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: safe
+  reasoning: |
+    Next.js middleware using internal NextRequest.url construction for base URL. As such, no risk of open redirect. Example locale='@evil.com', the resulting url is https://original-domain/@evil.com
+  source: null
+  unittest: null

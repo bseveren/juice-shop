@@ -1,0 +1,37 @@
+inputs:
+  sink: |-
+    			var range = selection.getRanges()[0];
+    			if (range) {
+    				var startPath=CSSelector(range.startContainer.$);
+    				var startPathParts=startPath.split('>');
+    				if (range.startContainer.$.nodeType ==3 ) {
+    					startPath=startPathParts.slice(0,startPathParts.length-1).join('>');
+    				}
+    				var endPath=CSSelector(range.startContainer.$);
+    				var endPathParts=endPath.split('>');
+    				if (range.endContainer.$.nodeType ==3 ) {
+    					endPath=endPathParts.slice(0,endPathParts.length-1).join('>');
+    				}
+    				var savedSelection={
+    					startPath : startPath.toString(),
+    					startOffset : range.startOffset,
+    					endPath : endPath.toString(),
+    					endOffset : range.endOffset
+    				
+                    };
+    				// modify texts
+    				editor.setData(DOMPurify.sanitize(record.description, domPurifyConfig));
+                    liveEditDataVersion=record.version;
+    				callUpdateCallBack(record);
+    				// restore selection
+                  //  editor.focus();
+
+                    var startPathElem = editor.document.findOne(savedSel
+  vulnerability: NoSQL injection attack possible
+  ruleId: node_nosqli_injection
+outputs:
+  # sample from plugin for JS client-side text editor FYI likely client side code for https://en.wikipedia.org/wiki/CKEditor
+  priority: safe
+  reasoning: The considered .findOne function is likely a custom function, not a noSQL query. It could be that this snippet is part of a vulnerable calltree, but in that case the implementation of the .findOne function needs to be marked as vulnerable, not this intermediate function.
+  source: null
+  unittest: null

@@ -1,0 +1,13 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: |
+    var query = "SELECT ITEM,PRICE FROM PRODUCT WHERE ITEM_CATEGORY='"
+      + categoryTextBox.Text + "' ORDER BY PRICE";
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: highest
+  severity: critical
+  probability: certain
+  reasoning: A query is built by concatenating user-supplied text box values, which allows any character, including those used in SQL injection. Since there are no mitigations to sanitize the input, sensitive data may be read, altered, or deleted, making the severity critical and the probability certain. Additionally, the lack of a MaxLength property means the length of user input is unbounded, presenting another potential vulnerability.
+  source: TextBox categoryTextBox;
+  unittest: null

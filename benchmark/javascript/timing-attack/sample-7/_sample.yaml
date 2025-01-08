@@ -1,0 +1,21 @@
+inputs:
+  sink: |-
+    if (token === process.env.onboardingApiKey) {
+        // To know if the user of the API is external to Doctena
+        process.env.isClientLimited = String(false);
+
+        // Client for local
+        process.env.currentClient = appConfig.defaultUser;
+
+        // To know if it's an external (out of Doctena) client
+        process.env.isExternalClient = String(false);
+
+        return next();
+    }
+  vulnerability: A timing attack might allow hackers to bruteforce passwords
+  ruleId: AIK_ts_node_timing_attack
+outputs:
+  priority: medium
+  reasoning: byte by byte comparison performed by javascript to compare api keys. However, unclear whether a warning/exception is raised and returned to the user.
+  source: null
+  unittest: null

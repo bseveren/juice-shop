@@ -1,0 +1,8 @@
+SSRF
+- sink = var responseMessage = await _httpClient.GetAsync($"{Resource}/children?Year={yearMonth.Year}&Month={yearMonth.Month}");
+- good: the source is not request data, but seems to come from a class variable -30 points
+- bad: no attempts are made to validate, we have to hope the class variable is safe, and it might still be bypassable + 10 points
+- good: the content of the reponse is in no way return to the user (blind SSRF) -20 points
+- SSRF starts at 89/100
+- expected outcome: 40-60
+- expected outcome severity :  (low to medium)

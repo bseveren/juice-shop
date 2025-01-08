@@ -1,0 +1,8 @@
+SSRF ..
+- sink = (HttpsURLConnection) url.openConnection();
+- downgrade: SHOPIFY_FOO_APP_STATUS_URL is uppercase, seems to indicate a 'constant'. The definition includes a call to default() -20
+- downgrade: the definition of SHOPIFY_FOO_APP_STATUS_URL also includes an append of  + "/shopifyFooAppStatus"; so an attacker cannot pick the path -20
+- downgrade: it's a PUT call and the result is not returned at all (blind SSRF): -10/-15
+- SSRF starts at 89/100
+- expected severity low to medium
+- expected outcome: 30-40

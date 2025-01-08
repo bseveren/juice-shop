@@ -1,0 +1,10 @@
+inputs:
+  sink: exec(command, (error, stdout, stderr) => {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: low
+  reasoning: If the user sets the event.shipId field in the index.js handler to '1/some_file.pdf && rm -r /' and all other parameters to expected parameters, this will remove all local files from the current work directory. There is no checking for the shipId field in the handler. It is then provided to the makeSignedPdf function, which will first attempt to download files based on a filepath constructed with this id. This will fail, but no error will be thrown. In that case the binderPageCount is 1, so we will end up in the 'else' clause in the createBinder function's if-else statement. There the mergePdfFiles will be called with the dangerous payload. Since constructing the command for shipId in combination with the need that all other parameters need to be set as expected, the construction of this attack is not trivial without access to the source code. Moreover, the index.js file gives several hints that this is a lambda function, increasing the likelihood that the shipId is defined by the back-end instead of the user. # The only difference with the other sample is the number of pages in case there is no pdf found
+  source: |
+    const command = `fooscript -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=${output} ${file1} ${file2}`;
+  unittest: null

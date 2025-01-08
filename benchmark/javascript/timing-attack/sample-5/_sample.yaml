@@ -1,0 +1,13 @@
+inputs:
+  sink: |-
+    if (password !== repeatPassword) {
+      this.toastService.showWarn('Passwords doesn\'t match');
+      return false;
+    }
+  vulnerability: A timing attack might allow hackers to bruteforce passwords
+  ruleId: AIK_ts_node_timing_attack
+outputs:
+  priority: safe
+  reasoning: appears to be client-side code (angular framework)
+  source: null
+  unittest: null

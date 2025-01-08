@@ -1,0 +1,10 @@
+inputs:
+  sink: const filePath = path.resolve(__dirname, '../../files/docs' + req.url)
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  # sample too small?
+  priority: highest
+  reasoning: Direct user input from req.url is concatenated into the file path without sanitization. The only requirement is that url contains the expected endpoint before the '?' character, but it can reach any path by adding it as a parameter, e.g. attack payload 'foo?stuff=stuff/../../../etc/passwd'.
+  source: null
+  unittest: null

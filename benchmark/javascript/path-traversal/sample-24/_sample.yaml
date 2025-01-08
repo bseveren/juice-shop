@@ -1,0 +1,11 @@
+inputs:
+  sink: |-
+    const filename = req.path.replace(/^\//, '');
+    res.sendFile(path.join(process.cwd(), pkg.dllPlugin.path, filename));
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: high
+  reasoning: The sink code extracts the filename directly from req.path and only strips leading slash. While it's restricted to .dll.js files by the route pattern, an attacker could still potentially access sensitive files outside the intended directory by using path traversal sequences in the filename.
+  source: null
+  unittest: null

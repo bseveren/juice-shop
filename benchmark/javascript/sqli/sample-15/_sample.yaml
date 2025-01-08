@@ -1,0 +1,9 @@
+inputs:
+  sink: connection.query(sql_query, (error, results, fields) => {
+  vulnerability: Potential SQL injection via string-based query concatenation
+  ruleId: AIK_node_sqli_injection
+outputs:
+  priority: safe
+  reasoning: The data added as values to sql_query are all escaped using mysqlConnection.escape. There is one exception for the active value, but active is a boolean and therefor also safe.
+  source: null
+  unittest: null

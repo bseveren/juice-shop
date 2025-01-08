@@ -1,0 +1,13 @@
+inputs:
+  sink: await setTimeout(config.retryIntervalSec * 1000);
+  vulnerability: Remote Code Execution possible via eval()-type functions
+  ruleId: AIK_ts_eval_nodejs
+outputs:
+  priority: safe
+  reasoning: The '* 1000' ensures that only an integer goes in the setTimeout function. There is a bug in this code, as setTimeout is incorrect used as a sleep function. But await won't have the desired blocking effect. Instead a Promise that resolves after a setTimeout completes should be used as a sleep function.
+  source: |
+    export const repeatedCheckRunner = async (
+      config: { info: string; timeoutSec: number; retryIntervalSec: number },
+      callback: () => Promise<CheckFunctionResult>
+    )
+  unittest: null

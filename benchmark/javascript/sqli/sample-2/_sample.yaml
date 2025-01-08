@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_node_sqli_injection
+  sink: const result = await request.execute(storedProcedure);
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: A stored procedure is used, which mitigates the risk of a sql injection attack
+  source: output = await Sql.execute(connection, "pr_gen_lastid", input, output);
+  unittest: null

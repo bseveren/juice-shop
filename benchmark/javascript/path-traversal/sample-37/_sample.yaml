@@ -1,0 +1,9 @@
+inputs:
+  sink: let archivePath = path.join(pyConfig.data_archive, serverChannelCacheMap[bedid].channel);
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: safe
+  reasoning: The path is constructed using pyConfig.data_archive (from configuration) and serverChannelCacheMap[bedid].channel (from an internal mapping), with no direct user input. The channel value comes from a controlled mapping parsed from HL7 messages in the acmeDirectParser function, where it's derived from validated medical device data rather than user input.
+  source: null
+  unittest: null

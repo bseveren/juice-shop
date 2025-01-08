@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: Sql_Exec("DELETE FROM worker_data WHERE worker_id=$id AND field = '$key'");
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: $id is cast to an integer and $key is checked against a whitelist. This mitigates any risk of a sql injection via string-based query concatenation
+  source: "$id   = intval($_POST['caregiver_id']); if ($key === 'VFLAG_DoNotBill' || $key === 'VFLAG_DoNotPay')"
+  unittest: null

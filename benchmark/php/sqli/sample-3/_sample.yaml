@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: $rs     = mysql_query("SELECT * FROM patient_assessment WHERE patient_id='{$customer_id}' ORDER BY `date` DESC");
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: $customer_id contains an integer as IVdefspv returns an intval function call, which mitigates the risk of a sql injection via string-based query concatenation
+  source: $customer_id = IVdefspv(0, $_REQUEST, 'c');
+  unittest: null

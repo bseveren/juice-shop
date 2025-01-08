@@ -1,0 +1,12 @@
+inputs:
+  sink: |
+    const response = await axios({
+      method: 'GET',
+      url: endpoint.toString(),
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: low
+  reasoning: "Risk of SSRF depends on who initializes the AcmeAdapter class. More precisely: whether the domain parameter in the initialization is controlled by user input or not. The variable 'domain' is of type 'URL' which gives a hint that domain was likely validated or retrieved from server data before this class was created, but more context is required to determine risk of SSRF"
+  source: "domain: URL;"
+  unittest: null

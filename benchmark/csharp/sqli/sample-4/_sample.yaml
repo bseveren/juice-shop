@@ -1,0 +1,13 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: |
+    command.CommandText = "UPDATE [DOCUMENTS] SET " +
+        "[is_active] = 0 " +
+        "WHERE [process_id] = @pProcessId " +
+        "AND [file_name] = @pFileName";
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: The query is a parameterized query which mitigates any risk of a sql injection via string-based query concatenation
+  source: command.Parameters.AddWithValue("pFileName", fileName);
+  unittest: null

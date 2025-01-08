@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_csharp_endpoint_rule_UnvalidatedRedirect
+  sink: return LocalRedirect(redirect);
+  vulnerability: Open redirect can be used in social engineering attacks
+outputs:
+  priority: safe
+  probability: unlikely
+  severity: minor
+  reasoning: The user is redirected to returnUrl via LocalRedirect which throws an exception if the url isn't local, so the redirect isn't vulnerable to open redirects.
+  source: public ActionResult Auth(LogOnModel model, string returnUrl)
+  unittest: null

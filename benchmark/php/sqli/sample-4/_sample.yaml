@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: $sql = "SELECT COUNT(id) AS total FROM worker WHERE first_name = '" . $fn . "' AND (last_name = '" . $ln .  "' OR last_name LIKE '" . $ln . " %')"; $rs  = mysql_query($sql);
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: The variables $fn and $ln are sanitized by the Sql_Escape function. While the implementation of Sql_Escape is unknown, we assume it returns safe values. This mitigates the risk of a sql injection via string-based query concatenation
+  source: $fn = Sql_Escape($fn); $ln = Sql_Escape($ln);
+  unittest: null

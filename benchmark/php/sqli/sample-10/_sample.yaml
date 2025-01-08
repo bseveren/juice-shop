@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: $rs             = mysql_query("SELECT * FROM patient WHERE id='$cid'");
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: $cid is decoded from the 'c' URI query parameter via decodeDigs. This decode function casts string elements to integers and returns strings consisting of only digits (non-numeric string elements are cast to the digit zero). These digit-only strings cannot inject harmful payloads into the sql query and therefor the query is safe from sql injection.
+  source: $cid  = decodeDigs($cid);
+  unittest: null

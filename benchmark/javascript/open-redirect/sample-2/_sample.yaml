@@ -1,0 +1,12 @@
+inputs:
+  sink: ctx.redirect(entityIndexPageUrl(ctx.route.fullPath))
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: safe
+  reasoning: |
+    If someone includes a totally different path in ctx.route.fullPath, it won't work because it will never reach this endpoint.
+    If someone includes the following payload in ctx.route.fullPath: expected/route/endpoint?param1=evilparameter&param2=canbeignored/
+    as payload, it can still reach the endpoint, and the redirect will include the parameters because of the added slash. However, we only consider open-redirects dangerous when the endpoint can be changed, so mark as safe.
+  source: null
+  unittest: null

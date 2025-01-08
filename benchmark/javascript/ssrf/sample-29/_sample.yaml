@@ -1,0 +1,9 @@
+inputs:
+  sink: const response = await fetch(url)
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: lowest
+  reasoning: "If getDomainsURL returns a base URL independent of any request data, the snippet would be safe from SSRF. Given the signature of the getDomainsURL function, it likely doesn't process request data. However, as the implementation of getDomainsURL is unknown this cannot be ruled out. If the snippet would be vulnerable, the SSRF would be blind; further decreasing the priority. Therefore the priority is lowest."
+  source: "return response.status === 200 ? await response.json() : null"
+  unittest: null

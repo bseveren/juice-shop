@@ -1,0 +1,14 @@
+# Incorrectly classified as high...
+# The variable 'modifiedBy' is sourced from the 'ApiRequestContext.UserTypeAsString(sourceUserType)' which is an external source (user request). Although the variable is properly parameterized in the SQL query, it is still a potential SQL injection vulnerability as it comes from an external source.
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: |
+    command.CommandText = "SELECT [remote_ip] FROM [PROCESS_HISTORY] WITH (NOLOCK) WHERE " +
+        "[process_id] = @pProcessId AND [is_active] = 1 AND [modified_by] = @pModifiedBy " +
+        "ORDER BY [create_date] DESC";
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: The query is a parameterized query which mitigates any risk of a sql injection via string-based query concatenation, modifiedBy is safely added via a query parameter.
+  source: string modifiedBy = ApiRequestContext.UserTypeAsString(sourceUserType);
+  unittest: null

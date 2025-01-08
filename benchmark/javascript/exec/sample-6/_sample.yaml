@@ -1,0 +1,9 @@
+inputs:
+  sink: proc.exec('git status; git reset --hard; git clean -df; git checkout ' + branch + '; git pull --no-tags -f', {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: Everything in this exec is hardcoded except for 'branch'. This is set by sub.branch. This is in its turn defined by the contents of subscribersConfig, which is likely read from a configuration file. We assume that configuration files cannot be modified by a user.
+  source: var branch = sub.branch || 'master';
+  unittest: null

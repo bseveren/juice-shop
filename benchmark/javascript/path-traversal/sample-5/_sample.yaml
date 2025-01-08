@@ -1,0 +1,23 @@
+inputs:
+  sink: |-
+    const sessionId = req.query.sessionId;
+
+    if (!sessionId) {
+      return res.status(400).send({ message: "No sessionId provided" });
+    }
+
+    const filePath = `./sessions/${sessionId}.json`;
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).send({ message: "Session not found" });
+    }
+
+    const templateJson: ChiliDocument = JSON.parse(
+      fs.readFileSync(filePath, "utf-8")
+    );
+  vulnerability: Potential file inclusion attack via reading file
+  ruleId: AIK_ts_generic_path_traversal
+outputs:
+  priority: highest
+  reasoning: No validation performed against sessionId, while it clearly is under user control. As such, risk is highest
+  source: const sessionId = req.query.sessionId;
+  unittest: null

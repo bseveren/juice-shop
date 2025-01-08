@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_python_B318
+  sink: xml_dom = xml.dom.minidom.parseString(stripped_body)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+outputs:
+  priority: medium
+  reasoning: It is plausible (but rather unlikely) that 'body' can represent unchecked user input, being injected in a function known to be vulnerable to XML attacks. Such an XML attack could make the server execute code, potentially manipulating sensitive data. Therefore, the severity is critical.
+  unittest: null
+  source: body
+  probability: unlikely
+  severity: critical

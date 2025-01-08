@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_python_B506
+  sink: "return yaml.load(content)"
+  vulnerability: Unsafe yaml load can lead to remote code execution
+outputs:
+  priority: low
+  reasoning: The source code is a from a CLI tool and the yaml content is read from a file on a local disk, which is assumed to be safe.
+  source: content = args.file.read()
+  unittest: null

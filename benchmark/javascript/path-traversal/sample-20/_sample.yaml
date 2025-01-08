@@ -1,0 +1,10 @@
+inputs:
+  sink: var tmppath = path.join(os.tmpdir(), params.stream_id + '.json');
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: safe
+  reasoning:  |
+    The stream_id parameter comes directly from the URL path parameter (req.params.stream_id), but with the given route definition /waveform/:stream_id the stream_id parameter cannot contain '/' in express js.
+  source: null
+  unittest: null

@@ -1,0 +1,41 @@
+inputs:
+  sink: |-
+    var duration = e.type === 'mousemove' ? 2500 : Effect.duration;
+
+    setTimeout(function() {
+
+        var style = {
+            top: relativeY + 'px',
+            left: relativeX + 'px',
+            opacity: '0',
+
+            // Duration
+            '-webkit-transition-duration': duration + 'ms',
+            '-moz-transition-duration': duration + 'ms',
+            '-o-transition-duration': duration + 'ms',
+            'transition-duration': duration + 'ms',
+            '-webkit-transform': scale + ' ' + translate,
+            '-moz-transform': scale + ' ' + translate,
+            '-ms-transform': scale + ' ' + translate,
+            '-o-transform': scale + ' ' + translate,
+            'transform': scale + ' ' + translate
+        };
+
+        ripple.setAttribute('style', convertStyle(style));
+
+        setTimeout(function() {
+            try {
+                el.removeChild(ripple);
+            } catch (e) {
+                return false;
+            }
+        }, duration);
+
+    }, delay);
+  vulnerability: Remote Code Execution possible via eval()-type functions
+  ruleId: eval_nodejs
+outputs:
+  priority: safe
+  reasoning: The setTimeout() runs a function, not a string.
+  source: function removeRipple(e, el, ripple) {
+  unittest: null

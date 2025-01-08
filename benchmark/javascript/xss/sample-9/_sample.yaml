@@ -1,0 +1,22 @@
+inputs:
+  sink: pre[i].outerHTML = pre[i].outerHTML.match(/[^>]+>/)[0] + s + '</' + tag + '>';
+  vulnerability: Using document write methods can lead to XSS attacks
+  ruleId: AIK_js_insecure-document-method
+outputs:
+  priority: lowest
+  reasoning: |
+    There are three elements influencing the outerHTML: (1) the pre[i].outerHTML itself (2) 's' and (3) 'tag'. Both pre[i].outerHTML and s depend on properties of pre[i], which represents an HTML element. It is very unlikely that an HTML element contains malicious code that needs a way to execute like this to be dangerous. However, 's' also contains the output of html_entity_decode. This could introduce dangerous html entities that were escaped such as &lt and &gt. This decoding could re-introduce html tags with potentially dangerous contents.
+    As such, this code is only vulnerable as a secondary step, since the HTML should already have been set to some extent by a different user. To illustrate this, consider a forum where a user posts the following payload: "&amp;lt;script&amp;gt;alert('XSS');&amp;lt;/script&amp;gt;". This may enter the DOM of another forum user (victim user in this case) when the sanitization is naive, e.g.: 
+    function naiveSanitize(input) {
+    // Remove any direct <script> tags
+    if (/<script>/i.test(input)) {
+      // If it finds a literal `<script>`, it would block or sanitize.
+      // For this example, let's say it rejects or returns a safe placeholder.
+      return 'REDACTED';
+    }
+      return input;
+    }
+    This would not filter the malicious payload, while the decoded 's' would become: "<script>alert('XSS');</script>". This illustrates that the vulnerability cannot be marked as safe. However, we made a number of assumptions making this illustration quite far-fetched (we don't know if data from other users is rendered and we don't know if there is a suitably naive sanitization function is in place). If there is no sanitization function at all, this vulnerability would not be necessary for exploiting the primary vulnerability. If the sanitization function in the first step would be done adequately, this vulnerability is adding a threat either. Therefore, we mark this sample as lowest. Regarding the 'tag' variable: the preceding if statement limits the tag variable to only 'pre' (and capitalized variations); so it can't contain dangerous code.
+  source: |
+    var s = this.highlight(match[3] ? match[3] : 'htm', this.html_entity_decode(pre[i].innerHTML.replace(/<br(\s+[^>]*)?>/gi, '\n').replace(/<[^>]*>/g, ''))).replace(/\t/g, tab.length ? tab : '\t').replace(/(^|\n| ) /g, '$1&nbsp;');
+  unittest: null

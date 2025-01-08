@@ -1,0 +1,9 @@
+inputs:
+  sink: child_process.exec(command, opts, function(err, stdout, stderr) {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: First the android/cordova/lib/emulator.js file is very likely to be part of a CLI tool, typical in mobile app development. Second, the install_target given in the run function must be valid, otherwise the following is triggered 'return Q.reject('Target \'' + install_target + '\' not found, unable to run project');'. In that case, the vulnerable line is not reached.
+  source: var command = 'adb -s ' + target + ' install -r "' + apk + '"';
+  unittest: null

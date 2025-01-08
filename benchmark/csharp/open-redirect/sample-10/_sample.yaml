@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_csharp_endpoint_rule_UnvalidatedRedirect
+  sink: return Redirect($"/{itemType}/{itemId}");
+  vulnerability: Open redirect can be used in social engineering attacks
+outputs:
+  priority: highest
+  probability: certain
+  severity: minor
+  reasoning: itemType comes from the web request and the preceding forward slash doesn't fully protect against open redirects, e.g. the user may be redirected to the protocol-relative URL //example.com by setting itemType=/example.com The severity of the vulnerability is minor as it does not directly compromise sensitive data.
+  source: var (itemType, itemId) = model;
+  unittest: null

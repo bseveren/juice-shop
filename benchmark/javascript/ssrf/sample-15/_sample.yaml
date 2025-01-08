@@ -1,0 +1,9 @@
+inputs:
+  sink: axios.delete(path)
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: low
+  reasoning: Appears to be client side code, indications are usage of window and localstorage. Therefore, the risk is reduced to CSRF. It is unclear where path is coming from.
+  source: null
+  unittest: null

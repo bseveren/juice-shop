@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_eval-use
+  sink: $result = eval('return ' . $formula . ';');
+  vulnerability: Unsafe eval usage can lead to remote code execution.
+outputs:
+  priority: safe
+  probability: zero
+  severity: critical
+  reasoning: $formula is user input and used in an eval function. As such, arbitrary code execution is possible and sensitive data could be read, altered or deleted. So the severity is critical. $formula is sanitized using a regex which only allows simple mathematical expressions. This mitigates the risk for arbitrary code execution.
+  source: "#[MapQueryParameter] string $formula,"
+  unittest: null

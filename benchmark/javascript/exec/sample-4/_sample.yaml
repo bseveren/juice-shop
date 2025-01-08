@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_js_shell_injection_child_process
+  sink: exec(`"${serviceBinary}" token ${token}`, (error, stdout, stderr) => {
+  vulnerability: Potential for OS command injection via child_process call
+outputs:
+  priority: highest
+  reasoning: The token variable is sourced from an IPC request and isn't sanitized. This makes the exec call vulnerable to command injection.
+  source: 'ipcMain.handle("service.setToken", async (_, token: string)'
+  unittest: null

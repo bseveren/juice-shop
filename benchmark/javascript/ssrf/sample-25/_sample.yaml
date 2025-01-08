@@ -1,0 +1,24 @@
+inputs:
+  sink: |-
+    ({ body, statusCode } = await got.post({
+      headers: {
+        "Content-Type": "application/json",
+        "X-Webhook-Id":
+          record.messageAttributes["webhookId"].stringValue,
+        "X-Signature": hmacHeader,
+      },
+      url: partnerUri,
+      json: requestbody,
+      responseType: "json",
+      timeout: {
+        response: 5000,
+      },
+      throwHttpErrors: false,
+    }));
+  vulnerability: HTTP request might enable SSRF attack
+  ruleId: AIK_js_ssrf
+outputs:
+  priority: high
+  reasoning: partnerUri is sourced from the Records in the event object. As there is no validation of the partnerUri or the Record, there exists a risk for SSRF if the event can be controlled by a malicious user.
+  source: const partnerUri = record.messageAttributes["uri"].stringValue;
+  unittest: null

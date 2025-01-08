@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_ts_generic_path_traversal
+  sink: fs.readFileSync(filePath, "utf-8")
+  vulnerability: Potential file inclusion attack via reading file
+outputs:
+  priority: safe
+  reasoning: An error is thrown if the filePath contains path traversal patterns, which limits file access to the sessions folder thereby mitigating a file inclusion attack.
+  source: const filePath = `./sessions/${sessionId}.json`;
+  unittest: null

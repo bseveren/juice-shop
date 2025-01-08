@@ -1,0 +1,15 @@
+inputs:
+  sink: |-
+    !!(await this.extractionRepository.findOne({
+      where: {
+        submissionId,
+        status: ExtractionStatus.APPLIED,
+      },
+    }));
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning:  This service handles s3 object uploads. submissionId is derived from the key of the newly uploaded s3 object. While it is unclear if s3 objects with arbitrary names can be uploaded, submissionId is guaranteed to be a string as it derived from record.s3.object.key.split('/')?.[0];. As submissionId cannot be an object, the query is safe from injection.
+  source: null
+  unittest: null

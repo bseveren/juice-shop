@@ -1,0 +1,10 @@
+inputs:
+  sink: exec(command, (error, stdout, stderr) => {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: The mergePdfFiles function constructs a command with the 'output', 'file1' and 'file2' variables. They are defined in the createBinder function and each one of them depend on the event.reportType and event.shipId, as provided by the user in the makeSignedPdf function. While there is whitelist checking for the event.reportType field in the index.js handler, there are no checks for event.shipId. However, if malicious code would be injected in event.shipId, there would be no file found on S3 for const binderKeyS3 = event.reportType + '/' + event.shipId + '/' + binderFileName; In that case a new pdf file is created with pageCount 0 and in that case, the vulnerable mergePdtFile function is not reached.
+  source: |
+    const command = `fooscript -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=${output} ${file1} ${file2}`;
+  unittest: null

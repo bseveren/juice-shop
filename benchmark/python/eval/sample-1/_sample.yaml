@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_python_B307
+  sink: doc(eval(request), 'Help on %s:', is_cli=is_cli)
+  vulnerability: Unsafe eval usage can lead to remote code execution
+outputs:
+  priority: safe
+  reasoning: Eval functions have critical severity if user data is injected. However, in this case the eval is guaranteed to execute True, False or None. All these cases are harmless.
+  unittest: null
+  source: request
+  probability: zero
+  severity: critical

@@ -1,0 +1,10 @@
+inputs:
+  sink: exec(removeWatermark, err => {
+  vulnerability: Potential for OS command injection via child_process call
+  ruleId: AIK_js_shell_injection_child_process
+outputs:
+  priority: safe
+  reasoning: The exec function contains an unsanitized dirPath that is provided by temp.mkdir to the callback function. dirPath is the name of the newly created temporary directory and therefor safe from to command injection.
+  source: |
+    const removeWatermark = `find ${dirPath} -type f -name '*.pdf' -exec perl -pi -e 's:/Annots \\[[^]]+\\]::g; s/ foo bar text\\.//g;' {} +`;
+  unittest: null

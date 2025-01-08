@@ -1,0 +1,7 @@
+SSRF
+- sink = new URL(HTTPS + this.shop + OAUTH_VALIDATE_URL);
+- upgrade expected because data comes from this.shop, which seems to come from various places (constructor, loaded from db). Origin unclear! (neutral)
+- upgrade: no checks/validation whatsoever (neutral, already in the SSRF start score assumed)
+- downgrade again: blind SSRF, only the repsonsecode is returned, not the content -35
+- SSRF starts at 89/100
+- expected outcome: 40-50

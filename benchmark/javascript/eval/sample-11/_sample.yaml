@@ -1,0 +1,13 @@
+inputs:
+  sink: |-
+    timeout = setTimeout(function () {
+        request.abort();
+    }, request.timeout);
+  vulnerability: Remote Code Execution possible via eval()-type functions
+  ruleId: eval_nodejs
+outputs:
+  priority: safe
+  reasoning: |
+    The setTimeout call will invoke 'request.abort()' after 'request.timeout' timeout, unless the response is available sooner (then clearTimeout is called). Regardless from the result of request.abort(), this is safe.
+  source: function timeout(request, next) {
+  unittest: null

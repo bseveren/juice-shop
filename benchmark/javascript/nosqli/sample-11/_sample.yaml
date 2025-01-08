@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_ts_node_nosqli_injection
+  sink: "const phoneOnDb = await Phones.findOne({ phone }).lean();"
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: lowest
+  reasoning: The phone variable is cast to a string prior to calling the database. The Phone.findOne() function is likely from Mongoose and in that case, string arguments are safe. However, in the less likely case that Phone.findOne() is linked to a custom function or other library, a malicious user may connect the wrong phone to a user (potentially giving login access).
+  unittest: null
+  source: req.body.phone
+  probability: unlikely
+  severity: critical

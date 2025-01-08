@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_go_G107
+  sink: 'response, err := http.Get(conf.EmailTmpl + "/" + val)'
+  vulnerability: HTTP request might enable SSRF attack
+outputs:
+  priority: low
+  reasoning: The base of the request url is sourced from the conf structure. As the source of this structure is unknown and as it is passed via a function parameter (as opposed to a globally scoped config object), it is possible that an attacker could manipulate the conf struct.
+  source: conf nest.EmailConf
+  unittest: null

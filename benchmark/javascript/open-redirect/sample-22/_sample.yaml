@@ -1,0 +1,14 @@
+inputs:
+  sink: |-
+    r2.u.actions.redirect(
+      '/listings/#id=' + feedback.data.listing.id(),
+      false,
+      true
+    );
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: express_open_redirect
+outputs:
+  priority: safe
+  reasoning: Only a relative path is passed to the redirect function, with the user controllable input being an id (which is appended to the end). 
+  source: null
+  unittest: null

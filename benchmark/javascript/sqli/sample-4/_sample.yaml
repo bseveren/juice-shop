@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_node_sqli_injection
+  sink: request.query(sqlquery, function (err, results) {
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: The concatenated parameter country is restricted to a whitelist, which mitigates the risk of a sql injection attack
+  source: const country = req.query.country;
+  unittest: null

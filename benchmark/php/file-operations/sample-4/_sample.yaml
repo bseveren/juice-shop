@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_php-file-operations
+  sink: $file_content = @file_get_contents($poc_in_gh_repo_download_url);
+  vulnerability: Path traversal attack possible via file functions
+outputs:
+  priority: safe
+  reasoning: Input to file function is sanitized as it is a benign constant.
+  source: '$poc_in_gh_repo_download_url = "https://github.com/nomi-sec/PoC-in-GitHub/archive/master.zip";'
+  unittest: null

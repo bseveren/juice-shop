@@ -1,0 +1,13 @@
+inputs:
+  sink: |-
+    'SELECT ' + columns.join(',') + ' FROM `posts` ' +
+    'JOIN `social_accounts` ON `posts`.social_account_uuid = `social_accounts`.uuid ' +
+    'LEFT JOIN `post_attachments` ON `posts`.id = `post_attachments`.post_id ' +
+    'WHERE `posts`.uuid = ? AND `posts`.status = ?',
+  vulnerability: Potential SQL injection via string-based query concatenation
+  ruleId: AIK_node_sqli_injection
+outputs:
+  priority: low
+  reasoning: While the query is parameterized to accept the uuid and status values, it is unclear how postColumns is constructed. As there is no validation of the column names, arbitrary columns could be inserted into the query which would make the query vulnerable to sql injection. Because uuid and status are passed via parameters, the priority is downgraded once; but a sql injection vulnerability cannot be excluded due to postColumns.
+  source: postColumns
+  unittest: null

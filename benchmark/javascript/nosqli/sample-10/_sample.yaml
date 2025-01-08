@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_ts_node_nosqli_injection
+  sink: "const emailOnDb = await Emails.findOne({ email, verifiedAt: { $gt: oneMonthAgo } });"
+  vulnerability: NoSQL injection attack possible
+outputs:
+  priority: safe
+  reasoning: The oneMonthAgo variable is not controlled by the user and the email variable is cast to a string prior to the findOne call. As the email parameter is guaranteed to be a string, the findOne call is not vulnerable to a nosql injection attack.
+  unittest: null
+  source: email
+  probability: zero
+  severity: major

@@ -1,0 +1,33 @@
+inputs:
+  sink: |-
+    const config = ctx.config;
+    const router = express.Router();
+
+    router.use(auth.middleware({ requiredRole: "admin" }));
+
+    mountEnvConfigRoute(ctx, router);
+
+    router.get(
+      "/_dashboard",
+      handler(async (req, res) => {
+        try {
+          // Implicitly "logout" from the admin service when navigating back to
+          // public Resonance site, however if this fails for some reason it's
+          // not that big deal that we need to interrupt user, just log the error
+          await auth.endSession(req);
+        } catch (error) {
+          logger.error(
+            { error },
+            "Unexpected error occurred while ending admin session",
+          );
+        }
+        res.redirect(config.resonance.baseUrl);
+      }),
+    );
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: AIK_ts_express_open_redirect
+outputs:
+  priority: safe
+  reasoning: The redirect URL is not under user control, it is instead sourced from a configuration object, which we assume to be safe.
+  source: const config = ctx.config;
+  unittest: null

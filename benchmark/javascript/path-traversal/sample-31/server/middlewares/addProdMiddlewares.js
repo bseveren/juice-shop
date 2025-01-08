@@ -1,0 +1,27 @@
+module.exports = function addProdMiddlewares(app, options) {
+  const publicPath = options.publicPath || '/';
+  const outputPath = options.outputPath || path.resolve(process.cwd(), 'build');
+
+  // compression middleware compresses your server responses which makes them
+  // smaller (applies also to assets). You can read more about that technique
+  // and other good practices on official Express.js docs http://mxs.is/googmy
+  app.use(compression());
+
+  app.get('*.js', (req, res, next) => {
+    const gzippedFilePath = path.join(outputPath, `${req.url}.gz`);
+
+    if (existsSync(gzippedFilePath)) {
+      req.url = `${req.url}.gz`;
+      res.set('Content-Encoding', 'gzip');
+    }
+
+    res.set('Content-Type', 'text/javascript');
+    res.set('Cache-Control', `public, max-age=${ONE_YEAR_IN_SECONDS}`); // 1 year cache
+
+    return next();
+  });
+
+  app.use(publicPath, express.static(outputPath));
+
+  app.get('*', (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')));
+};

@@ -1,0 +1,34 @@
+inputs:
+  sink: |-
+    const config = qrCode?.config.trainingSeriesList.find(
+      (series) =>
+        series.programId === programId &&
+        series.version === `v${questionsVersion}`,
+    );
+
+    if (config?.brands && config.brands.length === 1) {
+      const brand = await BrandModel.findOne({
+        _id: new mongo.ObjectId(config.brands[0]),
+      });
+
+      if (!brand) {
+        return null;
+      }
+
+      const certificateConfig = await CertificateConfigurationModel.findOne({
+        brandId: new mongo.ObjectId(brand._id),
+        programIds: programId,
+      });
+
+      if (certificateConfig?.certificateDesign) {
+        return { ...certificateConfig, brandName: brand.name };
+      }
+    }
+  vulnerability: NoSQL injection attack possible
+  ruleId: AIK_ts_node_nosqli_injection
+outputs:
+  priority: safe
+  reasoning: |
+    If an attacker would be able to pass an non-string object as programId, it is very likely that config would be undefined as the find predicate wouldn't match for a non-string programId. If config is undefined, then the findOne call with the potential injection isn't executed. Therefor programId is guaranteed to be a string, which makes the findOne call safe from nosql injection.
+  source: null
+  unittest: null

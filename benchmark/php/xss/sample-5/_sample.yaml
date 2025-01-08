@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_echoed-request
+  sink: <form action="?page=editpost&id=<?php echo $_GET['id']; ?>" method="post">
+  vulnerability: Rendering unescaped input can lead to XSS attacks
+outputs:
+  priority: safe
+  reasoning: While the id variable comes from the user request, the filter_var check ensures that id contains an integer value. Therefore id cannot contain harmful payloads.
+  source: $_GET['id']
+  unittest: null

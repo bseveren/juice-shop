@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_java_httpservlet-path-traversal
+  sink: try (FileInputStream fis = new FileInputStream(reqReport)) {
+  vulnerability: Path traversal attack possible
+outputs:
+  priority: safe
+  reasoning: While the location of the report file is derived from the user request, the controller ensures that only files anchored under REPORT_FILE_DOWNLOAD_DIR can be downloaded. Given this additional validation, the risk of a path traversal attack is low.
+  source: File reqReport = new File(directory, name);
+  unittest: null

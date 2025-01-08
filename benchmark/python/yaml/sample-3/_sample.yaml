@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_python_B506
+  sink: yaml.load(var, Loader=CfnYamlLoader)
+  vulnerability: Unsafe yaml load can lead to remote code execution
+outputs:
+  priority: safe
+  reasoning: "The CfnYamlLoader class inherits from yaml.SafeLoader and the tag constructor doesn't construct arbitrary python objects: only scalars, sequences and mappings are allowed and these are all loaded via SafeLoader. This mitigates remote code execution."
+  source: "var: Any"
+  unittest: null

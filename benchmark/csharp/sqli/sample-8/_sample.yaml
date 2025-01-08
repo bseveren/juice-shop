@@ -1,0 +1,13 @@
+inputs:
+  ruleId: AIK_csharp_SQLInjection
+  sink: |
+    cmd.CommandText = string.Format(@"
+                        INSERT INTO [{0}].[dbo].[PageSentence]
+                        Values ({1}, {2}, {3}, {4})
+            ", Database.ConnectionInformation.DATABASE_NAME, pageId, sentenceId, pageSentenceOrdinal, 1);
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: safe
+  reasoning: "While string formatting is used for building the query, all values included in the query are immune to SQL injection: they are either integers or a configuration constant."
+  source: null
+  unittest: null

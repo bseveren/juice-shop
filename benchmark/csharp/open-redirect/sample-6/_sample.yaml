@@ -1,0 +1,11 @@
+inputs:
+  ruleId: AIK_csharp_endpoint_rule_UnvalidatedRedirect
+  sink: return new RedirectResult(api.Url + "/users/" + userData.id);
+  vulnerability: Open redirect can be used in social engineering attacks
+outputs:
+  priority: lowest
+  probability: zero
+  severity: minor
+  reasoning: The url of the zendesk API isn't under control of the user, so the redirect isn't vulnerable to open redirects. However, if the ZendeskApi Url method is vulnerable this could lead to an open redirect, as it is used as a base address without additional validation. As such the priority is lowest.
+  source: var api = new ZendeskApi();
+  unittest: null

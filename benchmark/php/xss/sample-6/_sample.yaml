@@ -1,0 +1,10 @@
+inputs:
+  ruleId: AIK_echoed-request
+  sink: |-
+    <p id="total-price">TOTAL PRICE: '.$_POST['quantity']*$unitPrice.'$</p>
+  vulnerability: Rendering unescaped input can lead to XSS attacks
+outputs:
+  priority: safe
+  reasoning: While the quantity POST variable comes from the user request, the multiplication expression with $unitPrice only succeeds when quantity contains a numeric value. For non-numeric quantity values, php throws a TypeError and stops execution. As the expression only results in numeric outputs, it cannot output harmful XSS payloads.
+  source: $_POST['quantity']
+  unittest: null
