@@ -32,6 +32,9 @@ app.use(helmet({
 app.use((req, res, next) => {
   if (req.url.indexOf('.js') > -1 || req.url.indexOf('/assets') > -1 || req.url.indexOf('/vendor') > -1 || req.url.indexOf('site.webmanifest') > -1) {
     const resolvedPath = path.resolve(`${__dirname}/dist${decodeURI(req.url)}`);
+    if (resolvedPath.includes('../') || resolvedPath.includes('..\\')) {
+      return next(new Error('Invalid file path'));
+    }
     res.sendFile(resolvedPath, err => {
       if (err?.name === 'NotFoundError') {
         next();
