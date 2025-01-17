@@ -54,6 +54,9 @@ function sendHTML(req, res) {
 
   res.setHeader("content-security-policy", "default-src 'self' ;script-src 'self' https://acme.com https://www.gstatic.com ; img-src 'self' data: https://********.cloudfront.net https://www.gravatar.com ; worker-src 'self' blob:; style-src 'unsafe-inline' 'self' https://fonts.googleapis.com https://www.gstatic.com ;font-src 'self' https://fonts.gstatic.com data:; frame-src 'self' ;  connect-src 'self' https://rs.acme.com https://acme.io/;");
 
+  if (locale.includes('../') || locale.includes('..\\')) {
+    throw new Error('Invalid file path');
+  }
   return res.sendFile(path.resolve(HTMLPATH, 'index.' + locale + '.html'));
 }
 
