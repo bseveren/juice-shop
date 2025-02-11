@@ -1,3 +1,5 @@
+// Emoji: 😺
+
 module.exports = {
 
   /**

@@ -1,3 +1,4 @@
+// Emoji: 😺
 
   helpers.getAndSendData(url, (data, error) => {
     result = data

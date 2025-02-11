@@ -1,3 +1,5 @@
+// Emoji: 😺
+
 const setupSuperAdminUser = require('./bootstrap/super-admin-user');
 
 module.exports = {

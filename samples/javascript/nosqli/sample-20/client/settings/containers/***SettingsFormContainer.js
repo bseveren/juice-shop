@@ -1,3 +1,5 @@
+// Emoji: 😺
+
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { composeWithTracker } from "@reactioncommerce/reaction-components";

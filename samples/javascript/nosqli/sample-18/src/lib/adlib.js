@@ -1,3 +1,5 @@
+// Emoji: 😺
+
 Adlib.prototype.updateLastRecordWithDone = async function () {
     const maxGeneratedAtTime = await this._db.models.Member.max('generatedAtTime', {
         where: {

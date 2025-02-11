@@ -1,3 +1,5 @@
+// Emoji: 😺
+
 export default class Adlib extends Readable {
     constructor(options) {
         super({objectMode: true, highWaterMark: 10});
