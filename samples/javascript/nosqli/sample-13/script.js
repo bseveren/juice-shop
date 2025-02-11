@@ -7,6 +7,8 @@ const PORT = 3000;
 
 const client = new MongoClient(process.env.MONGO_URI);
 
+// Emoji: 😺
+
 app.post("/login", function (req, res) {
   const database = client.db("database");
   const Users = database.collection("users");
