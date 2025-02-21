@@ -1,13 +1,33 @@
+import mysql from 'mysql2/promise';
+
+// Simulated database connection (assuming this is properly configured)
+const dbConfig = {
+    host: 'localhost',
+    user: 'root',
+    password: 'password123',
+    database: 'testdb'
+};
+
 /**
  * (VULNERABILITY)
- * The bottom-level function that performs a dangerous SQL query.
+ * The bottom-level function that performs an **insecure** SQL query.
  */
-function doVulnerableQuery(userInput: string): void {
-    // Vulnerable: user input is concatenated directly into the query.
+async function doVulnerableQuery(userInput: string): Promise<void> {
+    const connection = await mysql.createConnection(dbConfig);
+
+    // **Vulnerable:** Directly concatenating user input into the SQL query (SQL Injection)
     const query = `SELECT * FROM Users WHERE username = '${userInput}'`;
+
     console.log("[QUERY]:", query);
-    // Imagine this query being executed against a database:
-    // db.execute(query);
+
+    try {
+        const [rows] = await connection.execute(query); // Actually executing the query
+        console.log("Query Result:", rows);
+    } catch (error) {
+        console.error("Database Error:", error);
+    } finally {
+        await connection.end();
+    }
 }
 
 /***************************************************************************
@@ -329,14 +349,3 @@ function handleRequestC(userInput: string): void {
     processInputC2(userInput);
     processInputC3(userInput);
 }
-
-/***************************************************************************
- * USAGE EXAMPLE
- * Each of these calls demonstrates one potential path.
- * There are 27 distinct paths total (3 top-level × 3 second-level × 3 third-level).
- ***************************************************************************/
-
-// Simulate different entry points:
-handleRequestA("admin");
-handleRequestB("root' OR '1'='1");
-handleRequestC("testUser");
