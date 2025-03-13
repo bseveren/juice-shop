@@ -1,5 +1,5 @@
 import express from 'express';
-import pool from '../database'; // Assuming database connection is managed elsewhere
+import pool from '../database';
 
 const router = express.Router();
 
