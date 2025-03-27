@@ -19,8 +19,8 @@ app.post("/product", async (req, res) => {
 
     try {
         const client = await pool.connect();
-        const query = `SELECT * FROM products WHERE name = ${productName} LIMIT 1`;
-        const result = await client.query(query, [productName]);
+        const query = `SELECT * FROM products WHERE name = '${productName}' LIMIT 1`;
+        const result = await client.query(query);
         client.release();
 
         return res.json(result.rows[0]);
