@@ -1,6 +1,5 @@
 import express from "express";
 import { MongoClient } from "mongodb";
-import {valid} from "semver";
 
 const app = express();
 app.use(express.json());
