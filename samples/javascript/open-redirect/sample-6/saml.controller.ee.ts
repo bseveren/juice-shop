@@ -1,3 +1,4 @@
+
 @RestController('/sso/saml')
 export class SamlController {
 	constructor(
@@ -6,6 +7,8 @@ export class SamlController {
 		private readonly urlService: UrlService,
 		private readonly eventService: EventService,
 	) {}
+
+	// This is an updated version of the file
 
 	@Get('/metadata', { skipAuth: true })
 	async getServiceProviderMetadata(_: express.Request, res: express.Response) {
