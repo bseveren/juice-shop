@@ -8,7 +8,7 @@ export class SamlController {
 		private readonly eventService: EventService,
 	) {}
 
-	// This is an updated version of the file
+	// This is again an updated version of the file
 
 	@Get('/metadata', { skipAuth: true })
 	async getServiceProviderMetadata(_: express.Request, res: express.Response) {
