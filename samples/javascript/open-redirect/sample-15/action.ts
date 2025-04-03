@@ -3,6 +3,8 @@ const handler: NextApiHandler = async (req, res) => {
     const parsedQuery = slackActionQuery.parse(req.query);
     const redirectUrl = new URL(parsedQuery.redirect);
 
+    // Some newer version
+
     const session = await getServerAuthSession({ req, res });
     if (!!session?.user?.organisationId && session?.user?.organisationId === parsedQuery.organisationId) {
       const loggedInUrl = new URL(
