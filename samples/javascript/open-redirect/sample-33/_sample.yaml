@@ -1,0 +1,9 @@
+inputs:
+  sink: res.redirect(req.session.returnTo || '/');
+  vulnerability: Open redirect can be used in social engineering attacks
+  ruleId: express_open_redirect
+outputs:
+  priority: high
+  reasoning: While there is a risk of open redirect because req.session.returnTo is not validated or sanitized, the risk is reduced because req.session is a server-side session. Although the contents of the session may be influenced by user input (e.g., returnTo being derived from the initial OAuth flow URL), the control is less direct compared to query parameters (req.query).
+  source: null
+  unittest: null
