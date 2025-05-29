@@ -1,0 +1,9 @@
+inputs:
+  sink: const resolvedPath = path.resolve(`${__dirname}/dist${decodeURI(req.url)}`);
+  vulnerability: Potential file inclusion attack via file path construction
+  ruleId: join_resolve_path_traversal
+outputs:
+  priority: highest 
+  reasoning: Direct path traversal vulnerability exists as req.url is decoded and concatenated into the file path without proper sanitization. A payload like 'index?stuff=otherstuff/../../file' would escape the context.
+  source: null
+  unittest: null
