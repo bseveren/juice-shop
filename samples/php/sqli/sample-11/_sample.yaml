@@ -1,0 +1,10 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: $note    = Sql_LoadOneRow("SELECT * FROM meeting_note WHERE id = '" .  $note_id . "'");
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: highest
+  reasoning: The variable $note_id comes from the user request and isn't sanitized. It is concatenated to the sql query string. The concatenation of this $note_id variable makes the query vulnerable to sql injection attacks.
+  source: >
+    $note_id = ($_GET['note_id']) ? $_GET['note_id'] : "";
+  unittest: null

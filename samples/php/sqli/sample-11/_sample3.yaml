@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: Sql_Exec("DELETE FROM meeting_note WHERE id = '{$note_id}'");
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: highest
+  reasoning: The variable $note_id contains $_POST['note_id'] which comes from the user request and isn't sanitized. It is included in the query string. The $note_id variable makes the query vulnerable to sql injection attacks.
+  source: $note_id = $_POST['note_id']
+  unittest: null
