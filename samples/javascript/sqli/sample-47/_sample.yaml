@@ -1,0 +1,17 @@
+inputs:
+  ruleId: AIK_ts_sql_injection_template_literal
+  sink: |
+    models.sequelize
+      .query(
+        `SELECT * FROM Users WHERE email = '${
+          req.body.email || ""
+        }' AND password = '${hash}' AND deletedAt IS NULL`,
+        options
+      )
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: highest
+  reasoning: |
+    The email body parameter is under user control and is concatenated to the sql query without sanitation nor validation. This makes the query vulnerable to sql injection and enables an attacker to specify arbitrary query conditions.
+  source: req.body.email
+  unittest: null
