@@ -66,5 +66,5 @@ router.get('/*.html', (req, res) => {
 });
 
 router.get(/^\/.*[^(.html)]$/, (req, res) => {
-  res.redirect(join(req.path, 'index.html'));
+  res.redirect(join(req.path, 'index2.html'));
 });
