@@ -60,6 +60,7 @@ var exports = function(app, db) {
     app.get("/learn", isLoggedIn, function(req, res, next) {
         // Insecure way to handle redirects by taking redirect url from query string
         // Watch out
+        // Watch out 2
         return res.redirect(req.query.url);
     });
 
