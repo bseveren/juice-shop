@@ -1,0 +1,12 @@
+inputs:
+  sink: tree = etree.parse(provider_xml, parser=parser)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages: {}
+outputs:
+  priority: safe
+  reasoning: |
+    This code is safe since it's using the `defusedxml` package. By using the `forbid_dtd=True`,`forbid_entities=True` and `forbid_external=True` attacks like XXE. 
+    Even if the provided_xml comes is from user input, there is no way to define a <!DOCTYPE> or <!ENTITY>.
+  source: null
+  unittest: null

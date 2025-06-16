@@ -1,0 +1,15 @@
+inputs:
+  sink: doc = etree.parse(xsd_src, parser=self._create_parser())
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages:
+    python:
+      - package: lxml
+        version: 5.3.0
+outputs:
+  priority: high
+  reasoning: |
+    Even if it uses the updated `lxml` library, function receives as a parser that has resolve_entities=True. This means it can load external entities. 
+    Since we can't see where the code is used and where the input comes from it isn't highest.
+  source: null
+  unittest: null

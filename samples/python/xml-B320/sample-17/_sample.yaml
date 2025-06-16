@@ -1,0 +1,15 @@
+inputs:
+  sink: root = etree.fromstring(contacts_xml.encode("utf-8"), parser)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages:
+    python:
+      - package: lxml
+        version: 3.4.4
+outputs:
+  priority: high
+  reasoning: |
+    Vulnerable lxml function, it uses a parses but doens't have external enitities disabled. We don't know how it's called, how the argument looks like.
+    We can assume that contacts are user-controlled.
+  source: null
+  unittest: null

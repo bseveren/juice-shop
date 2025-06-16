@@ -1,0 +1,15 @@
+inputs:
+  sink: d = etree.parse(qualys_xml_file, parser)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages:
+    python:
+      - package: lxml
+        version: 4.6.2
+outputs:
+  priority: safe
+  reasoning: | 
+     lxml version is vulnerable, but the parser has the parameter`resolve_entities=False`. Since it has the parameter set it isn't vulnerable to xxe attacks or billion 
+     laugh attack. This also doesn't look like production code.
+  source: null
+  unittest: null

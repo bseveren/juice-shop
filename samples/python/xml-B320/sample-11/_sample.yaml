@@ -1,0 +1,18 @@
+inputs:
+  sink: arch = etree.fromstring(result["arch"])
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages: {}
+outputs:
+  priority: low
+  reasoning:  |
+    We don't know the version of lxml, we can assume it's vulnerable. By reading the odoo documentation, the definition of result["arch"] is the following:
+    `The power of Odoo views is that they declare how a particular screen should work, with a xml document (usually named arch, short for architecture). 
+    This description can be extended/modified by xpaths serverside. Then the browser will load that document, parse it 
+    (fancy word to say that it will extract the useful information), then represent the data accordingly.` 
+    (https://github.com/ged-odoo/odoo-js-training-public/blob/master/notes_views.md, https://medium.com/@gourabofficial26/odoo-view-tutorial-c49c3b4da088).
+
+    Generally views could probably be changed by the developers of the platform (safe) and maybe users that have access are admin(semi-trusted?). 
+    I consider this low since it most likely is used in a trusted environment.
+  source: null
+  unittest: null

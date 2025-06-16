@@ -1,0 +1,15 @@
+inputs:
+  sink: res = etree.parse(res)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages: {}
+outputs:
+  priority: low
+  reasoning: |
+    We don't know if it's a vulnerable version or not, so we assume it is. We don't know how the xml file is created, but it seems like it's created with data
+    of employees. The data is fetched from a db. We also don't know exactly how it's retrieved, the api isn't defined. The code also doesn't look like it runs 
+    in a production environment.
+  source: null
+  unittest: null
+toolFiles:
+  - setup.py

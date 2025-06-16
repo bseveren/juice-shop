@@ -1,0 +1,17 @@
+inputs:
+  sink: xml = etree.fromstring(xml_str)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages:
+    python:
+      - package: lxml
+        version: 4.2.1
+outputs:
+  priority: safe
+  reasoning: |
+    lxml version is vulnerable, update was introduced in 5.0. This is vulnerable to XXE attacks. Looks like a local learning project to identify objects 
+    with tenserflow.
+  source: null
+  unittest: null
+toolFiles:
+  - Models/ObjectDetection/Things/abc1/setup.py

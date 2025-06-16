@@ -1,0 +1,11 @@
+inputs:
+  sink: tree = et.parse(inputfile)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages: {}
+outputs:
+  priority: safe
+  reasoning: |
+    It's a cli script.
+  source: null
+  unittest: null

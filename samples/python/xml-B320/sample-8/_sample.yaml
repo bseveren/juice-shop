@@ -1,0 +1,16 @@
+inputs:
+  sink: "xmldoc: etree._ElementTree = etree.parse(str(xml_fname))"
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages:
+    python:
+      - package: lxml
+        version: 4.9.4
+outputs:
+  priority: low
+  reasoning: | 
+   lxml version is vulnerable, update was introduced in 5.0. This is vulnerable to XXE attacks. We can't tell where the input comes from and how the xmls are 
+   uploaded. But from the comment "Factory to create specification by loading details from a fact XMl file" hints that maybe it can have an endpoint where a user
+   can upload an xml. At the same time files are saved locally. It looks like an internal tool.
+  source: null
+  unittest: null

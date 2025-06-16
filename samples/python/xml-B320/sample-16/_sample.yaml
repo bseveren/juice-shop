@@ -1,0 +1,12 @@
+inputs:
+  sink: saml_response_elem = ET.fromstring(saml_response_xml)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages: {}
+outputs:
+  priority: low
+  reasoning: |
+    We don't know the lxml version, so it may be vulnerable to XXE. The input is partially user-controlled without sanitization. 
+    Since it's based on a SAML template, exploitation is harder but still possible.
+  source: null
+  unittest: null

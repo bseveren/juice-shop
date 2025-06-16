@@ -1,0 +1,17 @@
+inputs:
+  sink: root = etree.fromstring(abc2_xml_response)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages:
+    python:
+      - package: lxml
+        version: 4.9.2
+outputs:
+  priority: high
+  reasoning: |
+   lxml version is vulnerable, update was introduced in 5.0. This is vulnerable to XXE attacks. The input for this function seems to come from a database.
+   Most likely a user can't use this function. Marking it as high because we can't garantue how the data is stored in the db and where it comes from. Another
+   reason is that this application handles sensitive data.  
+   
+  source: null
+  unittest: null

@@ -1,0 +1,16 @@
+inputs:
+  sink: tree = etree.fromstring(tree)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages:
+    python:
+      - package: lxml
+        version: 4.9.1
+outputs:
+  priority: high
+  reasoning: |
+    lxml version is vulnerable, update was introduced in 5.0. This is vulnerable to XXE attacks. The arguments passed to the function could possibly be 
+    user controlled in this call: `response = client.service.LMEInfSeccC(request_data); xml_response = save_xml_to_file(response,'response')`. Since we don't know
+    how to client responds, it could perform an xxe attack.
+  source: null
+  unittest: null

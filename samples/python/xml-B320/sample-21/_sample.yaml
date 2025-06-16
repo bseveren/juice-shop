@@ -1,0 +1,11 @@
+inputs:
+  sink: root = etree.fromstring(manifest_content.encode("utf-8"), parser=parser)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+outputs:
+  priority: safe
+  reasoning: |
+     lxml version is unknown but it has a parser. The parser has the parameter`resolve_entities=False`. Since it has the parameter set it isn't vulnerable to xxe attacks or billion 
+     laugh attack. 
+  source: null
+  unittest: null

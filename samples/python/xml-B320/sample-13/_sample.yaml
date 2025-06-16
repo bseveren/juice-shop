@@ -1,0 +1,11 @@
+inputs:
+  sink: events = etree.parse(filename, parser=parser)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages:
+outputs:
+  priority: safe
+  reasoning: |
+    Looks like a local CLI script. The main reason why I consider it a local script is that it parses files that are on a local filesystem.
+  source: null
+  unittest: null

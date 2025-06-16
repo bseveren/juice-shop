@@ -1,0 +1,12 @@
+inputs:
+  sink: tree = etree.parse(xml_file)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages: {}
+outputs:
+  priority: lowest
+  reasoning: |
+    We don't know the version of lxml so we assume it's vulnerable. Looks like it's used to write documentation for fake modules. The xml file seems to be a local
+    file most likely statically defined. Not safe since we can't be sure that the xml file isn't dynamically generated or user controlled.
+  source: null
+  unittest: null

@@ -1,0 +1,12 @@
+inputs:
+  sink: tree = etree.parse(BytesIO(content))
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages:
+outputs:
+  priority: low
+  reasoning: |
+    We don't know the version of lxml so we assume it's vulnerable. Looks like a CLI script. The content it retrieved from an API, where the request has
+    parameters received most likely from a cli argument but we can't tell for sure.
+  source: null
+  unittest: null

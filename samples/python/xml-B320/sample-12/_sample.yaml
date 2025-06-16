@@ -1,0 +1,13 @@
+inputs:
+  sink: season_content = etree.fromstring(season_content_xml_str.encode("utf-8"))
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages:
+outputs:
+  priority: medium
+  reasoning: |
+    We don't know the current version of lxml, we assume it's vulnerable. The lambda function is triggered by events in the S3 bucket (example: new object is 
+    uploaded). The object that is passed in vulnerable function comes from the S3 bucket. We don't know who can upload objects, if it's user controlled 
+    or not. The only reason why it isn't high is because it looks like an application that uploads content (tv shows) which are most likely propriatary.
+  source: null
+  unittest: null

@@ -1,0 +1,11 @@
+inputs:
+  sink: return etree.fromstring(html, _html_parser)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages: {}
+outputs:
+  priority: safe
+  reasoning: |
+    Probably a html parser will not resolve entities. 
+  source: null
+  unittest: null

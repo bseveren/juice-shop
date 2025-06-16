@@ -1,0 +1,13 @@
+inputs:
+  sink: xml_data = etree.fromstring(data)
+  vulnerability: Using blacklisted XML parsing function is dangerous
+  ruleId: AIK_python_B320
+  packages: {}
+outputs:
+  priority: low
+  reasoning: |
+     We don't know the version of lxml, we assume it is vulnerable. The xmls are fetched from a static url (the only parameters are date and until).
+     We can't say how/by who they are uploaded, but based on the filename "hr_import_holidays" probably they are internal xmls.
+    
+  source: null
+  unittest: null
