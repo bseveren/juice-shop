@@ -9,3 +9,7 @@ export function wefgherg(a: number, b: number): number {
 export function weg(wefhh: number, b: number): number {
     return wefhh + b;
 }
+
+export function weg2(wefhh: number, b: number): number {
+    return wefhh + b;
+}
