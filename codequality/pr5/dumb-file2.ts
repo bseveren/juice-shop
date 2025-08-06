@@ -1,4 +1,4 @@
-export function extract(a: number, b: number): number {
+export function extegwract(a: number, b: number): number {
     return a + b;
 }
 
@@ -15,9 +15,5 @@ export function extract4(a: number, b: number): number {
 }
 
 export function extract5(a: number, b: number): number {
-    return a + b;
-}
-
-export function extract6(a: number, b: number): number {
     return a + b;
 }
