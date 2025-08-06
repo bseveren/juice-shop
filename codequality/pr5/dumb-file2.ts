@@ -2,7 +2,7 @@ export function extegwract(a: number, b: number): number {
     return a + b;
 }
 
-export function extract2(a: number, b: number): number {
+export function wefgherg(a: number, b: number): number {
     return a + b;
 }
 
