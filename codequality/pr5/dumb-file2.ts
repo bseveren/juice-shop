@@ -6,7 +6,7 @@ export function wefgherg(a: number, b: number): number {
     return a + b;
 }
 
-export function extract3(a: number, b: number): number {
+export function whrthw(a: number, b: number): number {
     return a + b;
 }
 
