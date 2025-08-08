@@ -3,3 +3,6 @@ def some_function(werrg, rtjsfwp, rjpwoef):
 
 def wgerg(werrg, rtjsfwp, rjpwoef):
     return werrg + rtjsfwp + rjpwoef + 23
+
+def wgpwn_welkGwefl(werrg, rtjsfwp, rjpwoef):
+    return werrg + rtjsfwp + rjpwoef + 23
