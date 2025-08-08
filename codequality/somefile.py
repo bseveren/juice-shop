@@ -4,5 +4,5 @@ def some_function(werrg, rtjsfwp, rjpwoef):
 def wgerg(werrg, rtjsfwp, rjpwoef):
     return werrg + rtjsfwp + rjpwoef + 23
 
-def wgpwn_welkGwefl(werrg, rtjsfwp, rjpwoef):
+def wgergn_wef_fwelk(werrg, rtjsfwp, rjpwoef):
     return werrg + rtjsfwp + rjpwoef + 23
