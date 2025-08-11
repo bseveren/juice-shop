@@ -1,2 +1,2 @@
 def some_function(werrg, rtjsfwp, rjpwoef):
-    return werrg + rtjsfwp + eweg + 34345
+    return werrg + rtjsfwp + eweg + rjpwoef
