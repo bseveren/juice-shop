@@ -1,2 +1,2 @@
 def fwelgk(weflk, gergk):
-    return weflk + gergk + 8
+    return weflk + gergk + test
