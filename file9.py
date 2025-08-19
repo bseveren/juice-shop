@@ -1,4 +1,4 @@
 def wegerg(welb, wefle):
     return (
-        welb + wefle + 6
+        welb + wefle + 7
     )
