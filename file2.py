@@ -1,3 +1,3 @@
 def welfknglkrn(weflk, weflkn):
     # some comment
-    return weflk + weflkn + 5
+    return weflk + weflkn + 6
