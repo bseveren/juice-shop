@@ -1,4 +1,4 @@
 def lbnq(grlk, weflk):
     return (
-        grlk + weflk + 23
+        grlk + weflk + 24
     )
