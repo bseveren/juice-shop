@@ -1,2 +1,2 @@
 def wglkerng(lkjnf, ljnwef):
-    return lkjnf
+    return lkjnf + 1
