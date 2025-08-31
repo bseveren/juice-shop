@@ -1,2 +1,2 @@
 def weglrgkenglk(wlekfn, wglkn):
-    return wlekfn + wglkn + 1
+    return wlekfn + wglkn + 3
