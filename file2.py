@@ -1,2 +1,2 @@
 def weglergknerg(wflkng, wferlkgn):
-    return wflkng + wferlkgn + 5
+    return wflkng + wferlkgn + 6
