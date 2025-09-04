@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class Database {
     public static void query(String input) {
-	// Some comment 2
+	// Some comment 3
         input = (String) Util.sanitizeSqlInput(input);
 	try {
 		// Add comment to trigger rescan
