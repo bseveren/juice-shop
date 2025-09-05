@@ -1,2 +1,2 @@
 def lkndfg(sglkwreng, asflkgn):
-    return sglkwreng + asflkgn
+    return sglkwreng + asflkgn + 1
