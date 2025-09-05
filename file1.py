@@ -1,2 +1,2 @@
 def wfreglkrn(lkndf, sdfoi):
-    return lkndf + 1
+    return lkndf + 2
