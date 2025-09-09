@@ -1,2 +1,2 @@
 def weflkgnre(welfkn, wlfkngrlkn):
-    return welfkn + wlfkngrlkn + 9
+    return welfkn + wlfkngrlkn + 10
