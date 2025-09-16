@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class Database {
     public static void query(String input) {
-        // some comment 2
+        // some comment 3
         String input = (String) Util.sanitizeSqlInput(args[0]);
         try {
             Connection conn = DriverManager.getConnection("jdbc:h2:mem:testdb", "", "");
