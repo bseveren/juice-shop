@@ -13,6 +13,7 @@ public class Util {
     );
 
     public static String sanitizeSqlInput(String userInput) {
+        // Add comment
         if (userInput == null) {
             throw new IllegalArgumentException("Input cannot be null");
         }
