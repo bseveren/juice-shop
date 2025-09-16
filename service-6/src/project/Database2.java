@@ -6,7 +6,7 @@ public class Database {
     public static void query(String input) {
         String input = (String) Util.sanitizeSqlInput(args[0]);
         try {
-		// Add comment to trigger rescan 2
+		// Add comment to trigger rescan 3
             Connection conn = DriverManager.getConnection("jdbc:h2:mem:testdb", "", "");
 
             Statement stmt = conn.createStatement();
