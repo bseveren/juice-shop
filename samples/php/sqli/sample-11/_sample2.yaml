@@ -1,0 +1,9 @@
+inputs:
+  ruleId: AIK_tainted-sql-string
+  sink: $mtg = Sql_LoadOneRow("SELECT * FROM meeting WHERE person_type IN ($personTypesInSql) AND person_id='$id' AND planned_date=curdate()");
+  vulnerability: Potential SQL injection via string-based query concatenation
+outputs:
+  priority: highest
+  reasoning: The variable $personTypesInSql contains $_REQUEST['persontype'] (via $persontype) which comes from the user request and isn't sanitized. It is included in the sql query string. The $personTypesInSql variable makes the query vulnerable to sql injection attacks.
+  source: $personTypesInSql = "'$persontype'";
+  unittest: null
