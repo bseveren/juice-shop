@@ -6,6 +6,7 @@ public class Database {
     public static void query(String input) {
         input = (String) Util.sanitizeSqlInput(input);
         try {
+            // 2nc comment
             Connection conn = DriverManager.getConnection("jdbc:h2:mem:testdb", "", "");
 
             Statement stmt = conn.createStatement();
